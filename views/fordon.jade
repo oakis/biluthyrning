@@ -1,5 +1,113 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+  .header.div_style
+    .headline
+      h1 Administration
+    .meny
+      ul
+        li
+          a(href='#') Boka bil
+        li
+          a(href='#') Bilar till besiktning(5)
+        li
+          a(href='#')
+            | user
+            br
+            | logga ut
+  // ----------------- sök fordon
+  h2#headline_add_remove Lägg till / Ändra fordon
+  br
+  h2#search_headline Sök fordon
+  .search.div_style
+    h2#reg_info_headline Registreringsnummer
+    input#search_text(type='text')
+    span.req_star *
+    button#search_button Sök
+  // -----------------  fordon
+  .vehicle_container
+    h2#vehicle_headline Fordon
+    .vehicle.div_style
+      .vehicle_left
+        | Märke :
+        input(type='text', placeholder='Märke')
+        span.req_star *
+        br
+        |         Modell :
+        input(type='text', placeholder='Modell')
+        span.req_star *
+        br
+        |         Typ :
+        select(name='cars')
+          option(value='', disabled='', selected='') Typ
+          option(value='volvo') Volvo
+          option(value='saab') Saab
+          option(value='fiat') Fiat
+          option(value='audi') Audi
+        span.req_star *
+      .vehicle_right
+        | Årsmodell :
+        input(type='text', placeholder='Årsmodell')
+        span.req_star *
+        br
+        |         Reg-info :
+        input(type='text', placeholder='Reg-info')
+        span.req_star *
+        br
+        |         Antal passagerare :
+        input(type='text', placeholder='Antal passagerare ')
+        span.req_star *
+        br
+    .option.div_style
+      h2#option_headline Tillval
+      form
+        input(type='checkbox', name='vehicle1', value='Bike')
+        |  check me out
+        input(type='checkbox', name='vehicle2', value='Car')
+        |  check me out
+        br
+        input(type='checkbox', name='vehicle2', value='Car')
+        |  check me out
+        input(type='checkbox', name='vehicle2', value='Car')
+        |  check me out
+        br
+        input(type='checkbox', name='vehicle2', value='Car')
+        |  check me out
+        input(type='checkbox', name='vehicle2', value='Car')
+        |  check me out
+        br
+        input(type='checkbox', name='vehicle2', value='Car')
+        |  check me out
+  .action_button
+    | status : Bokningsbar
+    span.data_service
+      input(type='date')
+      input(type='checkbox')
+      | Service
+    button.button_style Ta bort
+    button.button_style Uppdatera
+    button.button_style Lägg till
+  .inspection_info
+    .car
+      span.reg_nr ABC 123
+      span.date_info
+        input(type='date')
+      span
+        button.button_style Spara
+    .car
+      span.reg_nr ABC 123
+      span.date_info 30 / 4 / 2016
+      span
+        button.button_style Spara
+  .service_info
+    .car
+      span.reg_nr DEF 456
+      span.date_info 18 / 3 / 2016
+      span
+        button.button_style Spara
+    .car
+      span.reg_nr GHI 789
+      span.date_info 14 / 7 / 2016
+      span
+        button.button_style Spara
