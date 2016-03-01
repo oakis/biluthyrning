@@ -1,0 +1,15 @@
+{
+	"regnum": "ABC123",
+	"timeFrom": "1200",
+	"timeTo": "1200",
+	"dateFrom": "20160301",
+	"dateTo": "20160302"
+}
+*
+{
+	"regnum": "ABC123",
+	"timeFrom": "1200",
+	"timeTo": "1500",
+	"dateFrom": "20160302",
+	"dateTo": "20160302"
+}
