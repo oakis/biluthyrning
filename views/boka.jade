@@ -12,10 +12,34 @@ block content
     form
       div(class='biltyp')
         h2 Biltyp
+        p
+          input(type='radio' name='biltyp' id='Sedan')
+          label(for='Sedan') Sedan
+        p
+          input(type='radio' name='biltyp' id='Pickup')
+          label(for='Pickup') Pickup
+        p 
+          input(type='radio' name='biltyp' id='Lastbil')
+          label(for='Lastbil') Lastbil
+        p
+          input(type='radio' name='biltyp' id='Kombi')
+          label(for='Kombi') Kombi
+        p
+          input(type='radio' name='biltyp' id='Lätt lastbil')
+          label(for='Lätt lastbil') Lätt lastbil
       div(class='tid')
         h2 Tid
+        p
+          label(for='franDatum') Från:
+          input(type='date' name='franDatum')
+          input(type='time' name='franTid')
+        p
+          label(for='tillDatum') Till:
+          input(type='date' name='tillDatum')
+          input(type='time' name='tillTid')
       div(class='tillval')
         h2 Tillval
+        p 
       div(class='avslutabokning')
   section(class='minaBokningar')
     ul
