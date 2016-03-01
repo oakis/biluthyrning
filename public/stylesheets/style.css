@@ -138,7 +138,10 @@ header {
 
 	}
 
-	.avslutabokning {}
+	.avslutabokning {
+		float: right;
+		margin: 10px auto;
+	}
 
 .minaBokningar {
 	clear: both;
@@ -146,6 +149,11 @@ header {
 	margin: 10px auto;
 	background: #ccc;
 }
+
+	.minaBokningar h2 {
+		position: relative;
+		margin-top: -35px;
+	}
 
 	.minaBokningar ul {}
 

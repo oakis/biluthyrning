@@ -37,11 +37,33 @@ block content
           label(for='tillDatum') Till:
           input(type='date' name='tillDatum')
           input(type='time' name='tillTid')
+        p
+          input(type='checkbox' name='heldag')
+          label(for='heldag') Heldag
       div(class='tillval')
         h2 Tillval
+        p
+          input(type='checkbox' name='tillval' id='Diesel')
+          label(for='Diesel') Diesel
+        p
+          input(type='checkbox' name='tillval' id='Bensin')
+          label(for='Bensin') Bensin
         p 
+          input(type='checkbox' name='tillval' id='Extraljus')
+          label(for='Extraljus') Extraljus
+        p
+          input(type='checkbox' name='tillval' id='Takräcke')
+          label(for='Takräcke') Takräcke
+        p
+          input(type='checkbox' name='tillval' id='Dragkrok')
+          label(for='Dragkrok') Dragkrok
       div(class='avslutabokning')
+        input(type='checkbox' name='privat')
+        label(for='privat') Privat användning
+        button Återställ
+        button Boka bil
   section(class='minaBokningar')
+    h2 Mina bokningar
     ul
       li Placerholder list-item
       li Placerholder två
