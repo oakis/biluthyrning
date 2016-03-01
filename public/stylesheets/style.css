@@ -1,15 +1,158 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 1em "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-a {
-  color: #00B7FF;
+/* LOGIN */
+
+.flex {
+	display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ddd;
+  height: 100%;
 }
 
+.wrapper {
+	width: 600px;
+	height: 200px;
+}
+
+	.loginHead {
+		width: 100%;
+		height: 95px;
+	}
+
+		.loginImg {
+			float: left;
+			width: 300px;
+		}
+
+			.loginImg img {
+				width: 300px;
+				height: 90px;
+			}
+
+		.loginTitle {
+			float: left;
+			width: 290px;
+			height: 90px;
+			padding-left: 10px;
+			padding-top: 10px;
+		}
+
+			.loginTitle h1 {
+				font-size: 2em;
+				margin: 0;
+			}
+
+			.loginTitle h2 {
+				font-size: 1.5em;
+				margin: 0;
+			}
+
+	.loginFoot {
+		width: 100%;
+		height: 95px;
+		background: #ccc;
+		line-height: 95px;
+		position: relative;
+		top: 10px;
+		text-align: center;
+	}
+
+		.loginFoot form {
+			height: 95px;
+		}
+
+			.loginFoot input {
+				width: 150px;
+			}
+
+			.loginFoot input,
+			.loginFoot button {
+				font-size: 1.5em;
+				padding: 5px;
+			}
+
+/* BOKA BIL */
+
+header {
+	width: 1000px;
+	background: #ccc;
+	margin: 10px auto;
+	height: 100px;
+}
+
+header * {
+  display: inline-block;
+}
+
+header h1 {
+  float: left;
+}
+
+header nav {
+  float: right;
+}
+
+  .loggedIn {}
+
+    .bokaBil {
+    	clear: both;
+    	width: 1000px;
+    	height: 300px;
+    	margin: 50px auto 10px auto;
+    }
+
+    	.bokaBil h2 {
+    		position: relative;
+    		top: -50px;
+    	}
+
+    	.bokaBil div:nth-child(1) {
+    		margin: 0 25px 0 0;
+    	}
+
+    	.bokaBil div:nth-child(2) {
+    		margin: 0 25px 0 25px;
+    	}
+
+    	.bokaBil div:nth-child(3) {
+    		margin: 0 0 0 25px;
+    	}
+
+    	.biltyp,
+    	.tid,
+    	.tillval {
+    		width: 300px;
+    		height: 300px;
+    		background: #ccc;
+    		float: left;
+    		margin: 0 16.6px;
+    	}
+
+    	.avslutabokning {}
+
+    .minaBokningar {
+    	clear: both;
+    	width: 1000px;
+    	margin: 10px auto;
+    	background: #ccc;
+    }
+
+    	.minaBokningar ul {}
+
+    	.minaBokningar ul li {}
+
+
+
+/* ------ head ---- */
 .container {
   margin: 0px;
 }
+
 /* -------- börjar här---------- */
 
 .header {

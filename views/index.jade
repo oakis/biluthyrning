@@ -1,5 +1,24 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  style html, body { height: 100%; }
+  div(class='flex')
+    article(class='wrapper')
+      section(class='loginHead')
+        div(class='loginImg')
+          img(src='' alt='Logo')
+        div(class='loginTitle')
+          h1 Carpool
+          h2 Service
+      section(class='loginFoot')
+        form
+          input(type='text' name='username')
+          input(type='password' name='password')
+          button Logga in
+  ul
+    li
+      a(href='/boka') Boka bil
+    li
+      a(href='/fordon') Fordon
+    li
+      a(href='/funktioner') Funktioner

@@ -1,5 +1,24 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  header
+    h1 Boka bil
+    nav
+      a(href='') Admin
+      div(class='loggedIn')
+        Placeholder anv
+        a(href='') Logga ut
+  section(class='bokaBil')
+    form
+      div(class='biltyp')
+        h2 Biltyp
+      div(class='tid')
+        h2 Tid
+      div(class='tillval')
+        h2 Tillval
+      div(class='avslutabokning')
+  section(class='minaBokningar')
+    ul
+      li Placerholder list-item
+      li Placerholder två
+      li Placerholder tre
