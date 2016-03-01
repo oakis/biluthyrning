@@ -6,3 +6,172 @@ body {
 a {
   color: #00B7FF;
 }
+
+.container {
+  margin: 0px;
+}
+/* -------- börjar här---------- */
+
+.header {
+
+  height: 100px;
+
+}
+.headline {
+  height: 100px;
+  width: 220px;
+  line-height: 100px;
+  padding-left: 20px;
+  padding-right: 10px;
+  float: left
+}
+.div_style {
+  padding: 20px;
+  border: 2px solid #000000;
+}
+.meny {
+  float: right;
+  right: 8px;
+  top: 21px;
+  height: 100px;
+  width: 450px;
+}
+.meny ul {
+  list-style: none;
+}
+.meny ul li {
+  float: left;
+  padding-top: 20px;
+}
+.meny ul li a {
+  display: block;
+  width: 100px;
+}
+#headline_add_remove {
+  text-align: center;
+}
+.req_star {
+  display: inline-block;
+  font-size: 22px;
+  color: #FF0000;
+  margin-left: 10px;
+}
+#search_headline, #vehicle_headline {
+  display: block;
+  padding-left: 20px;
+}
+.search {
+
+  height: 100px;
+  width: 640px;
+}
+#reg_info_headline {
+  display: block;
+  padding-left: 20px;
+
+}
+#search_text {
+
+  margin-left: 20px;
+  font-size: 22px;
+  width: 290px;
+}
+#search_button {
+  font-size: 22px;
+  border-radius: 3px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: 70px;
+}
+.button_style {
+  font-size: 22px;
+  border-radius: 3px;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-left: 70px;
+}
+.vehicle {
+
+  height: 130px;
+  width: 600px;
+  padding: 20px;
+  float: left;
+}
+.funktioner {
+
+  padding: 20px;
+  text-align: center;
+
+}
+.funktion_update_button {
+  text-align: right;
+  display: block;
+  margin: 20px 0px 0px 0px;
+}
+.funktioner_style {
+  font-size: 23px;
+  display: inline-block;
+  padding: 0px 20px;
+}
+.vehicle_container {
+  height: 240px;
+}
+.vehicle_left {
+  float: left;
+}
+.vehicle_right {
+  float: right;
+}
+.option {
+
+  height: 130px;
+  width: 300px;
+  padding: 20px;
+  float: right;
+}
+#option_headline {
+  margin-top: -70px;
+  margin-bottom: 40px;
+}
+.action_button {
+  text-align: center;
+}
+
+.data_service {
+  display: inline-block;
+  border: 2px solid #000000;
+  padding: 3px;
+}
+.inspection_info, .service_info {
+
+
+  background-color: #FFFFFF;
+  padding: 20px;
+  border: 2px solid #000000;
+  margin: 10px 0px;
+}
+
+.car {
+  padding: 20px;
+  border: 2px solid #000000;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.reg_nr {
+  display: inline-block;
+  font-size: 44px;
+  margin: 0px 40px;
+
+}
+.date_info {
+  display: inline-block;
+  font-size: 44px;
+  margin: 0px 40px;
+
+}
+.button_save {
+  display: inline-block;
+  font-size: 44px;
+  margin: 0px 40px;
+
+}

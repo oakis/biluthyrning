@@ -1,5 +1,62 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .header.div_style
+    .headline
+      h1 Administration
+    .meny
+      ul
+        li
+          a(href='#') Boka bil
+        li
+          a(href='#') Bilar till besiktning(5)
+        li
+          a(href='#')
+            | user
+            br
+            | logga ut
+  // ----------------- sök fordon
+  h2#headline_add_remove Lägg till / Ändra funktioner
+  br
+  h2#search_headline Lägg till funktioner :
+  .search.div_style
+    h2#reg_info_headline Funktion
+    input#search_text(type='text', placeholder='Typ av funktion')
+    span.req_star *
+    button#search_button Lägg till
+  // -----------------  fordon
+  .vehicle_container
+    h2#vehicle_headline Ändra funktioner :
+    .funktioner.div_style
+      input.funktioner_style(type='text')
+      input.funktioner_style(type='checkbox')
+      | Ta bort
+      input.funktioner_style(type='text')
+      input.funktioner_style(type='checkbox')
+      | Ta bort
+      input.funktioner_style(type='text')
+      input.funktioner_style(type='checkbox')
+      | Ta bort
+      br
+      input.funktioner_style(type='text')
+      input.funktioner_style(type='checkbox')
+      | Ta bort
+      input.funktioner_style(type='text')
+      input.funktioner_style(type='checkbox')
+      | Ta bort
+      input.funktioner_style(type='text')
+      input.funktioner_style(type='checkbox')
+      | Ta bort
+      br
+      input.funktioner_style(type='text')
+      input.funktioner_style(type='checkbox')
+      | Ta bort
+      input.funktioner_style(type='text')
+      input.funktioner_style(type='checkbox')
+      | Ta bort
+      input.funktioner_style(type='text')
+      input.funktioner_style(type='checkbox')
+      | Ta bort
+      br
+      span.funktion_update_button
+        button.button_style Uppdatera
