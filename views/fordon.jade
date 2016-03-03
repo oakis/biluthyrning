@@ -21,59 +21,63 @@ block content
   br
   h2#search_headline Sök fordon
   .search.div_style
-    h2#reg_info_headline Registreringsnummer
-    input#search_text(type='text')
-    span.req_star *
-    button#search_button Sök
+      h2#reg_info_headline Registreringsnummer
+      form(method='post')
+        input#search_text(type='text' name="search_text" value='#{bilar.regnum}')
+        span.req_star *
+        button#search_button Sök
   // -----------------  fordon
-  form(method='post' action='/fordon/add')
-    .vehicle_container
-      h2#vehicle_headline Fordon
-      .vehicle.div_style
-        .vehicle_left
-          | Märke :
-          input(type='text' placeholder='Märke' name='brand')
-          span.req_star *
-          br
-          |         Modell :
-          input(type='text' placeholder='Modell' name='model')
-          span.req_star *
-          br
-          |         Typ :
-          select(name='type')
-            option(value='Sedan') Sedan
-            option(value='Kombi') Kombi
-            option(value='Pickup') Pickup
-            option(value='Lätt lastbil') Lätt lastbil
-            option(value='Lastbil') Lastbil
-          span.req_star *
-        .vehicle_right
-          | Årsmodell :
-          input(type='text' placeholder='Årsmodell' name='year')
-          span.req_star *
-          br
-          |         Reg-info :
-          input(type='text' placeholder='Reg-info' name='regnum' class='regnum')
-          span.req_star *
-          br
-          |         Antal passagerare :
-          input(type='text' placeholder='Antal passagerare' name='passenger')
-          span.req_star *
-          br
-      .option.div_style
-        h2#option_headline Tillval
+
+  .vehicle_container
+    h2#vehicle_headline Fordon
+    .vehicle.div_style
+      .vehicle_left
+        | Märke :
+        input(type='text' placeholder='Märke' value='#{bilar.brand}')
+        span.req_star *
+        br
+        |         Modell :
+        input(type='text', placeholder='Modell' value='#{bilar.model}' )
+        span.req_star *
+        br
+        |         Typ :
+        select(name='type')
+          option(value='Sedan') Sedan
+          option(value='Kombi') Kombi
+          option(value='Pickup') Pickup
+          option(value='Lätt lastbil') Lätt lastbil
+          option(value='Lastbil') Lastbil
+        span.req_star *
+      .vehicle_right
+        | Årsmodell :
+        input(type='text', placeholder='Årsmodell' value='#{bilar.year}')
+        span.req_star *
+        br
+        |         Reg-info :
+        input(type='text', placeholder='Reg-info' value='#{bilar.regnum}')
+        span.req_star *
+        br
+        |         Antal passagerare :
+        input(type='text', placeholder='Antal passagerare' value='#{bilar.passenger}')
+        span.req_star *
+        br
+    .option.div_style
+      h2#option_headline Tillval
+      form
         each funk in funklista
           label= funk.name
           input(type='checkbox' value=funk.id)
-      .action_button
-        | status : Bokningsbar
-        span.data_service
-          input(type='date' name='serviceDate')
-          input(type='checkbox' name='service')
-          | Service
-        button.button_style Ta bort
-        button.button_style Uppdatera
-        button.button_style Lägg till
+  .action_button
+    | status : Bokningsbar
+    span.data_service
+      input(type='date')
+      input(type='checkbox')
+      | Service
+    button.button_style Ta bort
+    button.button_style Uppdatera
+    button.button_style Lägg till
+
+  
   h2 Besiktningsinformation
   .inspection_info
     .car
