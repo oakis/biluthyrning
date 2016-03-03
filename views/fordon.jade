@@ -27,6 +27,7 @@ block content
         span.req_star *
         button#search_button Sök
   // -----------------  fordon
+
   .vehicle_container
     h2#vehicle_headline Fordon
     .vehicle.div_style
@@ -40,12 +41,12 @@ block content
         span.req_star *
         br
         |         Typ :
-        select(name='cars')
-          option(value='', disabled='', selected='') #{bilar.type}
-          option(value='volvo') Kombi
-          option(value='saab') Saab
-          option(value='fiat') Fiat
-          option(value='audi') Audi
+        select(name='type')
+          option(value='Sedan') Sedan
+          option(value='Kombi') Kombi
+          option(value='Pickup') Pickup
+          option(value='Lätt lastbil') Lätt lastbil
+          option(value='Lastbil') Lastbil
         span.req_star *
       .vehicle_right
         | Årsmodell :
@@ -63,23 +64,9 @@ block content
     .option.div_style
       h2#option_headline Tillval
       form
-        input(type='checkbox', name='vehicle1', value='Bike')
-        |  check me out
-        input(type='checkbox', name='vehicle2', value='Car')
-        |  check me out
-        br
-        input(type='checkbox', name='vehicle2', value='Car')
-        |  check me out
-        input(type='checkbox', name='vehicle2', value='Car')
-        |  check me out
-        br
-        input(type='checkbox', name='vehicle2', value='Car')
-        |  check me out
-        input(type='checkbox', name='vehicle2', value='Car')
-        |  check me out
-        br
-        input(type='checkbox', name='vehicle2', value='Car')
-        |  check me out
+        each funk in funklista
+          label= funk.name
+          input(type='checkbox' value=funk.id)
   .action_button
     | status : Bokningsbar
     span.data_service
@@ -89,6 +76,8 @@ block content
     button.button_style Ta bort
     button.button_style Uppdatera
     button.button_style Lägg till
+
+  
   h2 Besiktningsinformation
   .inspection_info
     .car
@@ -114,3 +103,7 @@ block content
       span.date_info 14 / 7 / 2016
       span
         button.button_style Spara
+  if(carErr)
+    div(class='doesExist')= carExists
+  if(carAdd)
+    div(class='carAdd')= carAdded

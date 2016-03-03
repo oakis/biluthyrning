@@ -159,7 +159,29 @@ header {
 
 	.minaBokningar ul li {}
 
+/* FUNKTIONER */
 
+.doesExist {
+  background: #c00;
+  width: auto;
+  height: auto;
+  position: fixed;
+  top: 50%;
+  left: 35%;
+  text-align: center;
+  padding: 15px 25px;
+}
+
+.carAdd {
+  background: #0c0;
+  width: auto;
+  height: auto;
+  position: fixed;
+  top: 50%;
+  left: 35%;
+  text-align: center;
+  padding: 15px 25px;
+}
 
 
 
@@ -286,6 +308,7 @@ header {
     }
     .action_button {
       text-align: center;
+      float: right;
     }
 
     .data_service {
