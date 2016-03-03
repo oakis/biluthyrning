@@ -21,42 +21,43 @@ block content
   br
   h2#search_headline Sök fordon
   .search.div_style
-    h2#reg_info_headline Registreringsnummer
-    input#search_text(type='text')
-    span.req_star *
-    button#search_button Sök
+      h2#reg_info_headline Registreringsnummer
+      form(method='post')
+        input#search_text(type='text' name="search_text" value='#{bilar.regnum}')
+        span.req_star *
+        button#search_button Sök
   // -----------------  fordon
   .vehicle_container
     h2#vehicle_headline Fordon
     .vehicle.div_style
       .vehicle_left
         | Märke :
-        input(type='text', placeholder='Märke')
+        input(type='text' placeholder='Märke' value='#{bilar.brand}')
         span.req_star *
         br
         |         Modell :
-        input(type='text', placeholder='Modell')
+        input(type='text', placeholder='Modell' value='#{bilar.model}' )
         span.req_star *
         br
         |         Typ :
         select(name='cars')
-          option(value='', disabled='', selected='') Typ
-          option(value='volvo') Volvo
+          option(value='', disabled='', selected='') #{bilar.type}
+          option(value='volvo') Kombi
           option(value='saab') Saab
           option(value='fiat') Fiat
           option(value='audi') Audi
         span.req_star *
       .vehicle_right
         | Årsmodell :
-        input(type='text', placeholder='Årsmodell')
+        input(type='text', placeholder='Årsmodell' value='#{bilar.year}')
         span.req_star *
         br
         |         Reg-info :
-        input(type='text', placeholder='Reg-info')
+        input(type='text', placeholder='Reg-info' value='#{bilar.regnum}')
         span.req_star *
         br
         |         Antal passagerare :
-        input(type='text', placeholder='Antal passagerare ')
+        input(type='text', placeholder='Antal passagerare' value='#{bilar.passenger}')
         span.req_star *
         br
     .option.div_style
