@@ -58,7 +58,8 @@ router.post('/add', function(req, res, next) {
 		if (checkIfExists(newCar, newArr) == true) {
 			res.render('fordon', {
 				carExists: 'En bil med regnummer "' + newCar.regnum + '" finns redan registrerad.',
-				carErr: true
+				carErr: true,
+				funklista: newArr
 			})
 		} else {
 			fs.appendFile(bilar, send, function(err, data) {
