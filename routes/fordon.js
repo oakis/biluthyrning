@@ -157,10 +157,19 @@ router.post('/add', function(req, res, next) {
 				arr.forEach(function(v,i){
 					funkArr.push(JSON.parse(arr[i]));
 				});
+				ny_bil = {
+		      "regnum": "",
+		      "brand":  "",
+		      "model":  "",
+		      "type":  "",
+		      "year":  "",
+		      "passenger":  ""
+		    };
 				res.render('fordon', {
 					carExists: 'En bil med regnummer "' + newCar.regnum + '" finns redan registrerad.',
 					carErr: true,
-					funklista: funkArr
+					funklista: funkArr,
+					bilar: ny_bil
 				});
 			});
 		} else {
@@ -174,10 +183,19 @@ router.post('/add', function(req, res, next) {
 					arr.forEach(function(v,i){
 						funkArr.push(JSON.parse(arr[i]));
 					});
+					ny_bil = {
+			      "regnum": "",
+			      "brand":  "",
+			      "model":  "",
+			      "type":  "",
+			      "year":  "",
+			      "passenger":  ""
+			    };
 					res.render('fordon', {
 						carAdded: 'Bilen med regnummer "' + newCar.regnum + '" registrerades utan problem.',
 						carAdd: true,
-						funklista: funkArr
+						funklista: funkArr,
+						bilar: ny_bil
 					});
 				});
 			});

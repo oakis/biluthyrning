@@ -17,36 +17,52 @@ checkIfExist = function (req, db) {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	var newArr = [];
+	var funkArr = [];
 	fs.readFile(funktioner, function(err, data) {
 		if (err) throw err;
 		data = data.toString();
 		var arr = data.split('*');
 		arr.forEach(function(v,i){
-			newArr.push(JSON.parse(arr[i]))
+			funkArr.push(JSON.parse(arr[i]))
 		})
-		res.render('funktioner', {funklista: newArr});
+		funkArr.sort(function(a, b){
+		var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase();
+			if (nameA < nameB) //sort string ascending
+				return -1;
+			if (nameA > nameB)
+				return 1;
+			return 0; //default return value (no sorting)
+		});
+		res.render('funktioner', {funklista: funkArr});
 	})
 });
 
 router.post('/add', function(req, res, next) {
-	var newArr = [];
+	var funkArr = [];
 	fs.readFile(funktioner, function(err, data) {
 		if (err) throw err;
 		data = data.toString();
 		var arr = data.split('*');
 		arr.forEach(function(v,i){
-			newArr.push(JSON.parse(arr[i]))
+			funkArr.push(JSON.parse(arr[i]))
 		})
 		var newFunktion = {
-			"id": newArr.length + 1,
+			"id": funkArr.length + 1,
 			"name": req.body.name
 		}
+		funkArr.sort(function(a, b){
+		var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase();
+			if (nameA < nameB) //sort string ascending
+				return -1;
+			if (nameA > nameB)
+				return 1;
+			return 0; //default return value (no sorting)
+		});
 		var send = '\n*\n' + JSON.stringify(newFunktion,null,"\t");
-		if (checkIfExist(newFunktion, newArr) == true) {
+		if (checkIfExist(newFunktion, funkArr) == true) {
 			console.log('Funktionen finns redan registrerad')
 			res.render('funktioner', {
-				funklista: newArr,
+				funklista: funkArr,
 				funkExists: 'Funktionen "' + newFunktion.name + '" finns redan registrerad.',
 				funkErr: true
 			})

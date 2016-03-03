@@ -1,0 +1,19 @@
+{
+	"regnum": "ABC123",
+	"brand": "Volvo",
+	"model": "V70",
+	"type": "Kombi",
+	"year": "2012",
+	"passenger": "4",
+	"tillval": []
+}
+*
+{
+	"regnum": "BCD234",
+	"brand": "Volkswagen",
+	"model": "Passat",
+	"type": "Kombi",
+	"year": "2014",
+	"passenger": "4",
+	"tillval": []
+}
