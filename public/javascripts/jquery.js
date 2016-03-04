@@ -1,5 +1,5 @@
 $(document).ready(function(){
 
-	$(".doesExist, .carAdd").delay(4000).fadeOut(1000);
+	$(".doesExist, .carAdd, .funkAdd").delay(4000).fadeOut(1000);
 	
 })

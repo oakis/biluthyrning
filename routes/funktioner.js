@@ -25,7 +25,6 @@ sortArr = function (key) {
 }
 
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var funkArr = [];
@@ -73,6 +72,23 @@ router.post('/add', function(req, res, next) {
 	})
 });
 
+updateFunk = function (req, db) {
+	var newFunkArr = [];
+  db.forEach(function(v,i){
+    newFunkArr.push({ 'id': req[i].id, 'name': req[i].name })
+  })
+  return newFunkArr;
+}
+
+stringify = function (updateFunk) {
+			var str = "";
+			updateFunk.forEach(function(v,i){
+				str += '{\n\t"id": ' + updateFunk[i].id + ',\n\t"name": "' + updateFunk[i].name + '"\n}\n*\n';
+			})
+			str = str.slice(0, -3);
+			return str;
+		}
+
 router.post('/update', function(req,res,next){
 	var funkArr = [];
 	fs.readFile(funktioner, 'utf8', (err, data) => {
@@ -80,19 +96,35 @@ router.post('/update', function(req,res,next){
     data = data.toString();
 		var arr = data.split('*');
 		arr.forEach(function(v,i){
-			funkArr.push(JSON.parse(arr[i]))
+			funkArr.push(JSON.parse(arr[i]));
 		})
+		var merged = req.body.tillval.map( (element, i) => {
+ 			return {id: parseFloat(req.body.tillvalId[i]), name: element}
+		});
+		merged.sort(sortArr('name'));
+		funkArr.sort(sortArr('name'));
+		
+		// Om ett id är 'checked' så ska objektet som innehåller id tas bort.
 
-		/* Om ett id är 'checked' så ska objektet som innehåller id tas bort.
-		   Om ett id's value inte stämmer överens med id's name så ska id tas bort
-		   samt läggas till på nytt med det nya namnet(value)*/
-
-    /*var send = '\n*\n' + JSON.stringify(newFunktion,null,"\t");
+		var send = stringify(updateFunk(merged,funkArr));
     fs.writeFile(funktioner, send, function(err) {
       if (err) throw err;
-      res.render('funktioner', { funklista: funkArr });
       console.log("File saved");
-    });*/
+      var funkArr = [];
+      fs.readFile(funktioner, function(err, data) {
+				if (err) throw err;
+				data = data.toString();
+				var arr = data.split('*');
+				arr.forEach(function(v,i){
+					funkArr.push(JSON.parse(arr[i]))
+				});
+				res.render('funktioner', {
+					funklista: funkArr,
+					funkAdded: 'Funktioner uppdaterade.',
+					funkAdd: true
+				})
+      });
+    });
   });
 })
 
