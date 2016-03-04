@@ -29,10 +29,12 @@ block content
   .vehicle_container
     h2#vehicle_headline Ändra funktioner :
     .funktioner.div_style
-      each funk in funklista
-        label= funk.name
-        input(class='funktioner_style' type='checkbox' value=funk.id)
-      span.funktion_update_button
-        button.button_style Uppdatera
+      form(method='post' action='/funktioner/update')
+        each funk in funklista
+          input(type='text' value=funk.name)
+          input(class='funktioner_style' type='checkbox' value=funk.id id=funk.id)
+          label(for=funk.id) Ta bort
+        span.funktion_update_button
+          button.button_style Uppdatera
   if(funkErr)
     div(class='doesExist')= funkExists
