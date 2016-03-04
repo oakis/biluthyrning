@@ -53,9 +53,6 @@ router.post('/', function(req, res) {
           "year": "",
           "passenger": ""
         };
-
-
-
         console.log("---------------------");
 
         console.log(empty_search);
@@ -78,7 +75,7 @@ router.post('/', function(req, res) {
             "passenger": newArr[i].passenger
           };
           console.log(typeof ny_bil);
-          var funkArr = [];
+          funkArr = [];
           fs.readFile(funktioner, function(err, data) {
             if (err) throw err;
             data = data.toString();
