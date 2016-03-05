@@ -74,20 +74,22 @@ router.post('/add', function(req, res, next) {
 
 updateFunk = function (req) {
 	var deleteId = [];
-	if (typeof req.deleteId != 'string') {
-		req.deleteId.forEach(function(v,i){
-			deleteId.push(parseFloat(req.deleteId[i]));
-		})
-	} else {
-		deleteId.push(parseFloat(req.deleteId));
+	if (typeof req.deleteId != 'undefined') {
+		if (typeof req.deleteId != 'string') {
+			req.deleteId.forEach(function(v,i){
+				deleteId.push(parseFloat(req.deleteId[i]));
+			})
+		} else {
+			deleteId.push(parseFloat(req.deleteId));
+		}
+	  deleteId.forEach(function(v,i){
+	  	req.merged.forEach(function(v,ind){
+	  		if (req.merged[ind].id == deleteId[i]) {
+	  			req.merged.splice(req.merged.indexOf(req.merged[ind]),1)
+	  		}
+	  	})
+	  })
 	}
-  deleteId.forEach(function(v,i){
-  	req.merged.forEach(function(v,ind){
-  		if (req.merged[ind].id == deleteId[i]) {
-  			req.merged.splice(req.merged.indexOf(req.merged[ind]),1)
-  		}
-  	})
-  })
   return req.merged;
 }
 
