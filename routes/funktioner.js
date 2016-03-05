@@ -74,7 +74,7 @@ router.post('/add', function(req, res, next) {
 
 updateFunk = function (req) {
 	var deleteId = [];
-	if (req.deleteId.length > 1) {
+	if (typeof req.deleteId != 'string') {
 		req.deleteId.forEach(function(v,i){
 			deleteId.push(parseFloat(req.deleteId[i]));
 		})
