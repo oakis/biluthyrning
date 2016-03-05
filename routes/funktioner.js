@@ -24,6 +24,13 @@ sortArr = function (key) {
 		};
 }
 
+sortArrNum = function (key) {
+	return function (a, b) {
+		var a = a[key], b = b[key];
+  	return a - b;
+	};
+};
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -114,7 +121,8 @@ router.post('/update', function(req,res,next){
 		var merged = req.body.tillval.map( (element, i) => {
  			return {id: parseFloat(req.body.tillvalId[i]), name: element}
 		});
-		merged.sort(sortArr('name'));
+		console.log(merged.sort(sortArrNum('id')));
+		merged.sort(sortArrNum('id'));
 		funkArr.sort(sortArr('name'));
 		
 		var funkObj = {
