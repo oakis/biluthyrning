@@ -72,12 +72,23 @@ router.post('/add', function(req, res, next) {
 	})
 });
 
-updateFunk = function (req, db) {
-	var newFunkArr = [];
-  db.forEach(function(v,i){
-    newFunkArr.push({ 'id': req[i].id, 'name': req[i].name })
+updateFunk = function (req) {
+	var deleteId = [];
+	if (req.deleteId.length > 1) {
+		req.deleteId.forEach(function(v,i){
+			deleteId.push(parseFloat(req.deleteId[i]));
+		})
+	} else {
+		deleteId.push(parseFloat(req.deleteId));
+	}
+  deleteId.forEach(function(v,i){
+  	req.merged.forEach(function(v,ind){
+  		if (req.merged[ind].id == deleteId[i]) {
+  			req.merged.splice(req.merged.indexOf(req.merged[ind]),1)
+  		}
+  	})
   })
-  return newFunkArr;
+  return req.merged;
 }
 
 stringify = function (updateFunk) {
@@ -104,9 +115,13 @@ router.post('/update', function(req,res,next){
 		merged.sort(sortArr('name'));
 		funkArr.sort(sortArr('name'));
 		
-		// Om ett id är 'checked' så ska objektet som innehåller id tas bort.
+		var funkObj = {
+			'merged': merged,
+			'deleteId': req.body.deleteId
+		}
 
-		var send = stringify(updateFunk(merged,funkArr));
+		var send = stringify(updateFunk(funkObj));
+		
     fs.writeFile(funktioner, send, function(err) {
       if (err) throw err;
       console.log("File saved");
