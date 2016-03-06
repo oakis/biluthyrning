@@ -43,7 +43,7 @@ router.post('/', function(req, res) {
     var empty_search = "no search";
     for (var i = 0; i < newArr.length; i++) {
       if (search_text === "") {
-
+        funkArr = [];
         ny_bil = {};
         ny_bil = {
           "regnum": "",
@@ -57,13 +57,12 @@ router.post('/', function(req, res) {
 
         console.log(empty_search);
 
-        res.render('fordon',{
+        /*res.render('fordon',{
           'bilar': ny_bil,
           'funklista': funkArr,
           'no_search' : empty_search
-        });
-      } else {
-        if (newArr[i].regnum == search_text) {
+        });*/
+        } else if (newArr[i].regnum == search_text) {
           console.log('match');
           ny_bil = {};
           ny_bil = {
@@ -84,25 +83,38 @@ router.post('/', function(req, res) {
               funkArr.push(JSON.parse(arr[i]));
             });
 
-            res.render('fordon', {
+            /*res.render('fordon', {
               'bilar': ny_bil,
               'funklista': funkArr
-            });
+            });*/
 
             console.log(funkArr);
           });
           console.log(ny_bil);
         } else {
           console.log('no match');
+          funkArr = [];
+          ny_bil = {};
+          ny_bil = {
+            "regnum": "no search",
+            "brand": "",
+            "model": "",
+            "type": "",
+            "year": "",
+            "passenger": ""
+          };
           /*res.render('fordon',{
             'error': true
           });*/
         }
-
+        res.render('fordon', {
+          'bilar': ny_bil,
+          'funklista': funkArr,
+          'no_search' : empty_search
+        });
       }
 
-    }
-    console.log();
+    
     /*console.log(newArr[1].regnum);*/
   });
 
