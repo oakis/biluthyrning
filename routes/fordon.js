@@ -30,6 +30,7 @@ router.post('/', function(req, res) {
   var bilar = './data/bilar.json';
   var newArr = [];
 
+
   fs.readFile(bilar, function(err, data) {
     if (err) throw err;
     data = data.toString();
@@ -40,13 +41,13 @@ router.post('/', function(req, res) {
 
 
     var funkArr = [];
-    var empty_search = "no search";
+    /* var empty_search = "no search"; */
     for (var i = 0; i < newArr.length; i++) {
       if (search_text === "") {
         funkArr = [];
         ny_bil = {};
         ny_bil = {
-          "regnum": "",
+          "regnum": "Empty search",
           "brand": "",
           "model": "",
           "type": "",
@@ -55,9 +56,9 @@ router.post('/', function(req, res) {
         };
         console.log("---------------------");
 
-        console.log(empty_search);
+        /*console.log(empty_search);
 
-        /*res.render('fordon',{
+        res.render('fordon',{
           'bilar': ny_bil,
           'funklista': funkArr,
           'no_search' : empty_search
@@ -96,7 +97,7 @@ router.post('/', function(req, res) {
           funkArr = [];
           ny_bil = {};
           ny_bil = {
-            "regnum": "no search",
+            "regnum": "no match",
             "brand": "",
             "model": "",
             "type": "",
@@ -110,11 +111,11 @@ router.post('/', function(req, res) {
         res.render('fordon', {
           'bilar': ny_bil,
           'funklista': funkArr,
-          'no_search' : empty_search
+          'no_search' : "Empty search"
         });
       }
 
-    
+
     /*console.log(newArr[1].regnum);*/
   });
 
