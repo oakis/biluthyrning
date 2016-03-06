@@ -131,6 +131,26 @@ router.post('/', function(req, res) {
 });
 
 router.get('/', function(req, res, next) {
+/* ---------- read file ------ */
+  var inspection = './data/bokningar.json';
+  var besikt_bilar = [];
+
+  fs.readFile(inspection, function(err, data) {
+    if (err) throw err;
+    data = data.toString();
+    var arr = data.split('*');
+    arr.forEach(function(v, i) {
+      besikt_bilar.push(JSON.parse(arr[i]));
+    });
+    console.log("-------------------- besik bilar");
+    console.log(besikt_bilar[0].dateFrom);
+
+  });
+
+
+
+
+
 
   ny_bil = {};
   ny_bil = {
@@ -151,13 +171,17 @@ router.get('/', function(req, res, next) {
     arr.forEach(function(v, i) {
       funkArr.push(JSON.parse(arr[i]));
     });
-    console.log(funkArr);
-    res.render('fordon', {
-      funklista: funkArr,
-      'bilar': ny_bil
-    });
-  });
 
+
+    res.render('fordon', {
+      funklista : funkArr,
+      'bilar': ny_bil,
+      'besikt_bilar' : besikt_bilar
+
+    });
+
+  });
+  console.log(funkArr);
 });
 
 router.post('/add', function(req, res, next) {

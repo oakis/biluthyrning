@@ -80,10 +80,11 @@ block content
 
   h2 Besiktningsinformation
   .inspection_info
+  each bil in besikt_bilar
     .car
-      span.reg_nr ABC 123
+      span.reg_nr  p #{bil.dateFrom)
       span.date_info
-        input(type='date')
+        input(type='date' value='#{bil.dateFrom}')
       span
         button.button_style Spara
     .car
