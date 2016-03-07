@@ -159,12 +159,15 @@ router.get('/', function(req, res, next) {
   //dagens år, månad och dag
   var today_year = moment();
   //bilens sista siffra minus 1 månad
-  var car_reg = 3-1;
+  var car_reg = 5-1;
   //bilens datum
   var car_date = moment().set({'year': (moment().get('year')), 'month': car_reg, 'date':1});
-
+  //bilens från datum
   var car_date_from = moment(car_date).subtract(2, 'months').startOf('month');
+  //bilens till datum
   var car_date_after = moment(car_date).add(2, 'months').endOf('month');
+  var car_is_before =  moment(car_date).subtract(2, 'months').startOf('month');
+  var car_is_after =  moment(car_date).add(2, 'months').endOf('month');
 
   console.log("-------- today month mars");
   console.log(today_year.format('YYYY-MM-DD'));
@@ -174,7 +177,11 @@ router.get('/', function(req, res, next) {
   console.log(car_date_from.format('YYYY-MM-DD'));
   console.log("-------- two months after today month mars is december");
   console.log(car_date_after.format('YYYY-MM-DD'));
-
+  if (car_is_before.isBefore(today_year) && car_is_after.isAfter(today_year)) {
+    console.log("this will be shown in march");
+  } else {
+    console.log("this will not be shown in march");
+  }
 
 
   fs.readFile(inspection, function(err, data) {
@@ -215,8 +222,8 @@ router.get('/', function(req, res, next) {
     arr.forEach(function(v, i) {
       funkArr.push(JSON.parse(arr[i]));
     });
-    console.log("------- line 173------");
-    console.log(besikt_bilar);
+    /*console.log("------- line 173------");
+    console.log(besikt_bilar);*/
     res.render('fordon', {
       funklista : funkArr,
       'bilar': ny_bil,
