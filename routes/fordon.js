@@ -30,10 +30,9 @@ router.post('/', function(req, res) {
   var bilar = './data/bilar.json';
   var newArr = [];
 
-  var inspection = './data/bokningar.json';
   var besikt_bilar = [];
-
-  fs.readFile(inspection, function(err, data) {
+  /* ----- besiktnings information ----- */
+  fs.readFile(bilar, function(err, data) {
     if (err) throw err;
     data = data.toString();
     var arr = data.split('*');
@@ -67,7 +66,9 @@ router.post('/', function(req, res) {
           "model": "",
           "type": "",
           "year": "",
-          "passenger": ""
+          "passenger": "",
+          "service": "",
+          "serviceDate": ""
         };
 
 
@@ -87,7 +88,9 @@ router.post('/', function(req, res) {
             "model": newArr[i].model,
             "type": newArr[i].type,
             "year": newArr[i].year,
-            "passenger": newArr[i].passenger
+            "passenger": newArr[i].passenger,
+            "service": newArr[i].service,
+            "serviceDate": newArr[i].serviceDate
           };
           console.log(typeof ny_bil);
           funkArr = [];
@@ -117,7 +120,9 @@ router.post('/', function(req, res) {
             "model": "",
             "type": "",
             "year": "",
-            "passenger": ""
+            "passenger": "",
+            "service": "",
+            "serviceDate": ""
           };
           /*res.render('fordon',{
             'error': true
@@ -174,7 +179,9 @@ router.get('/', function(req, res, next) {
     "model": "",
     "type": "",
     "year": "",
-    "passenger": ""
+    "passenger": "",
+    "service": "",
+    "serviceDate": ""
   };
 
 
@@ -235,7 +242,9 @@ router.post('/add', function(req, res, next) {
           "model": "",
           "type": "",
           "year": "",
-          "passenger": ""
+          "passenger": "",
+          "service": "",
+          "serviceDate": ""
         };
         res.render('fordon', {
           carExists: 'En bil med regnummer "' + newCar.regnum + '" finns redan registrerad.',
@@ -261,7 +270,9 @@ router.post('/add', function(req, res, next) {
             "model": "",
             "type": "",
             "year": "",
-            "passenger": ""
+            "passenger": "",
+            "service": "",
+            "serviceDate": ""
           };
           res.render('fordon', {
             carAdded: 'Bilen med regnummer "' + newCar.regnum + '" registrerades utan problem.',

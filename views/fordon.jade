@@ -70,7 +70,7 @@ block content
       .action_button
         | status : Bokningsbar
         span.data_service
-          input(type='date' name='serviceDate')
+          input(type='date' name='serviceDate' value='#{bilar.serviceDate}')
           input(type='checkbox' name='service')
           | Service
         button.button_style Ta bort
