@@ -30,6 +30,21 @@ router.post('/', function(req, res) {
   var bilar = './data/bilar.json';
   var newArr = [];
 
+  var inspection = './data/bokningar.json';
+  var besikt_bilar = [];
+
+  fs.readFile(inspection, function(err, data) {
+    if (err) throw err;
+    data = data.toString();
+    var arr = data.split('*');
+    arr.forEach(function(v, i) {
+      besikt_bilar.push(JSON.parse(arr[i]));
+    });
+
+
+  });
+
+
 
   fs.readFile(bilar, function(err, data) {
     if (err) throw err;
@@ -54,7 +69,7 @@ router.post('/', function(req, res) {
           "year": "",
           "passenger": ""
         };
-        console.log("---------------------");
+
 
         /*console.log(empty_search);
 
@@ -111,7 +126,8 @@ router.post('/', function(req, res) {
         res.render('fordon', {
           'bilar': ny_bil,
           'funklista': funkArr,
-          'no_search' : "Empty search"
+          'no_search' : "Empty search",
+          'besikt_bilar': besikt_bilar
         });
       }
 
@@ -121,7 +137,7 @@ router.post('/', function(req, res) {
 
   search_text = req.body.search_text.toUpperCase();
   /*console.log("last : " + search_text);*/
-  console.log('-----------------');
+
   /*console.log(search_text);*/
 
 
@@ -142,8 +158,7 @@ router.get('/', function(req, res, next) {
     arr.forEach(function(v, i) {
       besikt_bilar.push(JSON.parse(arr[i]));
     });
-    console.log("-------------------- besik bilar");
-    console.log(besikt_bilar[0].dateFrom);
+
 
   });
 
@@ -171,8 +186,8 @@ router.get('/', function(req, res, next) {
     arr.forEach(function(v, i) {
       funkArr.push(JSON.parse(arr[i]));
     });
-
-
+    console.log("------- line 173------");
+    console.log(besikt_bilar);
     res.render('fordon', {
       funklista : funkArr,
       'bilar': ny_bil,
