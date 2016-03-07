@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-
+var moment = require('moment');
 
 // JSON
 var bilar = './data/bilar.json';
@@ -153,20 +153,42 @@ router.post('/', function(req, res) {
 
 router.get('/', function(req, res, next) {
 /* ---------- read file ------ */
-  var inspection = './data/bokningar.json';
+  var inspection = './data/bilar.json';
   var besikt_bilar = [];
+  /* ----------   inspection section start------*/
+  //dagens år, månad och dag
+  var today_year = moment();
+  //bilens sista siffra minus 1 månad
+  var car_reg = 3-1;
+  //bilens datum
+  var car_date = moment().set({'year': (moment().get('year')), 'month': car_reg, 'date':1});
+
+  var car_date_from = moment(car_date).subtract(2, 'months').startOf('month');
+  var car_date_after = moment(car_date).add(2, 'months').endOf('month');
+
+  console.log("-------- today month mars");
+  console.log(today_year.format('YYYY-MM-DD'));
+  console.log("-------- car date");
+  console.log(car_date.format('YYYY-MM-DD'));
+  console.log("-------- two months before today month mars is december");
+  console.log(car_date_from.format('YYYY-MM-DD'));
+  console.log("-------- two months after today month mars is december");
+  console.log(car_date_after.format('YYYY-MM-DD'));
+
+
 
   fs.readFile(inspection, function(err, data) {
     if (err) throw err;
     data = data.toString();
     var arr = data.split('*');
     arr.forEach(function(v, i) {
+    /*  if (arr[i].regnum == ) */
       besikt_bilar.push(JSON.parse(arr[i]));
     });
 
 
   });
-
+/* ----------   inspection section end ------*/
 
 
 
