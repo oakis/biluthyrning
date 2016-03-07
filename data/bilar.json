@@ -5,7 +5,10 @@
 	"type": "Kombi",
 	"year": "2012",
 	"passenger": "4",
-	"tillval": []
+	"tillval": [],
+	"service": "on",
+	"serviceDate" : "2016-03-01"
+
 }
 *
 {
@@ -15,5 +18,8 @@
 	"type": "Kombi",
 	"year": "2014",
 	"passenger": "4",
-	"tillval": []
+	"tillval": [],
+	"service": "on",
+	"serviceDate" : "2016-03-01"
+
 }
