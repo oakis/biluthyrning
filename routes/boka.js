@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+var moment = require('moment');
 
 
 // JSON
@@ -55,12 +56,40 @@ function giveMeCar (needs,db,bokningar) {
 	// Kontrollera att ingen bokning på passande bilar finns vid valt datum.
 	valjBastBil.forEach(function(v,i){ // abc123, bcd234
 		bokningar.forEach(function(v,ind){ // abc123, bcd234
-			var nfD = needs.franDatum;
+
+			/*var nfD = needs.franDatum;
 			var ntD = needs.tillDatum;
 			var bfD = bokningar[ind].franDatum;
-			var btD = bokningar[ind].tillDatum;
+			var btD = bokningar[ind].tillDatum;*/
+
+			var user_from_year = needs.franDatum.substring(0,4);
+			var user_from_month = needs.franDatum.substring(5,7) -1;
+			var user_from_day = needs.franDatum.substring(8,10);
+			var user_from_full_date = moment().set({'year': user_from_year,'month': user_from_month,'date': user_from_day});
+			var book_from_year = bokningar[ind].franDatum.substring(0,4);
+			var book_from_month = bokningar[ind].franDatum.substring(5,7) -1;
+			var book_from_day = bokningar[ind].franDatum.substring(8,10);
+			var book_from_full_date = moment().set({'year': book_from_year,'month': book_from_month,'date': book_from_day});
+			var user_to_year = needs.tillDatum.substring(0,4);
+			var user_to_month = needs.tillDatum.substring(5,7) -1;
+			var user_to_day = needs.tillDatum.substring(8,10);
+			var user_to_full_date = moment().set({'year': user_to_year,'month': user_to_month,'date': user_to_day});
+			var book_to_year = bokningar[ind].tillDatum.substring(0,4);
+			var book_to_month = bokningar[ind].tillDatum.substring(5,7) -1;
+			var book_to_day = bokningar[ind].tillDatum.substring(8,10);
+			var book_to_full_date = moment().set({'year': book_to_year,'month': book_to_month,'date': book_to_day});
+
+			console.log('test');
+			console.log(user_from_full_date.isSameOrAfter(book_from_full_date));
+			if (user_from_full_date.isSameOrAfter(book_from_full_date) && user_to_full_date.isSameOrBefore(book_to_full_date)) {
+				//console.log('fail');
+			} else {
+				//console.log(valjBastBil[i] + ' är ok att boka')
+			}
+			//console.log(book_to_full_date.format('YYYY-MM-DD'));
 			//console.log(needs.franDatum >= bokningar[ind].franDatum);
-			console.log(nfD < bfD && nfD < bfD || nfD > bfD && nfD > bfD);
+			//console.log(nfD < bfD && nfD < bfD || nfD > bfD && nfD > bfD);
+			
 
 		});
 	});
