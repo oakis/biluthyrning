@@ -164,55 +164,11 @@ router.get('/', function(req, res, next) {
 
   // ------------ ---------------- ------------
 
-  fs.readFile(inspection, function(err, data) {
-    if (err) throw err;
-    data = data.toString();
-    var arr = data.split('*');
-    arr.forEach(function(v, i) {
-    /*  if (arr[i].regnum == ) */
-      besikt_bilar.push(JSON.parse(arr[i]));
-
-
-    });
-
-    console.log("-------------- besikt bilar11111");
-    console.log(besikt_bilar);
-
-  });
 
 
 
-  /* ----------   inspection section start------*/
-  //dagens år, månad och dag
-  var today_year = moment();
-  //bilens sista siffra minus 1 månad
-  var car_reg = 5-1;
-  //bilens datum
-  var car_date = moment().set({'year': (moment().get('year')), 'month': car_reg, 'date':1});
-  //bilens från datum
-  var car_date_from = moment(car_date).subtract(2, 'months').startOf('month');
-  //bilens till datum
-  var car_date_after = moment(car_date).add(2, 'months').endOf('month');
-  var car_is_before =  moment(car_date).subtract(2, 'months').startOf('month');
-  var car_is_after =  moment(car_date).add(2, 'months').endOf('month');
-
-  console.log("-------- today month mars");
-  console.log(today_year.format('YYYY-MM-DD'));
-  console.log("-------- car date");
-  console.log(car_date.format('YYYY-MM-DD'));
-  console.log("-------- two months before today month mars is december");
-  console.log(car_date_from.format('YYYY-MM-DD'));
-  console.log("-------- two months after today month mars is december");
-  console.log(car_date_after.format('YYYY-MM-DD'));
-  if (car_is_before.isBefore(today_year) && car_is_after.isAfter(today_year)) {
-    console.log("this will be shown in march");
-  } else {
-    console.log("this will not be shown in march");
-  }
 
 
-
-/* ----------   inspection section end ------*/
 
 
 
@@ -241,13 +197,75 @@ router.get('/', function(req, res, next) {
     });
     /*console.log("------- line 173------");
     console.log(besikt_bilar);*/
-    res.render('fordon', {
-      funklista : funkArr,
-      'bilar': ny_bil,
-      'besikt_bilar' : besikt_bilar,
-      'testing': data1
+    fs.readFile(inspection, function(err, data) {
+      if (err) throw err;
+      data = data.toString();
+      var arr = data.split('*');
+      arr.forEach(function(v, i) {
+        /*  if (arr[i].regnum == ) */
+        /* ----------   inspection section start------*/
+        // ----- ------ ----- fetch everycar and get the last digit ----- start --- ---
+
+
+        // ----- ------ ----- fetch everycar and get the last digit ----- end--- ---
+
+        //dagens år, månad och dag
+        var today_year = moment();
+        //bilens sista siffra minus 1 månad
+        var car_reg_full = JSON.parse(arr[i]);
+        console.log("#######  car_reg_full");
+        console.log(car_reg_full);
+        var car_reg = car_reg_full.regnum.charAt(5) - 1;
+        console.log("#######  car_reg");
+        console.log(car_reg);
+        //bilens datum
+        var car_date = moment().set({'year': (moment().get('year')), 'month': car_reg, 'date':1});
+        //bilens från datum
+        var car_date_from = moment(car_date).subtract(2, 'months').startOf('month');
+        //bilens till datum
+        var car_date_after = moment(car_date).add(2, 'months').endOf('month');
+        var car_is_before =  moment(car_date).subtract(2, 'months').startOf('month');
+        var car_is_after =  moment(car_date).add(2, 'months').endOf('month');
+
+        console.log("-------- today month mars");
+        console.log(today_year.format('YYYY-MM-DD'));
+        console.log("-------- car date");
+        console.log(car_date.format('YYYY-MM-DD'));
+        console.log("-------- two months before today month mars is december");
+        console.log(car_date_from.format('YYYY-MM-DD'));
+        console.log("-------- two months after today month mars is december");
+        console.log(car_date_after.format('YYYY-MM-DD'));
+
+        if (car_is_before.isBefore(today_year) && car_is_after.isAfter(today_year)) {
+          besikt_bilar.push(car_reg_full);
+          console.log("this will be shown in march");
+        } else {
+          console.log("sorry, not this month");
+          console.log("this will not be shown in march");
+        }
+
+
+
+        /* ----------   inspection section end ------*/
+      });
+
+
+
+
+      res.render('fordon', {
+        funklista : funkArr,
+        'bilar': ny_bil,
+        'besikt_bilar' : besikt_bilar
+
+      });
+      console.log("-------------- besikt bilar11111");
+      console.log(besikt_bilar);
+      console.log(funkArr);
+
 
     });
+
+
 
   });
   console.log(funkArr);
