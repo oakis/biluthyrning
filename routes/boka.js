@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var moment = require('moment');
+var loadFile = require('../loadFile.js')
 
 
 // JSON
@@ -79,21 +80,20 @@ function giveMeCar (needs,db,bokningar) {
 			var book_to_day = bokningar[i].tillDatum.substring(8,10);
 			var book_to_full_date = moment().set({'year': book_to_year,'month': book_to_month,'date': book_to_day});
 
-			console.log('------- från datum ---------');
+			/*console.log('------- från datum ---------');
 			console.log('användaren datum från :' + user_from_full_date.format('YYYY-MM-DD'));
 			console.log('bokning datum från:' + book_from_full_date.format('YYYY-MM-DD'));
 
 			console.log('------- till datum ---------');
 			console.log('användaren datum till :' + user_to_full_date.format('YYYY-MM-DD'));
-			console.log('bokning datum till:' + book_to_full_date.format('YYYY-MM-DD'));
+			console.log('bokning datum till:' + book_to_full_date.format('YYYY-MM-DD'));*/
 
 			//console.log(user_from_full_date.isSameOrAfter(book_from_full_date));
 			if (user_from_full_date.isSameOrAfter(book_from_full_date) && user_to_full_date.isSameOrBefore(book_to_full_date)) {
-				//console.log('fail');
 				console.log('går ej att boka');
 			} else {
 				//console.log(valjBastBil[i] + ' är ok att boka')
-				console.log('går att boka');
+				console.log(valjBastBil[i] + ' går att boka');
 
 			}
 			//console.log(book_to_full_date.format('YYYY-MM-DD'));
@@ -122,18 +122,6 @@ v Gör en matchning på valda funktioner (tillval)
 - Ändra status på första lediga fordon med inmatad information
 - Visa en bekräftelse av bokningen
 */
-function loadFile(file, callback){
-	 var returnArr = [];
-   fs.readFile(file, 'utf8', function (err, data) {
-      if (err) throw err;
-      data = data.toString();
-		  var arr = data.split('*');
-		  arr.forEach(function(v, i) {
-		    returnArr.push(JSON.parse(arr[i]));
-		  });
-		  callback(returnArr);
-   });
-}
 
 
 /* GET home page. */
