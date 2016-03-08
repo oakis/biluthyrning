@@ -23,3 +23,14 @@
 	"serviceDate" : "2016-03-01"
 
 }
+
+*
+{
+	"regnum": "",
+	"brand": "",
+	"model": "",
+	"type": "Sedan",
+	"year": "",
+	"passenger": "",
+	"serviceDate": ""
+}

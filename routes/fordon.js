@@ -202,12 +202,6 @@ router.get('/', function(req, res, next) {
       data = data.toString();
       var arr = data.split('*');
       arr.forEach(function(v, i) {
-        /*  if (arr[i].regnum == ) */
-        /* ----------   inspection section start------*/
-        // ----- ------ ----- fetch everycar and get the last digit ----- start --- ---
-
-
-        // ----- ------ ----- fetch everycar and get the last digit ----- end--- ---
 
         //dagens år, månad och dag
         var today_year = moment();
@@ -243,35 +237,22 @@ router.get('/', function(req, res, next) {
           console.log("sorry, not this month");
           console.log("this will not be shown in march");
         }
-
-
-
         /* ----------   inspection section end ------*/
       });
-
-
-
-
       res.render('fordon', {
         funklista : funkArr,
         'bilar': ny_bil,
         'besikt_bilar' : besikt_bilar
 
       });
-      console.log("-------------- besikt bilar11111");
-      console.log(besikt_bilar);
-      console.log(funkArr);
-
-
     });
-
-
-
   });
-  console.log(funkArr);
 });
 
+
+
 router.post('/add', function(req, res, next) {
+
   var carArr = [];
   var funkArr = [];
   fs.readFile(bilar, function(err, data) {
@@ -352,7 +333,14 @@ router.post('/add', function(req, res, next) {
 });
 
 router.post('/update', function(req, res, next) {
-  res.render('fordon');
+  console.log("oooooooooooooooooooooooooo");
+  console.log("Button update is pressed");
+  //res.render('fordon');
+});
+router.post('/remove', function(req, res, next) {
+  console.log("oooooooooooooooooooooooooo");
+  console.log("Button delete is pressed");
+  //res.render('fordon');
 });
 
 module.exports = router;
