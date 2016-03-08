@@ -152,9 +152,36 @@ router.post('/', function(req, res) {
 });
 
 router.get('/', function(req, res, next) {
+
 /* ---------- read file ------ */
   var inspection = './data/bilar.json';
   var besikt_bilar = [];
+  var data1 = [];
+  var arr;
+  var aallArr;
+  // ------------ ---------------- ------------
+
+
+  // ------------ ---------------- ------------
+
+  fs.readFile(inspection, function(err, data) {
+    if (err) throw err;
+    data = data.toString();
+    var arr = data.split('*');
+    arr.forEach(function(v, i) {
+    /*  if (arr[i].regnum == ) */
+      besikt_bilar.push(JSON.parse(arr[i]));
+
+
+    });
+
+    console.log("-------------- besikt bilar11111");
+    console.log(besikt_bilar);
+
+  });
+
+
+
   /* ----------   inspection section start------*/
   //dagens år, månad och dag
   var today_year = moment();
@@ -184,17 +211,7 @@ router.get('/', function(req, res, next) {
   }
 
 
-  fs.readFile(inspection, function(err, data) {
-    if (err) throw err;
-    data = data.toString();
-    var arr = data.split('*');
-    arr.forEach(function(v, i) {
-    /*  if (arr[i].regnum == ) */
-      besikt_bilar.push(JSON.parse(arr[i]));
-    });
 
-
-  });
 /* ----------   inspection section end ------*/
 
 
@@ -227,7 +244,8 @@ router.get('/', function(req, res, next) {
     res.render('fordon', {
       funklista : funkArr,
       'bilar': ny_bil,
-      'besikt_bilar' : besikt_bilar
+      'besikt_bilar' : besikt_bilar,
+      'testing': data1
 
     });
 
