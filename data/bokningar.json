@@ -1,15 +1,15 @@
 {
 	"regnum": "ABC123",
-	"timeFrom": "1200",
-	"timeTo": "1200",
-	"dateFrom": "2016-03-01",
-	"dateTo": "2016-03-02"
+	"franTid": "1200",
+	"tillTid": "1200",
+	"franDatum": "2016-03-06",
+	"tillDatum": "2016-03-08"
 }
 *
 {
-	"regnum": "ABC123",
-	"timeFrom": "1200",
-	"timeTo": "1500",
-	"dateFrom": "2016-03-02",
-	"dateTo": "2016-03-02"
+	"regnum": "BCD234",
+	"franTid": "1200",
+	"tillTid": "1500",
+	"franDatum": "2016-03-10",
+	"tillDatum": "2016-03-12"
 }

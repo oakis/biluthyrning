@@ -9,24 +9,24 @@ block content
         Placeholder anv
         a(href='') Logga ut
   section(class='bokaBil')
-    form
+    form(method='post' action='/boka')
       div(class='biltyp')
         h2 Biltyp
         p
-          input(type='radio' name='biltyp' id='Sedan')
+          input(type='radio' name='type' id='Sedan' value='Sedan')
           label(for='Sedan') Sedan
         p
-          input(type='radio' name='biltyp' id='Pickup')
-          label(for='Pickup') Pickup
-        p 
-          input(type='radio' name='biltyp' id='Lastbil')
-          label(for='Lastbil') Lastbil
-        p
-          input(type='radio' name='biltyp' id='Kombi')
+          input(type='radio' name='type' id='Kombi' value='Kombi')
           label(for='Kombi') Kombi
         p
-          input(type='radio' name='biltyp' id='Lätt lastbil')
+          input(type='radio' name='type' id='Pickup' value='Pickup')
+          label(for='Pickup') Pickup
+        p
+          input(type='radio' name='type' id='Lätt lastbil' value='Lätt lastbil')
           label(for='Lätt lastbil') Lätt lastbil
+        p 
+          input(type='radio' name='type' id='Lastbil' value='Lastbil')
+          label(for='Lastbil') Lastbil
       div(class='tid')
         h2 Tid
         p
@@ -37,26 +37,11 @@ block content
           label(for='tillDatum') Till:
           input(type='date' name='tillDatum')
           input(type='time' name='tillTid')
-        p
-          input(type='checkbox' name='heldag')
-          label(for='heldag') Heldag
       div(class='tillval')
         h2 Tillval
-        p
-          input(type='checkbox' name='tillval' id='Diesel')
-          label(for='Diesel') Diesel
-        p
-          input(type='checkbox' name='tillval' id='Bensin')
-          label(for='Bensin') Bensin
-        p 
-          input(type='checkbox' name='tillval' id='Extraljus')
-          label(for='Extraljus') Extraljus
-        p
-          input(type='checkbox' name='tillval' id='Takräcke')
-          label(for='Takräcke') Takräcke
-        p
-          input(type='checkbox' name='tillval' id='Dragkrok')
-          label(for='Dragkrok') Dragkrok
+        each funk in funklista
+          input(type='checkbox' name='tillval' value=funk.id id=funk.name)
+          label(for=funk.name)= funk.name
       div(class='avslutabokning')
         input(type='checkbox' name='privat')
         label(for='privat') Privat användning
