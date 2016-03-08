@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
-
+var moment = require('moment');
 
 // JSON
 var bilar = './data/bilar.json';
@@ -152,20 +152,22 @@ router.post('/', function(req, res) {
 });
 
 router.get('/', function(req, res, next) {
+
 /* ---------- read file ------ */
-  var inspection = './data/bokningar.json';
+  var inspection = './data/bilar.json';
   var besikt_bilar = [];
-
-  fs.readFile(inspection, function(err, data) {
-    if (err) throw err;
-    data = data.toString();
-    var arr = data.split('*');
-    arr.forEach(function(v, i) {
-      besikt_bilar.push(JSON.parse(arr[i]));
-    });
+  var data1 = [];
+  var arr;
+  var aallArr;
+  // ------------ ---------------- ------------
 
 
-  });
+  // ------------ ---------------- ------------
+
+
+
+
+
 
 
 
@@ -193,20 +195,64 @@ router.get('/', function(req, res, next) {
     arr.forEach(function(v, i) {
       funkArr.push(JSON.parse(arr[i]));
     });
-    console.log("------- line 173------");
-    console.log(besikt_bilar);
-    res.render('fordon', {
-      funklista : funkArr,
-      'bilar': ny_bil,
-      'besikt_bilar' : besikt_bilar
+    /*console.log("------- line 173------");
+    console.log(besikt_bilar);*/
+    fs.readFile(inspection, function(err, data) {
+      if (err) throw err;
+      data = data.toString();
+      var arr = data.split('*');
+      arr.forEach(function(v, i) {
 
+        //dagens år, månad och dag
+        var today_year = moment();
+        //bilens sista siffra minus 1 månad
+        var car_reg_full = JSON.parse(arr[i]);
+        console.log("#######  car_reg_full");
+        console.log(car_reg_full);
+        var car_reg = car_reg_full.regnum.charAt(5) - 1;
+        console.log("#######  car_reg");
+        console.log(car_reg);
+        //bilens datum
+        var car_date = moment().set({'year': (moment().get('year')), 'month': car_reg, 'date':1});
+        //bilens från datum
+        var car_date_from = moment(car_date).subtract(2, 'months').startOf('month');
+        //bilens till datum
+        var car_date_after = moment(car_date).add(2, 'months').endOf('month');
+        var car_is_before =  moment(car_date).subtract(2, 'months').startOf('month');
+        var car_is_after =  moment(car_date).add(2, 'months').endOf('month');
+
+        console.log("-------- today month mars");
+        console.log(today_year.format('YYYY-MM-DD'));
+        console.log("-------- car date");
+        console.log(car_date.format('YYYY-MM-DD'));
+        console.log("-------- two months before today month mars is december");
+        console.log(car_date_from.format('YYYY-MM-DD'));
+        console.log("-------- two months after today month mars is december");
+        console.log(car_date_after.format('YYYY-MM-DD'));
+
+        if (car_is_before.isBefore(today_year) && car_is_after.isAfter(today_year)) {
+          besikt_bilar.push(car_reg_full);
+          console.log("this will be shown in march");
+        } else {
+          console.log("sorry, not this month");
+          console.log("this will not be shown in march");
+        }
+        /* ----------   inspection section end ------*/
+      });
+      res.render('fordon', {
+        funklista : funkArr,
+        'bilar': ny_bil,
+        'besikt_bilar' : besikt_bilar
+
+      });
     });
-
   });
-  console.log(funkArr);
 });
 
+
+
 router.post('/add', function(req, res, next) {
+
   var carArr = [];
   var funkArr = [];
   fs.readFile(bilar, function(err, data) {
@@ -287,7 +333,14 @@ router.post('/add', function(req, res, next) {
 });
 
 router.post('/update', function(req, res, next) {
-  res.render('fordon');
+  console.log("oooooooooooooooooooooooooo");
+  console.log("Button update is pressed");
+  //res.render('fordon');
+});
+router.post('/remove', function(req, res, next) {
+  console.log("oooooooooooooooooooooooooo");
+  console.log("Button delete is pressed");
+  //res.render('fordon');
 });
 
 module.exports = router;
