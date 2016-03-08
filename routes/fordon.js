@@ -335,6 +335,7 @@ router.post('/add', function(req, res, next) {
 router.post('/update', function(req, res, next) {
   console.log("oooooooooooooooooooooooooo");
   console.log("Button update is pressed");
+  
   //res.render('fordon');
 });
 router.post('/remove', function(req, res, next) {
