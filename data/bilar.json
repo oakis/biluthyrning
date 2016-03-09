@@ -1,0 +1,23 @@
+{
+	"regnum": "ABC123",
+	"brand": "Volvo",
+	"model": "V70",
+	"type": "Kombi",
+	"year": "2012",
+	"passenger": "4",
+	"tillval": [1,2,3,4,5],
+	"service": "on",
+	"serviceDate" : "2016-03-01"
+}
+*
+{
+	"regnum": "BCD234",
+	"brand": "Volkswagen",
+	"model": "Passat",
+	"type": "Kombi",
+	"year": "2014",
+	"passenger": "4",
+	"tillval": [1],
+	"service": "on",
+	"serviceDate" : "2016-03-01"
+}

@@ -198,6 +198,7 @@ router.get('/', function(req, res, next) {
         var today_year = moment();
         //bilens sista siffra minus 1 månad
         var car_reg_full = JSON.parse(arr[i]);
+        console.log(typeof car_reg_full);
         console.log("#######  car_reg_full");
         console.log(car_reg_full);
         var car_reg = car_reg_full.regnum.charAt(5) - 1;
@@ -331,13 +332,7 @@ router.post('/update', function(req, res, next) {
   var newArr = {};
   var regnum = req.body.regnum;
 
-  fs.readFile(bilar, function(err, data)  {
-    if (err) throw err;
-    console.log(data);
-    data = data.toString();
-    var arr = data.split('*');
-  }); // fs read file ends
-
+  console.log("update");
   res.render('fordon');
 });
 
