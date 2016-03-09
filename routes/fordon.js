@@ -165,15 +165,6 @@ router.get('/', function(req, res, next) {
   // ------------ ---------------- ------------
 
 
-
-
-
-
-
-
-
-
-
   ny_bil = {};
   ny_bil = {
     "regnum": "",
@@ -335,13 +326,28 @@ router.post('/add', function(req, res, next) {
 router.post('/update', function(req, res, next) {
   console.log("oooooooooooooooooooooooooo");
   console.log("Button update is pressed");
-  
-  //res.render('fordon');
+
+  var bilar = './data/bilar.json';
+  var newArr = {};
+  var regnum = req.body.regnum;
+
+  fs.readFile(bilar, function(err, data)  {
+    if (err) throw err;
+    console.log(data);
+    data = data.toString();
+    var arr = data.split('*');
+  }); // fs read file ends
+
+  res.render('fordon');
 });
+
+
+
+
 router.post('/remove', function(req, res, next) {
   console.log("oooooooooooooooooooooooooo");
   console.log("Button delete is pressed");
-  //res.render('fordon');
+  res.render('fordon');
 });
 
 module.exports = router;

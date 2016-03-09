@@ -136,17 +136,9 @@ function giveMeCar (needs,db,bokningar) {
 				} else {
 					console.log(valjBastBil[i] + 'går ej att boka');
 				}
-
-
-
-
-
-
-
 			} else {
 				//console.log(valjBastBil[i] + ' är ok att boka')
 				console.log(valjBastBil[i] + 'går att boka');
-
 			}
 			//console.log(book_to_full_date.format('YYYY-MM-DD'));
 			//console.log(needs.franDatum >= bokningar[ind].franDatum);
