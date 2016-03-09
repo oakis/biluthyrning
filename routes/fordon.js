@@ -32,6 +32,7 @@ router.post('/', function(req, res) {
   var newArr = [];
 
   var besikt_bilar = [];
+  var funkArr = [];
   /* ----- besiktnings information ----- */
   fs.readFile(bilar, function(err, data) {
     if (err) throw err;
@@ -42,6 +43,16 @@ router.post('/', function(req, res) {
     });
 
 
+  });
+
+  fs.readFile(funktioner, function(err, data) {
+    if (err) throw err;
+    data = data.toString();
+    var arr = data.split('*');
+    arr.forEach(function(v, i) {
+      funkArr.push(JSON.parse(arr[i]));
+    });
+    console.log(funkArr);
   });
 
 
@@ -55,7 +66,7 @@ router.post('/', function(req, res) {
     });
 
 
-    var funkArr = [];
+
     /* var empty_search = "no search"; */
     for (var i = 0; i < newArr.length; i++) {
       if (search_text === "") {
@@ -72,14 +83,6 @@ router.post('/', function(req, res) {
           "serviceDate": ""
         };
 
-
-        /*console.log(empty_search);
-
-        res.render('fordon',{
-          'bilar': ny_bil,
-          'funklista': funkArr,
-          'no_search' : empty_search
-        });*/
         } else if (newArr[i].regnum == search_text) {
           console.log('match');
           ny_bil = {};
@@ -90,26 +93,13 @@ router.post('/', function(req, res) {
             "type": newArr[i].type,
             "year": newArr[i].year,
             "passenger": newArr[i].passenger,
+            "tillval" : newArr[i].tillval,
             "service": newArr[i].service,
             "serviceDate": newArr[i].serviceDate
           };
           console.log(typeof ny_bil);
-          funkArr = [];
-          fs.readFile(funktioner, function(err, data) {
-            if (err) throw err;
-            data = data.toString();
-            var arr = data.split('*');
-            arr.forEach(function(v, i) {
-              funkArr.push(JSON.parse(arr[i]));
-            });
+          //funkArr = [];
 
-            /*res.render('fordon', {
-              'bilar': ny_bil,
-              'funklista': funkArr
-            });*/
-
-            console.log(funkArr);
-          });
           console.log(ny_bil);
         } else {
           console.log('no match');
@@ -347,7 +337,7 @@ router.post('/update', function(req, res, next) {
     for(i = 0; i < newArr.length; i++){
       if(newArr[i].regnum == regnum) {
         console.log('------ ---------- new arr  match----------- ----');
-        console.log(newArr[i]);
+        console.log(newArr[i].tillval);
         console.log('------ ---------- new arr  update----------- ----');
         newArr[i].regnum = req.body.regnum;
         newArr[i].brand = req.body.brand;
@@ -355,10 +345,10 @@ router.post('/update', function(req, res, next) {
         newArr[i].type = req.body.type;
         newArr[i].year = req.body.year;
         newArr[i].passenger = req.body.passenger;
-        newArr[i].tillval = req.body.tillval;
+        newArr[i].tillval = f.tillvalFix(req.body.tillval);
         newArr[i].service = req.body.service;
         newArr[i].serviceDate = req.body.serviceDate;
-        console.log(newArr[i].model);
+        console.log(newArr[i].tillval);
 
 
         ny_bil = {};
@@ -369,6 +359,7 @@ router.post('/update', function(req, res, next) {
           "type": newArr[i].type,
           "year": newArr[i].year,
           "passenger": newArr[i].passenger,
+          "tillval": newArr[i].tillval,
           "service": newArr[i].service,
           "serviceDate": newArr[i].serviceDate
         }; // end upd_bil
