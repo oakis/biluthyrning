@@ -1,13 +1,13 @@
 {
 	"regnum": "ABC123",
 	"brand": "Volvo",
-	"model": "V70",
-	"type": "Kombi",
+	"model": "V70f",
+	"type": "Sedan",
 	"year": "2012",
 	"passenger": "4",
-	"tillval": [1,2,3,4,5],
-	"service": "on",
-	"serviceDate" : "2016-03-01"
+	"tillval": "1",
+	"service": "undefined",
+	"serviceDate": "2016-03-01"
 }
 *
 {
@@ -17,7 +17,7 @@
 	"type": "Kombi",
 	"year": "2014",
 	"passenger": "4",
-	"tillval": [1],
+	"tillval": "1",
 	"service": "on",
-	"serviceDate" : "2016-03-01"
+	"serviceDate": "2016-03-01"
 }

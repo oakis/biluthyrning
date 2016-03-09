@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var moment = require('moment');
+var f = require('../functions.js');
 
 // JSON
 var bilar = './data/bilar.json';
@@ -328,10 +329,14 @@ router.post('/update', function(req, res, next) {
   console.log("oooooooooooooooooooooooooo");
   console.log("Button update is pressed");
 
+  var inspection = './data/bilar.json';
+  var besikt_bilar = [];
+  var data1 = [];
+  var aallArr;
   var bilar = './data/bilar.json';
   var newArr = [];
   var regnum = req.body.regnum;
-
+  //search_text = req.body.search_text.toUpperCase();
   fs.readFile(bilar, function(err,data){
     if (err) throw err;
     data = data.toString();
@@ -356,15 +361,99 @@ router.post('/update', function(req, res, next) {
         console.log(newArr[i].model);
 
 
-      }
+        ny_bil = {};
+        ny_bil = {
+          "regnum": newArr[i].regnum,
+          "brand": newArr[i].brand,
+          "model": newArr[i].model,
+          "type": newArr[i].type,
+          "year": newArr[i].year,
+          "passenger": newArr[i].passenger,
+          "service": newArr[i].service,
+          "serviceDate": newArr[i].serviceDate
+        }; // end upd_bil
+
+
+      } // end if newArr
     }
 
     console.log('------ ---------- new arr ----------- ----');
-    console.log(typeof newArr);
+    //console.log(newArr);
+    console.log(f.stringWrite(newArr));
+    send = f.stringWrite(newArr);
+    fs.writeFile(bilar,send,function(err){
+      if (err) throw err;
+      console.log('file saved');
+      // read file start
+      funkArr = [];
+      fs.readFile(funktioner, function(err, data) {
+        if (err) throw err;
+        data = data.toString();
+        var arr = data.split('*');
+        arr.forEach(function(v, i) {
+          funkArr.push(JSON.parse(arr[i]));
+        });
+        fs.readFile(inspection, function(err, data) {
+          if (err) throw err;
+          data = data.toString();
+          var arr = data.split('*');
+          arr.forEach(function(v, i) {
+
+            //dagens år, månad och dag
+            var today_year = moment();
+            //bilens sista siffra minus 1 månad
+            var car_reg_full = JSON.parse(arr[i]);
+            console.log(typeof car_reg_full);
+            console.log("#######  car_reg_full");
+            console.log(car_reg_full);
+            var car_reg = car_reg_full.regnum.charAt(5) - 1;
+            console.log("#######  car_reg");
+            console.log(car_reg);
+            //bilens datum
+            var car_date = moment().set({'year': (moment().get('year')), 'month': car_reg, 'date':1});
+            //bilens från datum
+            var car_date_from = moment(car_date).subtract(2, 'months').startOf('month');
+            //bilens till datum
+            var car_date_after = moment(car_date).add(2, 'months').endOf('month');
+            var car_is_before =  moment(car_date).subtract(2, 'months').startOf('month');
+            var car_is_after =  moment(car_date).add(2, 'months').endOf('month');
+
+            console.log("-------- today month mars");
+            console.log(today_year.format('YYYY-MM-DD'));
+            console.log("-------- car date");
+            console.log(car_date.format('YYYY-MM-DD'));
+            console.log("-------- two months before today month mars is december");
+            console.log(car_date_from.format('YYYY-MM-DD'));
+            console.log("-------- two months after today month mars is december");
+            console.log(car_date_after.format('YYYY-MM-DD'));
+
+            if (car_is_before.isBefore(today_year) && car_is_after.isAfter(today_year)) {
+              besikt_bilar.push(car_reg_full);
+              console.log("this will be shown in march");
+            } else {
+              console.log("sorry, not this month");
+              console.log("this will not be shown in march");
+            }
+            /* ----------   inspection section end ------*/
+          });
+          res.render('fordon', {
+            'bilar': ny_bil,
+            'search_text': regnum,
+            'funklista': funkArr,
+            'besikt_bilar' : besikt_bilar
+          });
+        });
+
+
+
+
+
+      });
+    });
   });
 
   console.log("update");
-  res.render('fordon');
+
 });
 
 
