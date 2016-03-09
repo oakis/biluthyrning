@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var moment = require('moment');
-var loadFile = require('../loadFile.js')
+var loadFile = require('../loadFile.js');
 
 
 // JSON
@@ -18,7 +18,7 @@ function tillvalFix (req) { // Om bara ett tillval, gör om till en array med 1 
 		if (typeof req != 'string') {
 			req.forEach(function(v,i){
 				tillval.push(parseFloat(req[i]));
-			})
+			});
 		} else {
 			tillval.push(parseFloat(req));
 		}
@@ -49,9 +49,9 @@ function giveMeCar (needs,db,bokningar) {
 	// Kontrollera att ingen bokning på passande bilar finns vid valt datum.
 	valjBastBil.forEach(function(v,i){
 		var carMatch = '';
-		console.log('------------ valjBastBil loop start ------------')
+		console.log('------------ valjBastBil loop start ------------');
 		bokningar.forEach(function(val,ind){
-			console.log('<<<<<<<<<<<<< bokningar loop start >>>>>>>>>>>>>>>')
+			console.log('<<<<<<<<<<<<< bokningar loop start >>>>>>>>>>>>>>>');
 			// Om regnum i valjBastBil[i] finns i bokningar[ind].regnum, kontrollera tider
 			if (valjBastBil[i] == bokningar[ind].regnum) {
 
@@ -109,7 +109,11 @@ function giveMeCar (needs,db,bokningar) {
 						} else {
 							console.log('Bokning är inte på helgdag')
 						}
-					}	
+
+					}
+=======
+					}
+
 				}*/
 
 				if (user_from_full_date.isSameOrAfter(book_from_full_date) && user_to_full_date.isSameOrBefore(book_to_full_date)) {
@@ -117,7 +121,7 @@ function giveMeCar (needs,db,bokningar) {
 						carMatch += 'y';
 					} else {
 						carMatch += 'n';
-					};
+					}
 				} else {
 					carMatch += 'y';
 				}
@@ -176,7 +180,7 @@ router.post('/', function(req, res, next) {
 		'tillTid': req.body.tillTid,
 		'tillval': tillvalFix(req.body.tillval),
 		'privat': req.body.privat
-	}
+	};
 
   var carArr = [];
   fs.readFile(bilar, function(err, data) {
