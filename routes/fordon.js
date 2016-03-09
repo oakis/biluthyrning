@@ -329,8 +329,39 @@ router.post('/update', function(req, res, next) {
   console.log("Button update is pressed");
 
   var bilar = './data/bilar.json';
-  var newArr = {};
+  var newArr = [];
   var regnum = req.body.regnum;
+
+  fs.readFile(bilar, function(err,data){
+    if (err) throw err;
+    data = data.toString();
+    var arr = data.split('*');
+    arr.forEach(function(v,i){
+      newArr.push(JSON.parse(arr[i]));
+    });
+    for(i = 0; i < newArr.length; i++){
+      if(newArr[i].regnum == regnum) {
+        console.log('------ ---------- new arr  match----------- ----');
+        console.log(newArr[i]);
+        console.log('------ ---------- new arr  update----------- ----');
+        newArr[i].regnum = req.body.regnum;
+        newArr[i].brand = req.body.brand;
+        newArr[i].model = req.body.model;
+        newArr[i].type = req.body.type;
+        newArr[i].year = req.body.year;
+        newArr[i].passenger = req.body.passenger;
+        newArr[i].tillval = req.body.tillval;
+        newArr[i].service = req.body.service;
+        newArr[i].serviceDate = req.body.serviceDate;
+        console.log(newArr[i].model);
+
+
+      }
+    }
+
+    console.log('------ ---------- new arr ----------- ----');
+    console.log(typeof newArr);
+  });
 
   console.log("update");
   res.render('fordon');

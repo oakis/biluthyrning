@@ -203,7 +203,7 @@ router.post('/', function(req, res, next) {
 		'tillTid': req.body.tillTid,
 		'tillval': tillvalFix(req.body.tillval),
 		'privat': req.body.privat
-	}
+	};
 
 	var bokArr = [];
 	fs.readFile(bokningar, function(err, data) {
