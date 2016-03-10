@@ -20,6 +20,17 @@ checkIfExists = function(req, db) {
   return isItTrue;
 };
 
+function objectFindByKey(array, key, value) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i][key] === value) {
+            return array[i];
+        }
+    }
+    return null;
+}
+
+
+
 
 
 /* GET home page. */
@@ -69,7 +80,7 @@ router.post('/', function(req, res) {
     console.log(typeof newArr);
     /* var empty_search = "no search"; */
     for (var i = 0; i < newArr.length; i++) {
-      if (search_text === "") {
+      /*if (search_text === "") {
         funkArr = [];
         ny_bil = {};
         ny_bil = {
@@ -115,17 +126,14 @@ router.post('/', function(req, res) {
             "service": "",
             "serviceDate": ""
           };
-          /*res.render('fordon',{
-            'error': true
-          });*/
+        
         }
         res.render('fordon', {
           'bilar': ny_bil,
           'funklista': funkArr,
-          'no_search' : "Empty search",
           'besikt_bilar': besikt_bilar
         });
-      }
+      }*/
 
 
     /*console.log(newArr[1].regnum);*/
@@ -349,9 +357,14 @@ router.post('/update', function(req, res, next) {
         newArr[i].type = req.body.type;
         newArr[i].year = req.body.year;
         newArr[i].passenger = req.body.passenger;
-        newArr[i].tillval = req.body.tillval;
+        var arrTillval = "[" + req.body.tillval.toString().split(",") + "]";
+        //var arrTillval = JSON.stringify(req.body.tillval);
+
+        newArr[i].tillval = arrTillval;
         newArr[i].service = req.body.service;
         newArr[i].serviceDate = req.body.serviceDate;
+        console.log('------ ---------- object----------- ----');
+        console.log(arrTillval);
         console.log("Object" + newArr[i].tillval);
         console.log("Object" + req.body.tillval);
 
@@ -367,7 +380,7 @@ router.post('/update', function(req, res, next) {
           "type": newArr[i].type,
           "year": newArr[i].year,
           "passenger": newArr[i].passenger,
-          "tillval": f.tillvalFix(newArr[i].tillval),
+          "tillval": arrTillval,
           "service": newArr[i].service,
           "serviceDate": newArr[i].serviceDate
         }; // end upd_bil
@@ -444,11 +457,6 @@ router.post('/update', function(req, res, next) {
           }); // res render end
 
         });
-
-
-
-
-
       });
     });
   });
