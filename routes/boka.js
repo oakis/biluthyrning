@@ -12,22 +12,6 @@ var bilar = './data/bilar.json';
 var funktioner = './data/funktioner.json';
 var bookings = './data/bokningar.json';
 
-// Funktioner
-
-function tillvalFix (req) { // Om bara ett tillval, gör om till en array med 1 index.
-	var tillval = [];
-	if (typeof req != 'undefined') {
-		if (typeof req != 'string') {
-			req.forEach(function(v,i){
-				tillval.push(parseFloat(req[i]));
-			});
-		} else {
-			tillval.push(parseFloat(req));
-		}
-	}
-	return tillval;
-}
-
 function giveMeCar (needs,db,bokningar) {
 	var regnummer;
 	var valjBastBil = [];
@@ -112,7 +96,12 @@ function giveMeCar (needs,db,bokningar) {
 							console.log('Bokning är inte på helgdag')
 						}
 					}
-				}*/
+				}
+
+				privat bokning:
+
+				till < 08:00 || > 17:00
+				från < 08:00 || > 17:00*/
 
 				if (user_from_full_date.isSameOrAfter(book_from_full_date) && user_to_full_date.isSameOrBefore(book_to_full_date)) {
 					if (user_from_full_time.isSameOrAfter(booked_from_full_time) && user_to_full_time.isSameOrBefore(booked_to_full_time)) {
@@ -132,17 +121,18 @@ function giveMeCar (needs,db,bokningar) {
 	});
 	loadFile(bilar, chooseBestCar);
 	function chooseBestCar (cars) {
-		cars.sort(f.sortArr('lastBooked'));
+		cars.sort(f.sortArr('lastBooked')); // Sortera array efter senast bokad
 		var newBooking = {
-			'regnum': cars[0].regnum,
+			'regnum': cars[0].regnum, // Ta första bilen i sorterade arrayen (stått still längst)
 			'franDatum': needs.franDatum,
 			'franTid': needs.franTid,
 			'tillDatum': needs.tillDatum,
-			'tillTid': needs.tillTid
+			'tillTid': needs.tillTid,
+			'username': needs.username
 			//'privat': needs.privat
 		}
 		appendFile(bookings, newBooking);
-		}
+	}
 }
 
 /*
@@ -162,14 +152,20 @@ router.get('/', function(req, res, next) {
   function loadNext (data) {
   	loadFile(bookings, renderPage);
 	  function renderPage (books) {
+	  	var userBooks = [];
+	  	books.forEach(function(v,i){
+	  		if (req.query.username == books[i].username) {	
+	  			userBooks.push(books[i]);
+	  		}
+	  	});
 	  	data.sort(f.sortArr('name'));
 	  	res.render('boka', {
 	    	funklista: data,
-	    	boklista: books
+	    	boklista: userBooks,
+	    	username: req.query.username
 	  	});
   	}
   }
-  
 });
 
 
@@ -177,15 +173,14 @@ router.get('/', function(req, res, next) {
 /* BOKA BIL */
 router.post('/', function(req, res, next) {
 
-	console.log(req.body.username);
-
 	var carNeeds = {
 		'type': req.body.type,
 		'franDatum': req.body.franDatum,
 		'franTid': req.body.franTid,
 		'tillDatum': req.body.tillDatum,
 		'tillTid': req.body.tillTid,
-		'tillval': tillvalFix(req.body.tillval),
+		'tillval': f.tillvalFix(req.body.tillval),
+		'username': req.body.username,
 		'privat': req.body.privat
 	};
 
@@ -208,12 +203,24 @@ router.post('/', function(req, res, next) {
 	    giveMeCar(carNeeds,carArr,bokArr); // kontr vilken bil som passar bäst och returnera regnum.
 	  });
   });
-	loadFile(funktioner, renderPage);
-  function renderPage (data) {
-  	res.render('boka', {
-    	funklista: data,
-    	carBooked: true
-  	});
+	loadFile(funktioner, loadNext);
+  function loadNext (data) {
+  	loadFile(bookings, renderPage);
+	  function renderPage (books) {
+	  	var userBooks = [];
+	  	books.forEach(function(v,i){
+	  		if (req.body.username == books[i].username) {	
+	  			userBooks.push(books[i]);
+	  		}
+	  	});
+	  	data.sort(f.sortArr('name'));
+	  	res.render('boka', {
+	    	funklista: data,
+	    	boklista: userBooks,
+	    	username: req.body.username,
+	    	carBooked: true
+	  	});
+  	}
   }
 });
 

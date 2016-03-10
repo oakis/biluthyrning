@@ -78,6 +78,10 @@ body {
 
 /* BOKA BIL */
 
+.required {
+  color: #f00;
+}
+
 header {
 	width: 1000px;
 	background: #ccc;
@@ -155,9 +159,9 @@ header {
 		margin-top: -35px;
 	}
 
-	.minaBokningar ul {}
+	.minaBokningar tr {}
 
-	.minaBokningar ul li {}
+	.minaBokningar td {}
 
 /* FUNKTIONER */
 

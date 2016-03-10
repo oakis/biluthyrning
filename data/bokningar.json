@@ -3,7 +3,8 @@
 	"franTid": "12:00",
 	"tillTid": "12:00",
 	"franDatum": "2016-03-06",
-	"tillDatum": "2016-03-08"
+	"tillDatum": "2016-03-08",
+	"username": "Mirsad"
 }
 *
 {
@@ -11,7 +12,8 @@
 	"franTid": "12:00",
 	"tillTid": "15:00",
 	"franDatum": "2016-03-10",
-	"tillDatum": "2016-03-12"
+	"tillDatum": "2016-03-12",
+	"username": "Mirsad"
 }
 *
 {
@@ -19,7 +21,8 @@
 	"franTid": "12:00",
 	"tillTid": "12:00",
 	"franDatum": "2016-03-13",
-	"tillDatum": "2016-03-15"
+	"tillDatum": "2016-03-15",
+	"username": "Mirsad"
 }
 *
 {
@@ -27,7 +30,8 @@
 	"franDatum": "2016-03-10",
 	"franTid": "00:00",
 	"tillDatum": "2016-03-11",
-	"tillTid": "18:00"
+	"tillTid": "18:00",
+	"username": "Mirsad"
 }
 *
 {
@@ -35,7 +39,8 @@
 	"franDatum": "2016-03-30",
 	"franTid": "08:00",
 	"tillDatum": "2016-03-31",
-	"tillTid": "17:00"
+	"tillTid": "17:00",
+	"username": "Anders Ekman"
 }
 *
 {
@@ -43,5 +48,51 @@
 	"franDatum": "2016-03-21",
 	"franTid": "00:00",
 	"tillDatum": "2016-03-22",
-	"tillTid": "00:00"
+	"tillTid": "00:00",
+	"username": "Mirsad"
+}
+*
+{
+	"regnum": "BCD234",
+	"franDatum": "2016-04-14",
+	"franTid": "08:00",
+	"tillDatum": "2016-04-15",
+	"tillTid": "17:00",
+	"username": "Mirsad"
+}
+*
+{
+	"regnum": "BCD234",
+	"franDatum": "2016-03-21",
+	"franTid": "00:00",
+	"tillDatum": "2016-03-22",
+	"tillTid": "00:00",
+	"username": "Anders Ekman"
+}
+*
+{
+	"regnum": "BCD234",
+	"franDatum": "2016-03-25",
+	"franTid": "00:00",
+	"tillDatum": "2016-03-26",
+	"tillTid": "00:00",
+	"username": "Anders Ekman"
+}
+*
+{
+	"regnum": "BCD234",
+	"franDatum": "2016-03-11",
+	"franTid": "00:00",
+	"tillDatum": "2016-03-12",
+	"tillTid": "00:00",
+	"username": "h"
+}
+*
+{
+	"regnum": "BCD234",
+	"franDatum": "2016-03-27",
+	"franTid": "00:00",
+	"tillDatum": "2016-03-27",
+	"tillTid": "01:00",
+	"username": "h"
 }
