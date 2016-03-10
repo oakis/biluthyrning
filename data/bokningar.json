@@ -1,4 +1,5 @@
 {
+	"id": 1,
 	"regnum": "ABC123",
 	"franTid": "12:00",
 	"tillTid": "12:00",
@@ -8,6 +9,7 @@
 }
 *
 {
+	"id": 2,
 	"regnum": "ABC123",
 	"franTid": "12:00",
 	"tillTid": "15:00",
@@ -17,6 +19,7 @@
 }
 *
 {
+	"id": 3,
 	"regnum": "ABC123",
 	"franTid": "12:00",
 	"tillTid": "12:00",
@@ -26,6 +29,7 @@
 }
 *
 {
+	"id": 4,
 	"regnum": "BCD234",
 	"franDatum": "2016-03-10",
 	"franTid": "00:00",
@@ -35,6 +39,7 @@
 }
 *
 {
+	"id": 5,
 	"regnum": "BCD234",
 	"franDatum": "2016-03-30",
 	"franTid": "08:00",
@@ -44,6 +49,7 @@
 }
 *
 {
+	"id": 6,
 	"regnum": "BCD234",
 	"franDatum": "2016-03-21",
 	"franTid": "00:00",
@@ -53,6 +59,7 @@
 }
 *
 {
+	"id": 7,
 	"regnum": "BCD234",
 	"franDatum": "2016-04-14",
 	"franTid": "08:00",
@@ -62,6 +69,7 @@
 }
 *
 {
+	"id": 8,
 	"regnum": "BCD234",
 	"franDatum": "2016-03-21",
 	"franTid": "00:00",
@@ -71,6 +79,7 @@
 }
 *
 {
+	"id": 9,
 	"regnum": "BCD234",
 	"franDatum": "2016-03-25",
 	"franTid": "00:00",
@@ -80,6 +89,7 @@
 }
 *
 {
+	"id": 10,
 	"regnum": "BCD234",
 	"franDatum": "2016-03-11",
 	"franTid": "00:00",
@@ -89,10 +99,22 @@
 }
 *
 {
+	"id": 11,
 	"regnum": "BCD234",
 	"franDatum": "2016-03-27",
 	"franTid": "00:00",
 	"tillDatum": "2016-03-27",
 	"tillTid": "01:00",
+	"username": "h",
+	"privat": "on"
+}
+*
+{
+	"id": 12,
+	"regnum": "BCD234",
+	"franDatum": "2016-03-01",
+	"franTid": "00:00",
+	"tillDatum": "2016-03-02",
+	"tillTid": "00:00",
 	"username": "h"
 }

@@ -67,6 +67,16 @@ exports.stringify = function (updateFunk) {
 			str = str.slice(0, -3);
 			return str;
 };
+
+exports.stringifyBook = function (arr) {
+			var str = "";
+			arr.forEach(function(v,i){
+				str += '{\n\t"id": ' + arr[i].id + ',\n\t"regnum": "' + arr[i].regnum + '",\n\t"franDatum": "' + arr[i].franDatum + '",\n\t"franTid": "' + arr[i].franTid + '",\n\t"tillDatum": "' + arr[i].tillDatum + '",\n\t"tillTid": "' + arr[i].tillTid + '",\n\t"username": "' + arr[i].username + '",\n\t"privat": "' + arr[i].privat + '"\n}\n*\n';
+			});
+			str = str.slice(0, -3);
+			return str;
+};
+
 exports.stringWrite = function (array) {
 			var str = "";
 			array.forEach(function(v,i){

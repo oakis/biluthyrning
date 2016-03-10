@@ -63,10 +63,20 @@ block content
           th Registreringsnummer
           th Från
           th Till
+          th Privat
+          th Avboka
             each book in boklista
               tr
                 td= book.regnum
                 td #{book.franDatum} #{book.franTid}
                 td #{book.tillDatum} #{book.tillTid}
+                td
+                  if(book.privat == "on")
+                    span Ja
+                td
+                  form(method='post' action='/boka/delete')
+                    input(type='hidden' name='username' value=username)
+                    input(type='hidden' name='id' value=book.id)
+                    button Avboka
   if(carBooked)
     div(class='carAdd') Bokning lyckades. Se lista nedan för dina bokningar.
