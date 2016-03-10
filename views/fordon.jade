@@ -88,7 +88,9 @@ block content
       .car
         span.reg_nr  p #{bil.regnum)
         span.date_info
-          input(type='date' value='#{bil.dateFrom}')
+          input(type='date' value='#{bil.inspectionDate}')
+          bokad
+          input(type='checkbox' name='inspection')
         span
           button.button_style Spara
 
