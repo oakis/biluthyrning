@@ -79,8 +79,8 @@ router.post('/', function(req, res) {
     console.log("----------- newArr is");
     console.log(typeof newArr);
     /* var empty_search = "no search"; */
-    for (var i = 0; i < newArr.length; i++) {
-      /*if (search_text === "") {
+    /*for (var i = 0; i < newArr.length; i++) {
+      if (search_text === "") {
         funkArr = [];
         ny_bil = {};
         ny_bil = {
@@ -126,15 +126,29 @@ router.post('/', function(req, res) {
             "service": "",
             "serviceDate": ""
           };
-        
-        }
-        res.render('fordon', {
-          'bilar': ny_bil,
-          'funklista': funkArr,
-          'besikt_bilar': besikt_bilar
-        });
-      }*/
 
+        }
+
+      }*/
+      var result_obj = objectFindByKey(newArr, 'regnum',search_text );
+      ny_bil = {};
+      ny_bil = {
+        "regnum": result_obj.regnum,
+        "brand": result_obj.brand,
+        "model": result_obj.model,
+        "type": result_obj.type,
+        "year": result_obj.year,
+        "passenger": result_obj.passenger,
+        "tillval" : result_obj.tillval,
+        "service": result_obj.service,
+        "serviceDate": result_obj.serviceDate
+      };
+
+      res.render('fordon', {
+        'bilar': ny_bil,
+        'funklista': funkArr,
+        'besikt_bilar': besikt_bilar
+      });
 
     /*console.log(newArr[1].regnum);*/
   });
