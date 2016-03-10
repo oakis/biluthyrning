@@ -14,10 +14,10 @@
 	"regnum": "BCD234",
 	"brand": "Volkswagen",
 	"model": "Passat",
-	"type": "Kombi",
+	"type": "Sedan",
 	"year": "2014",
 	"passenger": "4",
-	"tillval": 1,
+	"tillval": [1,4,7,12],
 	"service": "on",
 	"serviceDate": "2016-03-01"
 }
