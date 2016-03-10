@@ -6,10 +6,10 @@ block content
     nav
       a(href='') Admin
       div(class='loggedIn')
-        Placeholder anv
+        input(type='text' name='username' form='boka')
         a(href='') Logga ut
   section(class='bokaBil')
-    form(method='post' action='/boka')
+    form(method='post' action='/boka' id='boka')
       div(class='biltyp')
         h2 Biltyp
         p
@@ -45,11 +45,21 @@ block content
       div(class='avslutabokning')
         input(type='checkbox' name='privat')
         label(for='privat') Privat användning
-        button Återställ
+        button(type='reset') Återställ
         button Boka bil
   section(class='minaBokningar')
     h2 Mina bokningar
-    ul
-      li Placerholder list-item
-      li Placerholder två
-      li Placerholder tre
+    if(typeof boklista == 'undefined')
+    else
+      table
+        tr
+          th Registreringsnummer
+          th Från
+          th Till
+            each book in boklista
+              tr
+                td= book.regnum
+                td #{book.franDatum} #{book.franTid}
+                td #{book.tillDatum} #{book.tillTid}
+  if(carBooked)
+    div(class='carAdd') Bokning lyckades. Se lista nedan för dina bokningar.

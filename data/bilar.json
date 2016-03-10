@@ -7,7 +7,8 @@
 	"passenger": "4",
 	"tillval": [1,2,3,4,5],
 	"service": "on",
-	"serviceDate" : "2016-03-01"
+	"serviceDate": "2016-03-01",
+	"lastBooked": "2016-03-15"
 }
 *
 {
@@ -19,5 +20,6 @@
 	"passenger": "4",
 	"tillval": [1],
 	"service": "on",
-	"serviceDate" : "2016-03-01"
+	"serviceDate" : "2016-03-01",
+	"lastBooked": "2016-01-01"
 }

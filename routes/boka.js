@@ -2,13 +2,15 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var moment = require('moment');
-var loadFile = require('../loadFile.js')
+var loadFile = require('../loadFile.js');
+var f = require('../functions.js');
+var appendFile = require('../appendFile.js')
 
 
 // JSON
 var bilar = './data/bilar.json';
 var funktioner = './data/funktioner.json';
-var bokningar = './data/bokningar.json';
+var bookings = './data/bokningar.json';
 
 // Funktioner
 
@@ -128,45 +130,54 @@ function giveMeCar (needs,db,bokningar) {
 				valjBastBil_next_step.push(valjBastBil[i]);
 		}
 	});
-	console.log(valjBastBil_next_step);
-	//console.log('\nEfter datum/tid kontroll:\n'+valjBastBil+'\n');
-	//console.log(needs.privat)
-	//console.log(regnummer);
+	loadFile(bilar, chooseBestCar);
+	function chooseBestCar (cars) {
+		cars.sort(f.sortArr('lastBooked'));
+		var newBooking = {
+			'regnum': cars[0].regnum,
+			'franDatum': needs.franDatum,
+			'franTid': needs.franTid,
+			'tillDatum': needs.tillDatum,
+			'tillTid': needs.tillTid
+			//'privat': needs.privat
+		}
+		appendFile(bookings, newBooking);
+		}
 }
-
-
-
-/*
- Lagra alla bilar som inte är bokade valt datum, sortera efter när den användes senast och
- returnera array[0]
- splice(valjBastBil.indexOf(nånting),1)
-*/
 
 /*
 v Gör en matchning på vald biltyp (type)
 v Gör en matchning på valda funktioner (tillval)
 v Gör en matchning på från och till datum (fromDate - toDate)
 v Gör en matching på från och till tid eller hela dagen
-- Privat användning, utanför arbetstid endast (08.00-17.00)
-- Ändra status på första lediga fordon med inmatad information
+- Privat användning, utanför arbetstid endast (08.00-17.00) - På is.
+- Lägg till bokning i bokningar.json
 - Visa en bekräftelse av bokningen
 */
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  loadFile(funktioner, renderPage);
-  function renderPage (data) {
-  	res.render('boka', {
-    	funklista : data
-  	});
+  loadFile(funktioner, loadNext);
+  function loadNext (data) {
+  	loadFile(bookings, renderPage);
+	  function renderPage (books) {
+	  	data.sort(f.sortArr('name'));
+	  	res.render('boka', {
+	    	funklista: data,
+	    	boklista: books
+	  	});
+  	}
   }
+  
 });
 
 
 
 /* BOKA BIL */
 router.post('/', function(req, res, next) {
+
+	console.log(req.body.username);
 
 	var carNeeds = {
 		'type': req.body.type,
@@ -187,7 +198,7 @@ router.post('/', function(req, res, next) {
       carArr.push(JSON.parse(arr[i]));
     });
     var bokArr = [];
-    fs.readFile(bokningar, function(err, data) {
+    fs.readFile(bookings, function(err, data) {
 	    if (err) throw err;
 	    data = data.toString();
 	    var arr = data.split('*');
@@ -197,12 +208,11 @@ router.post('/', function(req, res, next) {
 	    giveMeCar(carNeeds,carArr,bokArr); // kontr vilken bil som passar bäst och returnera regnum.
 	  });
   });
-
-
 	loadFile(funktioner, renderPage);
   function renderPage (data) {
   	res.render('boka', {
-    	funklista : data
+    	funklista: data,
+    	carBooked: true
   	});
   }
 });
