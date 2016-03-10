@@ -22,7 +22,7 @@ block content
   h2#search_headline Sök fordon
   .search.div_style
       h2#reg_info_headline Registreringsnummer
-      form(method='post')
+      form(method='post' action='/fordon')
         input#search_text(type='text' name="search_text" value='#{bilar.regnum}')
         span.req_star *
         button#search_button Sök
@@ -71,7 +71,11 @@ block content
         | status : Bokningsbar
         span.data_service
           input(type='date' name='serviceDate' value='#{bilar.serviceDate}')
-          input(type='checkbox' name='service')
+          - if(bilar.service == "on") {
+            input(type='checkbox' name='service' checked)
+          - } else {
+            input(type='checkbox' name='service')
+          - }
           | Service
         button(class='button_style', onclick='submitFunction(1)') Ta bort
         button(class='button_style', onclick='submitFunction(2)') Uppdatera

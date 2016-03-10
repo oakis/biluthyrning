@@ -339,16 +339,24 @@ router.post('/update', function(req, res, next) {
         console.log('------ ---------- new arr  match----------- ----');
         console.log(newArr[i].tillval);
         console.log('------ ---------- new arr  update----------- ----');
+
+        /*function dd() {
+          return Array.from(arguments);
+        }*/
         newArr[i].regnum = req.body.regnum;
         newArr[i].brand = req.body.brand;
         newArr[i].model = req.body.model;
         newArr[i].type = req.body.type;
         newArr[i].year = req.body.year;
         newArr[i].passenger = req.body.passenger;
-        newArr[i].tillval = f.tillvalFix(req.body.tillval);
+        newArr[i].tillval = req.body.tillval;
         newArr[i].service = req.body.service;
         newArr[i].serviceDate = req.body.serviceDate;
-        console.log(newArr[i].tillval);
+        console.log("Object" + newArr[i].tillval);
+        console.log("Object" + req.body.tillval);
+
+
+        console.log("------- to array");
 
 
         ny_bil = {};
@@ -359,7 +367,7 @@ router.post('/update', function(req, res, next) {
           "type": newArr[i].type,
           "year": newArr[i].year,
           "passenger": newArr[i].passenger,
-          "tillval": newArr[i].tillval,
+          "tillval": f.tillvalFix(newArr[i].tillval),
           "service": newArr[i].service,
           "serviceDate": newArr[i].serviceDate
         }; // end upd_bil
@@ -427,12 +435,14 @@ router.post('/update', function(req, res, next) {
             }
             /* ----------   inspection section end ------*/
           });
+          
           res.render('fordon', {
             'bilar': ny_bil,
             'search_text': regnum,
             'funklista': funkArr,
             'besikt_bilar' : besikt_bilar
           });
+
         });
 
 
