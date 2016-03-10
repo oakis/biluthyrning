@@ -4,16 +4,19 @@ block content
   header
     h1 Boka bil
     nav
-      a(href='') Admin
+      //a(href='') Admin
       div(class='loggedIn')
-        input(type='text' name='username' form='boka')
-        a(href='') Logga ut
+        label(for='username') Användarnamn:
+        input(type='text' name='username' form='boka' class='username' required)
+        span(class='required') *
+        //a(href='') Logga ut
   section(class='bokaBil')
     form(method='post' action='/boka' id='boka')
       div(class='biltyp')
         h2 Biltyp
+          span(class='required') *
         p
-          input(type='radio' name='type' id='Sedan' value='Sedan')
+          input(type='radio' name='type' id='Sedan' value='Sedan' required)
           label(for='Sedan') Sedan
         p
           input(type='radio' name='type' id='Kombi' value='Kombi')
@@ -29,14 +32,15 @@ block content
           label(for='Lastbil') Lastbil
       div(class='tid')
         h2 Tid
+          span(class='required') *
         p
           label(for='franDatum') Från:
-          input(type='date' name='franDatum')
-          input(type='time' name='franTid')
+          input(type='date' name='franDatum' required)
+          input(type='time' name='franTid' required)
         p
           label(for='tillDatum') Till:
-          input(type='date' name='tillDatum')
-          input(type='time' name='tillTid')
+          input(type='date' name='tillDatum' required)
+          input(type='time' name='tillTid' required)
       div(class='tillval')
         h2 Tillval
         each funk in funklista
@@ -49,6 +53,9 @@ block content
         button Boka bil
   section(class='minaBokningar')
     h2 Mina bokningar
+    form(method='get' action='/boka')
+      input(type='text' name='username' value=username)
+      button Visa bokningar
     if(typeof boklista == 'undefined')
     else
       table
@@ -56,10 +63,20 @@ block content
           th Registreringsnummer
           th Från
           th Till
+          th Privat
+          th Avboka
             each book in boklista
               tr
                 td= book.regnum
                 td #{book.franDatum} #{book.franTid}
                 td #{book.tillDatum} #{book.tillTid}
+                td
+                  if(book.privat == "on")
+                    span Ja
+                td
+                  form(method='post' action='/boka/delete')
+                    input(type='hidden' name='username' value=username)
+                    input(type='hidden' name='id' value=book.id)
+                    button Avboka
   if(carBooked)
     div(class='carAdd') Bokning lyckades. Se lista nedan för dina bokningar.
