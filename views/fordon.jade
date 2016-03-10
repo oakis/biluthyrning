@@ -77,9 +77,9 @@ block content
             input(type='checkbox' name='service')
           - }
           | Service
-        button(class='button_style', onclick='submitFunction(1)') Ta bort
-        button(class='button_style', onclick='submitFunction(2)') Uppdatera
-        button(class='button_style', onclick='submitFunction(3)') Lägg till
+        button(class='button_style', formaction='fordon/remove') Ta bort
+        button(class='button_style', formaction='fordon/update') Uppdatera
+        button(class='button_style', formaction='fordon/add') Lägg till
 
   p #{testing}
   h2 Besiktningsinformation
@@ -88,7 +88,9 @@ block content
       .car
         span.reg_nr  p #{bil.regnum)
         span.date_info
-          input(type='date' value='#{bil.dateFrom}')
+          input(type='date' value='#{bil.inspectionDate}')
+          bokad
+          input(type='checkbox' name='inspection')
         span
           button.button_style Spara
 

@@ -20,6 +20,17 @@ checkIfExists = function(req, db) {
   return isItTrue;
 };
 
+function objectFindByKey(array, key, value) {
+    for (var i = 0; i < array.length; i++) {
+        if (array[i][key] === value) {
+            return array[i];
+        }
+    }
+    return "no match";
+}
+
+
+
 
 
 /* GET home page. */
@@ -45,15 +56,8 @@ router.post('/', function(req, res) {
 
   });
 
-  fs.readFile(funktioner, function(err, data) {
-    if (err) throw err;
-    data = data.toString();
-    var arr = data.split('*');
-    arr.forEach(function(v, i) {
-      funkArr.push(JSON.parse(arr[i]));
-    });
-    console.log(funkArr);
-  });
+
+
 
 
 
@@ -64,71 +68,68 @@ router.post('/', function(req, res) {
     arr.forEach(function(v, i) {
       newArr.push(JSON.parse(arr[i]));
     });
+    fs.readFile(funktioner, function(err, data) {
+      if (err) throw err;
+      data = data.toString();
+      var arr = data.split('*');
+      arr.forEach(function(v, i) {
+        funkArr.push(JSON.parse(arr[i]));
+      });
+      console.log(funkArr);
 
 
+          var result_obj = objectFindByKey(newArr, 'regnum',search_text );
+          console.log("----------- result_obj is");
+          console.log( result_obj.regnum);
+            if(search_text == result_obj.regnum ) {
+              ny_bil = {};
+              ny_bil = {
+                "regnum": result_obj.regnum,
+                "brand": result_obj.brand,
+                "model": result_obj.model,
+                "type": result_obj.type,
+                "year": result_obj.year,
+                "passenger": result_obj.passenger,
+                "tillval" : result_obj.tillval,
+                "service": result_obj.service,
+                "serviceDate": result_obj.serviceDate
+              };
+            } else {
+              ny_bil = {};
+              ny_bil = {
+                "regnum": "No Match",
+                "brand": "",
+                "model": "",
+                "type": "",
+                "year": "",
+                "passenger": "",
+                "tillval" : "",
+                "service": "",
+                "serviceDate": ""
+              };
+            }
+            if (search_text === null || search_text === undefined) {
+              ny_bil = {};
+              ny_bil = {
+                "regnum": "Empty Search",
+                "brand": "",
+                "model": "",
+                "type": "",
+                "year": "",
+                "passenger": "",
+                "tillval" : "",
+                "service": "",
+                "serviceDate": ""
+              };
+            }
+            res.render('fordon', {
+              'bilar': ny_bil,
+              'funklista': funkArr,
+              'besikt_bilar': besikt_bilar
+            });
 
-    /* var empty_search = "no search"; */
-    for (var i = 0; i < newArr.length; i++) {
-      if (search_text === "") {
-        funkArr = [];
-        ny_bil = {};
-        ny_bil = {
-          "regnum": "Empty search",
-          "brand": "",
-          "model": "",
-          "type": "",
-          "year": "",
-          "passenger": "",
-          "service": "",
-          "serviceDate": ""
-        };
-
-        } else if (newArr[i].regnum == search_text) {
-          console.log('match');
-          ny_bil = {};
-          ny_bil = {
-            "regnum": newArr[i].regnum,
-            "brand": newArr[i].brand,
-            "model": newArr[i].model,
-            "type": newArr[i].type,
-            "year": newArr[i].year,
-            "passenger": newArr[i].passenger,
-            "tillval" : newArr[i].tillval,
-            "service": newArr[i].service,
-            "serviceDate": newArr[i].serviceDate
-          };
-          console.log(typeof ny_bil);
-          //funkArr = [];
-
-          console.log(ny_bil);
-        } else {
-          console.log('no match');
-          funkArr = [];
-          ny_bil = {};
-          ny_bil = {
-            "regnum": "no match",
-            "brand": "",
-            "model": "",
-            "type": "",
-            "year": "",
-            "passenger": "",
-            "service": "",
-            "serviceDate": ""
-          };
-          /*res.render('fordon',{
-            'error': true
-          });*/
-        }
-        res.render('fordon', {
-          'bilar': ny_bil,
-          'funklista': funkArr,
-          'no_search' : "Empty search",
-          'besikt_bilar': besikt_bilar
-        });
-      }
-
-
-    /*console.log(newArr[1].regnum);*/
+          /*console.log(newArr[1].regnum);*/
+    }); // funkArr end
   });
 
   search_text = req.body.search_text.toUpperCase();
@@ -223,7 +224,7 @@ router.get('/', function(req, res, next) {
         /* ----------   inspection section end ------*/
       });
       res.render('fordon', {
-        funklista : funkArr,
+        'funklista' : funkArr,
         'bilar': ny_bil,
         'besikt_bilar' : besikt_bilar
 
@@ -334,24 +335,77 @@ router.post('/update', function(req, res, next) {
     arr.forEach(function(v,i){
       newArr.push(JSON.parse(arr[i]));
     });
+    /*// nya koden start
+                  var result_obj = objectFindByKey(newArr, 'regnum',regnum );
+                  console.log("----------- result_obj is");
+                  console.log( result_obj);
+                    if(regnum == result_obj.regnum ) {
+
+                      var arrTillval = "[" + req.body.tillval.toString().split(",") + "]";
+
+                      result_obj.regnum = req.body.regnum;
+                      result_obj.brand = req.body.brand;
+                      result_obj.model = req.body.model;
+                      result_obj.type = req.body.type;
+                      result_obj.year = req.body.year;
+                      result_obj.passenger = req.body.passenger;
+                      result_obj.tillval = arrTillval;
+                      result_obj.service = req.body.service;
+                      result_obj.serviceDate = req.body.serviceDate;
+
+                      ny_bil = {};
+                      ny_bil = {
+
+
+
+                        "regnum": result_obj.regnum,
+                        "brand": result_obj.brand,
+                        "model": result_obj.model,
+                        "type": result_obj.type,
+                        "year": result_obj.year,
+                        "passenger": result_obj.passenger,
+                        "tillval" : arrTillval,
+                        "service": result_obj.service,
+                        "serviceDate": result_obj.serviceDate
+                      };
+                    }
+
+
+                      var arrResult ;
+
+                      arrResult = Array.prototype.slice.apply( ny_bil );
+                    console.log('------ ---------- new arr ----------- ----');
+                    console.log(arrResult);
+                    console.log('------ ---------- obj arr ----------- ----');
+
+
+    // nya koden end*/
+
+
+
+
+     // orginal koden start
+     var arrTillval  ;
     for(i = 0; i < newArr.length; i++){
       if(newArr[i].regnum == regnum) {
         console.log('------ ---------- new arr  match----------- ----');
         console.log(newArr[i].tillval);
         console.log('------ ---------- new arr  update----------- ----');
 
-        /*function dd() {
-          return Array.from(arguments);
-        }*/
         newArr[i].regnum = req.body.regnum;
         newArr[i].brand = req.body.brand;
         newArr[i].model = req.body.model;
         newArr[i].type = req.body.type;
         newArr[i].year = req.body.year;
         newArr[i].passenger = req.body.passenger;
-        newArr[i].tillval = req.body.tillval;
+        newArr[i].tillval  = "[" + req.body.tillval.toString().split(",") + "]";
+        //var arrTillval = JSON.stringify(req.body.tillval);
+
+        newArr[i].tillval = newArr[i].tillval;
         newArr[i].service = req.body.service;
         newArr[i].serviceDate = req.body.serviceDate;
+        console.log('------ ---------- object----------- ----');
+        console.log(arrTillval);
         console.log("Object" + newArr[i].tillval);
         console.log("Object" + req.body.tillval);
 
@@ -367,17 +421,16 @@ router.post('/update', function(req, res, next) {
           "type": newArr[i].type,
           "year": newArr[i].year,
           "passenger": newArr[i].passenger,
-          "tillval": f.tillvalFix(newArr[i].tillval),
+          "tillval": newArr[i].tillval,
           "service": newArr[i].service,
           "serviceDate": newArr[i].serviceDate
         }; // end upd_bil
 
 
       } // end if newArr
-    }
+    }// orginal koden start
 
-    console.log('------ ---------- new arr ----------- ----');
-    //console.log(newArr);
+
     console.log(f.stringWrite(newArr));
     send = f.stringWrite(newArr);
     fs.writeFile(bilar,send,function(err){
@@ -435,20 +488,15 @@ router.post('/update', function(req, res, next) {
             }
             /* ----------   inspection section end ------*/
           });
-          
+
           res.render('fordon', {
             'bilar': ny_bil,
             'search_text': regnum,
             'funklista': funkArr,
             'besikt_bilar' : besikt_bilar
-          });
+          }); // res render end
 
         });
-
-
-
-
-
       });
     });
   });
@@ -463,7 +511,96 @@ router.post('/update', function(req, res, next) {
 router.post('/remove', function(req, res, next) {
   console.log("oooooooooooooooooooooooooo");
   console.log("Button delete is pressed");
-  res.render('fordon');
+
+  var inspection = './data/bilar.json';
+  var besikt_bilar = [];
+  var data1 = [];
+  var aallArr;
+  var bilar = './data/bilar.json';
+  var newArr = [];
+  var regnum = req.body.regnum;
+
+
+  fs.readFile(bilar, function(err,data){
+    if (err) throw err;
+    data = data.toString();
+    var arr = data.split('*');
+    arr.forEach(function(v,i){
+      newArr.push(JSON.parse(arr[i]));
+    });
+    for(i = 0; i < newArr.length; i++){
+      if (newArr[i].regnum == regnum) {
+        newArr.splice(i,1);
+      }
+    }
+    send = f.stringWrite(newArr);
+    fs.writeFile(bilar,send,function(err){
+      if (err) throw err;
+      console.log('file saved');
+      // read file start
+      funkArr = [];
+      fs.readFile(funktioner, function(err, data) {
+        if (err) throw err;
+        data = data.toString();
+        var arr = data.split('*');
+        arr.forEach(function(v, i) {
+          funkArr.push(JSON.parse(arr[i]));
+        });
+        fs.readFile(inspection, function(err, data) {
+          if (err) throw err;
+          data = data.toString();
+          var arr = data.split('*');
+          arr.forEach(function(v, i) {
+
+            //dagens år, månad och dag
+            var today_year = moment();
+            //bilens sista siffra minus 1 månad
+            var car_reg_full = JSON.parse(arr[i]);
+            console.log(typeof car_reg_full);
+            console.log("#######  car_reg_full");
+            console.log(car_reg_full);
+            var car_reg = car_reg_full.regnum.charAt(5) - 1;
+            console.log("#######  car_reg");
+            console.log(car_reg);
+            //bilens datum
+            var car_date = moment().set({'year': (moment().get('year')), 'month': car_reg, 'date':1});
+            //bilens från datum
+            var car_date_from = moment(car_date).subtract(2, 'months').startOf('month');
+            //bilens till datum
+            var car_date_after = moment(car_date).add(2, 'months').endOf('month');
+            var car_is_before =  moment(car_date).subtract(2, 'months').startOf('month');
+            var car_is_after =  moment(car_date).add(2, 'months').endOf('month');
+
+            console.log("-------- today month mars");
+            console.log(today_year.format('YYYY-MM-DD'));
+            console.log("-------- car date");
+            console.log(car_date.format('YYYY-MM-DD'));
+            console.log("-------- two months before today month mars is december");
+            console.log(car_date_from.format('YYYY-MM-DD'));
+            console.log("-------- two months after today month mars is december");
+            console.log(car_date_after.format('YYYY-MM-DD'));
+
+            if (car_is_before.isBefore(today_year) && car_is_after.isAfter(today_year)) {
+              besikt_bilar.push(car_reg_full);
+              console.log("this will be shown in march");
+            } else {
+              console.log("sorry, not this month");
+              console.log("this will not be shown in march");
+            }
+            /* ----------   inspection section end ------*/
+          });
+
+          res.render('fordon', {
+            'bilar': ny_bil,
+            'search_text': regnum,
+            'funklista': funkArr,
+            'besikt_bilar' : besikt_bilar
+          }); // res render end
+
+        });
+      });
+    });
+  });
 });
 
 module.exports = router;
