@@ -21,3 +21,27 @@
 	"franDatum": "2016-03-13",
 	"tillDatum": "2016-03-15"
 }
+*
+{
+	"regnum": "BCD234",
+	"franDatum": "2016-03-10",
+	"franTid": "00:00",
+	"tillDatum": "2016-03-11",
+	"tillTid": "18:00"
+}
+*
+{
+	"regnum": "BCD234",
+	"franDatum": "2016-03-30",
+	"franTid": "08:00",
+	"tillDatum": "2016-03-31",
+	"tillTid": "17:00"
+}
+*
+{
+	"regnum": "BCD234",
+	"franDatum": "2016-03-21",
+	"franTid": "00:00",
+	"tillDatum": "2016-03-22",
+	"tillTid": "00:00"
+}

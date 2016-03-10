@@ -9,7 +9,8 @@
 	"service": "on",
 	"serviceDate": "2016-03-02",
 	"inspection": "on",
-	"inspectionDate": "2016-03-03"
+	"inspectionDate": "2016-03-03",
+	"lastBooked": "2016-03-15"
 }
 *
 {
@@ -23,5 +24,6 @@
 	"service": "on",
 	"serviceDate": "2016-03-01",
 	"inspection": "on",
-	"inspectionDate": "2016-03-03"
+	"inspectionDate": "2016-03-03",
+	"lastBooked": "2016-01-01"
 }
