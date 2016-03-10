@@ -335,7 +335,7 @@ router.post('/update', function(req, res, next) {
     arr.forEach(function(v,i){
       newArr.push(JSON.parse(arr[i]));
     });
-    // nya koden start
+    /*// nya koden start
                   var result_obj = objectFindByKey(newArr, 'regnum',regnum );
                   console.log("----------- result_obj is");
                   console.log( result_obj);
@@ -372,23 +372,20 @@ router.post('/update', function(req, res, next) {
 
 
                       var arrResult ;
-                      /*for( var i in result_obj ) {
-                          if (result_obj.hasOwnProperty(i)){
-                             arr.push(result_obj[i]);
-                          }
-                      }*/
+
                       arrResult = Array.prototype.slice.apply( ny_bil );
                     console.log('------ ---------- new arr ----------- ----');
                     console.log(arrResult);
                     console.log('------ ---------- obj arr ----------- ----');
 
 
-    // nya koden end
+    // nya koden end*/
 
 
 
 
-    /* // orginal koden start
+     // orginal koden start
+     var arrTillval  ;
     for(i = 0; i < newArr.length; i++){
       if(newArr[i].regnum == regnum) {
         console.log('------ ---------- new arr  match----------- ----');
@@ -401,10 +398,10 @@ router.post('/update', function(req, res, next) {
         newArr[i].type = req.body.type;
         newArr[i].year = req.body.year;
         newArr[i].passenger = req.body.passenger;
-        var arrTillval = "[" + req.body.tillval.toString().split(",") + "]";
+        newArr[i].tillval  = "[" + req.body.tillval.toString().split(",") + "]";
         //var arrTillval = JSON.stringify(req.body.tillval);
 
-        newArr[i].tillval = arrTillval;
+        newArr[i].tillval = newArr[i].tillval;
         newArr[i].service = req.body.service;
         newArr[i].serviceDate = req.body.serviceDate;
         console.log('------ ---------- object----------- ----');
@@ -424,7 +421,7 @@ router.post('/update', function(req, res, next) {
           "type": newArr[i].type,
           "year": newArr[i].year,
           "passenger": newArr[i].passenger,
-          "tillval": arrTillval,
+          "tillval": newArr[i].tillval,
           "service": newArr[i].service,
           "serviceDate": newArr[i].serviceDate
         }; // end upd_bil
@@ -432,10 +429,10 @@ router.post('/update', function(req, res, next) {
 
       } // end if newArr
     }// orginal koden start
-     */
 
-    console.log(f.stringWrite(ny_bil));
-    send = f.stringWrite(ny_bil);
+
+    console.log(f.stringWrite(newArr));
+    send = f.stringWrite(newArr);
     fs.writeFile(bilar,send,function(err){
       if (err) throw err;
       console.log('file saved');
