@@ -20,7 +20,7 @@ function tillvalFix (req) { // Om bara ett tillval, gör om till en array med 1 
 		if (typeof req != 'string') {
 			req.forEach(function(v,i){
 				tillval.push(parseFloat(req[i]));
-			})
+			});
 		} else {
 			tillval.push(parseFloat(req));
 		}
@@ -51,9 +51,9 @@ function giveMeCar (needs,db,bokningar) {
 	// Kontrollera att ingen bokning på passande bilar finns vid valt datum.
 	valjBastBil.forEach(function(v,i){
 		var carMatch = '';
-		console.log('------------ valjBastBil loop start ------------')
+		console.log('------------ valjBastBil loop start ------------');
 		bokningar.forEach(function(val,ind){
-			console.log('<<<<<<<<<<<<< bokningar loop start >>>>>>>>>>>>>>>')
+			console.log('<<<<<<<<<<<<< bokningar loop start >>>>>>>>>>>>>>>');
 			// Om regnum i valjBastBil[i] finns i bokningar[ind].regnum, kontrollera tider
 			if (valjBastBil[i] == bokningar[ind].regnum) {
 
@@ -111,7 +111,7 @@ function giveMeCar (needs,db,bokningar) {
 						} else {
 							console.log('Bokning är inte på helgdag')
 						}
-					}	
+					}
 				}*/
 
 				if (user_from_full_date.isSameOrAfter(book_from_full_date) && user_to_full_date.isSameOrBefore(book_to_full_date)) {
@@ -119,7 +119,7 @@ function giveMeCar (needs,db,bokningar) {
 						carMatch += 'y';
 					} else {
 						carMatch += 'n';
-					};
+					}
 				} else {
 					carMatch += 'y';
 				}
@@ -151,8 +151,8 @@ v Gör en matchning på valda funktioner (tillval)
 v Gör en matchning på från och till datum (fromDate - toDate)
 v Gör en matching på från och till tid eller hela dagen
 - Privat användning, utanför arbetstid endast (08.00-17.00) - På is.
-- Lägg till bokning i bokningar.json
-- Visa en bekräftelse av bokningen
+v Lägg till bokning i bokningar.json
+v Visa en bekräftelse av bokningen
 */
 
 
@@ -187,7 +187,7 @@ router.post('/', function(req, res, next) {
 		'tillTid': req.body.tillTid,
 		'tillval': tillvalFix(req.body.tillval),
 		'privat': req.body.privat
-	}
+	};
 
   var carArr = [];
   fs.readFile(bilar, function(err, data) {
