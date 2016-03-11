@@ -144,7 +144,7 @@ router.post('/add', function(req, res, next) {
       "type": req.body.type,
       "year": req.body.year,
       "passenger": req.body.passenger,
-      "tillval": req.body.tillval,
+      "tillval": f.tillvalFix(req.body.tillval),
       "service": req.body.service,
       "serviceDate": req.body.serviceDate,
       "inspection": "",
