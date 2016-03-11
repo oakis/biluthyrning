@@ -165,6 +165,7 @@ header {
 
 /* FUNKTIONER */
 
+.bookFailed,
 .doesExist {
   background: #c00;
   width: auto;
