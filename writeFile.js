@@ -1,5 +1,4 @@
 var fs = require('fs');
-var f = require('./functions.js');
 
 function writeFile (file, send) {
 	fs.writeFile(file, send, function(err) {

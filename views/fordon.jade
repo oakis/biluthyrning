@@ -82,6 +82,9 @@ block content
             input(type='checkbox' name='service')
           - }
           | Service
+        input(type='hidden' name='lastBooked' value=bilar.lastBooked)
+        input(type='hidden' name='inspection' value=bilar.inspection)
+        input(type='hidden' name='inspectionDate' value=bilar.inspectionDate)
         button(class='button_style', formaction='/fordon/remove') Ta bort
         button(class='button_style', formaction='/fordon/update') Uppdatera
         button(class='button_style', formaction='/fordon/add') Lägg till
@@ -93,7 +96,7 @@ block content
       .car
         span.reg_nr #{bil.regnum)
         span.date_info
-          input(type='date' value='#{bil.inspectionDate}')
+          input(type='date' name='inspectionDate' value='#{bil.inspectionDate}')
           bokad
           input(type='checkbox' name='inspection')
         span

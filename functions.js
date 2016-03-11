@@ -45,6 +45,7 @@ exports.updateFunk = function (req) {
 	}
   return req.merged;
 };
+
 exports.tillvalFix = function(req) { // Om bara ett tillval, gör om till en array med 1 index.
 	var tillval = [];
 	if (typeof req != 'undefined') {
@@ -80,7 +81,7 @@ exports.stringifyBook = function (arr) {
 exports.stringWrite = function (array) {
 			var str = "";
 			array.forEach(function(v,i){
-				str += '{\n\t"regnum": "' + array[i].regnum + '",\n\t"brand": "' + array[i].brand + '",\n\t"model": "' + array[i].model + '",\n\t"type": "' + array[i].type + '",\n\t"year": "' + array[i].year + '",\n\t"passenger": "' + array[i].passenger + '",\n\t"tillval": ' + array[i].tillval + ',\n\t"service": "' + array[i].service + '",\n\t"serviceDate": "' + array[i].serviceDate + '"\n}\n*\n';
+				str += '{\n\t"regnum": "' + array[i].regnum + '",\n\t"brand": "' + array[i].brand + '",\n\t"model": "' + array[i].model + '",\n\t"type": "' + array[i].type + '",\n\t"year": "' + array[i].year + '",\n\t"passenger": "' + array[i].passenger + '",\n\t"tillval": [' + array[i].tillval + '],\n\t"service": "' + array[i].service + '",\n\t"serviceDate": "' + array[i].serviceDate + '"\n}\n*\n';
 			});
 			str = str.slice(0, -3);
 			return str;
