@@ -8,12 +8,12 @@ block content
     .meny
       ul
         li
-          a(href='#') Boka bil
+          a(href='/boka') Boka bil
         li
-          a(href='#') Bilar till besiktning(5)
+          a(href='#besiktning') Bilar till besiktning (#{besikt_bilar.length})
         li
-          a(href='#')
-            | user
+          a(href='/')
+            | Admin
             br
             | logga ut
   // ----------------- sök fordon
@@ -90,7 +90,7 @@ block content
         button(class='button_style', formaction='/fordon/add') Lägg till
 
   p #{testing}
-  h2 Besiktningsinformation
+  h2(id='besiktning') Besiktningsinformation
   .inspection_info
     each bil in besikt_bilar
       .car

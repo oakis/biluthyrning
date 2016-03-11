@@ -5,9 +5,11 @@
 	"type": "Kombi",
 	"year": "2012",
 	"passenger": "4",
-	"tillval": [1,4,7],
+	"tillval": [],
 	"service": "on",
 	"serviceDate": "2016-03-02",
+	"inspection": "",
+	"inspectionDate": "",
 	"lastBooked": "2016-03-03"
 }
 *
@@ -18,8 +20,10 @@
 	"type": "Kombi",
 	"year": "2014",
 	"passenger": "4",
-	"tillval": [1,4,10,13],
+	"tillval": [],
 	"service": "on",
 	"serviceDate": "2016-03-01",
+	"inspection": "",
+	"inspectionDate": "",
 	"lastBooked": "2016-03-01"
 }
