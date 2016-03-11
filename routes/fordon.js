@@ -4,6 +4,7 @@ var fs = require('fs');
 var moment = require('moment');
 var f = require('../functions.js');
 var loadFile = require('../loadFile.js');
+var appendFile = require('../appendFile.js');
 
 // JSON
 var bilar = './data/bilar.json';
@@ -30,6 +31,30 @@ function objectFindByKey(array, key, value) {
     return "no match";
 }
 
+function checkBesikt (array) {
+  var besikt_bilar = [];
+  array.forEach(function(v, i) {
+    //dagens år, månad och dag
+    var today_year = moment();
+    //bilens sista siffra minus 1 månad
+    var car_reg_full = array[i];
+    var car_reg = car_reg_full.regnum.charAt(5) - 1;
+    //bilens datum
+    var car_date = moment().set({'year': (moment().get('year')), 'month': car_reg, 'date':1});
+    //bilens från datum
+    var car_date_from = moment(car_date).subtract(2, 'months').startOf('month');
+    //bilens till datum
+    var car_date_after = moment(car_date).add(2, 'months').endOf('month');
+    var car_is_before =  moment(car_date).subtract(2, 'months').startOf('month');
+    var car_is_after =  moment(car_date).add(2, 'months').endOf('month');
+    // Om bilen snart behöver besiktigas, skicka till array som sen skickas till render
+    if (car_is_before.isBefore(today_year) && car_is_after.isAfter(today_year)) {
+      besikt_bilar.push(car_reg_full);
+    }
+  });
+  return besikt_bilar;
+}
+
 var empty_car = {
   "regnum": "",
   "brand": "",
@@ -43,19 +68,30 @@ var empty_car = {
   "lastBooked": ""
 };
 
+/* LOAD PAGE */
+router.get('/', function(req, res, next) {
+  loadFile(funktioner, loadNext);
+  function loadNext (funkArr) {
+    loadFile(bilar, doStuff);
+    function doStuff (carArr) {
+      res.render('fordon', {
+        'funklista': funkArr,
+        'bilar': empty_car,
+        'besikt_bilar' : checkBesikt(carArr)
+      });
+    };
+  };
+});
 
+/* SEARCH CAR */
 router.post('/', function(req, res, next) {
   var search_text = req.body.search_text.toUpperCase();
 
-  var besikt_bilar = [];
-  /* ----- besiktnings information ----- */
   loadFile(bilar, loadFunk);
   function loadFunk (carArr) {
     loadFile(funktioner, doStuff);
     function doStuff (funkArr) {
       var findCar = objectFindByKey(carArr, 'regnum', search_text);
-      console.log("----------- findCar is");
-      console.log(findCar.regnum);
       if(search_text == findCar.regnum) {
         var ny_bil = {
           "regnum": findCar.regnum,
@@ -84,97 +120,17 @@ router.post('/', function(req, res, next) {
       res.render('fordon', {
         'bilar': ny_bil,
         'funklista': funkArr,
-        'besikt_bilar': besikt_bilar
+        'besikt_bilar': checkBesikt(carArr)
       });
       }
     };
 });
 
-
-
-router.get('/', function(req, res, next) {
-
-
-  var besikt_bilar = [];
-  
-  
-
-
-  var funkArr = [];
-  fs.readFile(funktioner, function(err, data) {
-    if (err) throw err;
-    data = data.toString();
-    var arr = data.split('*');
-    arr.forEach(function(v, i) {
-      funkArr.push(JSON.parse(arr[i]));
-    });
-    /*console.log("------- line 173------");
-    console.log(besikt_bilar);*/
-    fs.readFile(bilar, function(err, data) {
-      if (err) throw err;
-      data = data.toString();
-      var arr = data.split('*');
-      arr.forEach(function(v, i) {
-
-        //dagens år, månad och dag
-        var today_year = moment();
-        //bilens sista siffra minus 1 månad
-        var car_reg_full = JSON.parse(arr[i]);
-        console.log(typeof car_reg_full);
-        console.log("#######  car_reg_full");
-        console.log(car_reg_full);
-        var car_reg = car_reg_full.regnum.charAt(5) - 1;
-        console.log("#######  car_reg");
-        console.log(car_reg);
-        //bilens datum
-        var car_date = moment().set({'year': (moment().get('year')), 'month': car_reg, 'date':1});
-        //bilens från datum
-        var car_date_from = moment(car_date).subtract(2, 'months').startOf('month');
-        //bilens till datum
-        var car_date_after = moment(car_date).add(2, 'months').endOf('month');
-        var car_is_before =  moment(car_date).subtract(2, 'months').startOf('month');
-        var car_is_after =  moment(car_date).add(2, 'months').endOf('month');
-
-        console.log("-------- today month mars");
-        console.log(today_year.format('YYYY-MM-DD'));
-        console.log("-------- car date");
-        console.log(car_date.format('YYYY-MM-DD'));
-        console.log("-------- two months before today month mars is december");
-        console.log(car_date_from.format('YYYY-MM-DD'));
-        console.log("-------- two months after today month mars is december");
-        console.log(car_date_after.format('YYYY-MM-DD'));
-
-        if (car_is_before.isBefore(today_year) && car_is_after.isAfter(today_year)) {
-          besikt_bilar.push(car_reg_full);
-          console.log("this will be shown in march");
-        } else {
-          console.log("sorry, not this month");
-          console.log("this will not be shown in march");
-        }
-        /* ----------   inspection section end ------*/
-      });
-      res.render('fordon', {
-        'funklista': funkArr,
-        'bilar': empty_car,
-        'besikt_bilar' : besikt_bilar
-      });
-    });
-  });
-});
-
-
-
+/* ADD CAR */
 router.post('/add', function(req, res, next) {
 
-  var carArr = [];
-  var funkArr = [];
-  fs.readFile(bilar, function(err, data) {
-    if (err) throw err;
-    data = data.toString();
-    var arr = data.split('*');
-    arr.forEach(function(v, i) {
-      carArr.push(JSON.parse(arr[i]));
-    });
+  loadFile(bilar, loadNext);
+  function loadNext (carArr) {
     var newCar = {
       "regnum": req.body.regnum.toUpperCase(),
       "brand": req.body.brand,
@@ -184,46 +140,45 @@ router.post('/add', function(req, res, next) {
       "passenger": req.body.passenger,
       "tillval": req.body.tillval,
       "service": req.body.service,
-      "serviceDate": req.body.serviceDate
+      "serviceDate": req.body.serviceDate,
+      "inspection": "",
+      "inspectionDate": "",
+      "lastBooked": ""
     };
-    var send = '\n*\n' + JSON.stringify(newCar, null, "\t");
     if (checkIfExists(newCar, carArr) === true) {
-      fs.readFile(funktioner, function(err, data) {
-        if (err) throw err;
-        data = data.toString();
-        var arr = data.split('*');
-        arr.forEach(function(v, i) {
-          funkArr.push(JSON.parse(arr[i]));
-        });
+      loadFile(funktioner, errorPage);
+      function errorPage (funkArr) {
         res.render('fordon', {
           carExists: 'En bil med regnummer "' + newCar.regnum + '" finns redan registrerad.',
           carErr: true,
           funklista: funkArr,
-          bilar: ny_bil
+          bilar: empty_car,
+          besikt_bilar: checkBesikt(carArr)
         });
-      });
+      }
     } else {
-      fs.appendFile(bilar, send, function(err, data) {
-        if (err) throw err;
-        fs.readFile(funktioner, function(err, data) {
-          if (err) throw err;
-          data = data.toString();
-          var arr = data.split('*');
-          arr.forEach(function(v, i) {
-            funkArr.push(JSON.parse(arr[i]));
-          });
-          res.render('fordon', {
-            carAdded: 'Bilen med regnummer "' + newCar.regnum + '" registrerades utan problem.',
-            carAdd: true,
-            funklista: funkArr,
-            bilar: empty_car
-          });
+      if (typeof newCar.tillval == 'undefined') {
+        newCar.tillval = [];
+      }
+      if (typeof newCar.service == 'undefined') {
+        newCar.service = "off";
+      }
+      appendFile(bilar, newCar);
+      loadFile(funktioner, successPage);
+      function successPage (funkArr) {
+        res.render('fordon', {
+          carAdded: 'Bilen med regnummer "' + newCar.regnum + '" registrerades utan problem.',
+          carAdd: true,
+          funklista: funkArr,
+          bilar: empty_car,
+          besikt_bilar: checkBesikt(carArr)
         });
-      });
+      }
     }
-  });
+  }
 });
 
+/* UPDATE CAR */
 router.post('/update', function(req, res, next) {
   console.log("oooooooooooooooooooooooooo");
   console.log("Button update is pressed");
@@ -372,7 +327,7 @@ router.post('/update', function(req, res, next) {
 
 
 
-
+/* DELETE CAR */
 router.post('/remove', function(req, res, next) {
   console.log("oooooooooooooooooooooooooo");
   console.log("Button delete is pressed");

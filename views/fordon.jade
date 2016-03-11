@@ -29,7 +29,7 @@ block content
   // -----------------  fordon
 
   .vehicle_container
-    form(method='post' name='car_crud')
+    form(method='post')
       h2#vehicle_headline Fordon
       .vehicle.div_style
         .vehicle_left
@@ -82,16 +82,16 @@ block content
             input(type='checkbox' name='service')
           - }
           | Service
-        button(class='button_style', formaction='fordon/remove') Ta bort
-        button(class='button_style', formaction='fordon/update') Uppdatera
-        button(class='button_style', formaction='fordon/add') Lägg till
+        button(class='button_style', formaction='/fordon/remove') Ta bort
+        button(class='button_style', formaction='/fordon/update') Uppdatera
+        button(class='button_style', formaction='/fordon/add') Lägg till
 
   p #{testing}
   h2 Besiktningsinformation
   .inspection_info
     each bil in besikt_bilar
       .car
-        span.reg_nr  p #{bil.regnum)
+        span.reg_nr #{bil.regnum)
         span.date_info
           input(type='date' value='#{bil.inspectionDate}')
           bokad

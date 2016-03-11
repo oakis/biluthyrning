@@ -303,10 +303,11 @@ header {
     }
     .option {
 
-      height: 130px;
+      min-height: 130px;
       width: 300px;
       padding: 20px;
       float: right;
+      height: auto;
     }
     #option_headline {
       margin-top: -70px;
