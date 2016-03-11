@@ -3,6 +3,7 @@ var router = express.Router();
 var fs = require('fs');
 var moment = require('moment');
 var f = require('../functions.js');
+var loadFile = require('../loadFile.js');
 
 // JSON
 var bilar = './data/bilar.json';
@@ -29,145 +30,74 @@ function objectFindByKey(array, key, value) {
     return "no match";
 }
 
+var empty_car = {
+  "regnum": "",
+  "brand": "",
+  "model": "",
+  "type": "",
+  "year": "",
+  "passenger": "",
+  "tillval": [],
+  "service": "",
+  "serviceDate": "",
+  "lastBooked": ""
+};
 
 
-
-
-/* GET home page. */
-
-router.post('/', function(req, res) {
-  var search_text = "";
-  var file = __dirname + '/../data/bilar.json';
-  /*bilar = {};*/
-  var bilar = './data/bilar.json';
-  var newArr = [];
+router.post('/', function(req, res, next) {
+  var search_text = req.body.search_text.toUpperCase();
 
   var besikt_bilar = [];
-  var funkArr = [];
   /* ----- besiktnings information ----- */
-  fs.readFile(bilar, function(err, data) {
-    if (err) throw err;
-    data = data.toString();
-    var arr = data.split('*');
-    arr.forEach(function(v, i) {
-      besikt_bilar.push(JSON.parse(arr[i]));
-    });
-
-
-  });
-
-
-
-
-
-
-  fs.readFile(bilar, function(err, data) {
-    if (err) throw err;
-    data = data.toString();
-    var arr = data.split('*');
-    arr.forEach(function(v, i) {
-      newArr.push(JSON.parse(arr[i]));
-    });
-    fs.readFile(funktioner, function(err, data) {
-      if (err) throw err;
-      data = data.toString();
-      var arr = data.split('*');
-      arr.forEach(function(v, i) {
-        funkArr.push(JSON.parse(arr[i]));
+  loadFile(bilar, loadFunk);
+  function loadFunk (carArr) {
+    loadFile(funktioner, doStuff);
+    function doStuff (funkArr) {
+      var findCar = objectFindByKey(carArr, 'regnum', search_text);
+      console.log("----------- findCar is");
+      console.log(findCar.regnum);
+      if(search_text == findCar.regnum) {
+        var ny_bil = {
+          "regnum": findCar.regnum,
+          "brand": findCar.brand,
+          "model": findCar.model,
+          "type": findCar.type,
+          "year": findCar.year,
+          "passenger": findCar.passenger,
+          "tillval" : f.tillvalFix(findCar.tillval),
+          "service": findCar.service,
+          "serviceDate": findCar.serviceDate
+        };
+      } else {
+        var ny_bil = {
+          "regnum": "Not found",
+          "brand": "",
+          "model": "",
+          "type": "",
+          "year": "",
+          "passenger": "",
+          "tillval" : [],
+          "service": "",
+          "serviceDate": ""
+        };
+      }
+      res.render('fordon', {
+        'bilar': ny_bil,
+        'funklista': funkArr,
+        'besikt_bilar': besikt_bilar
       });
-      console.log(funkArr);
-
-
-          var result_obj = objectFindByKey(newArr, 'regnum',search_text );
-          console.log("----------- result_obj is");
-          console.log( result_obj.regnum);
-            if(search_text == result_obj.regnum ) {
-              ny_bil = {};
-              ny_bil = {
-                "regnum": result_obj.regnum,
-                "brand": result_obj.brand,
-                "model": result_obj.model,
-                "type": result_obj.type,
-                "year": result_obj.year,
-                "passenger": result_obj.passenger,
-                "tillval" : result_obj.tillval,
-                "service": result_obj.service,
-                "serviceDate": result_obj.serviceDate
-              };
-            } else {
-              ny_bil = {};
-              ny_bil = {
-                "regnum": "No Match",
-                "brand": "",
-                "model": "",
-                "type": "",
-                "year": "",
-                "passenger": "",
-                "tillval" : "",
-                "service": "",
-                "serviceDate": ""
-              };
-            }
-            if (search_text === null || search_text === undefined) {
-              ny_bil = {};
-              ny_bil = {
-                "regnum": "Empty Search",
-                "brand": "",
-                "model": "",
-                "type": "",
-                "year": "",
-                "passenger": "",
-                "tillval" : "",
-                "service": "",
-                "serviceDate": ""
-              };
-            }
-            res.render('fordon', {
-              'bilar': ny_bil,
-              'funklista': funkArr,
-              'besikt_bilar': besikt_bilar
-            });
-
-          /*console.log(newArr[1].regnum);*/
-    }); // funkArr end
-  });
-
-  search_text = req.body.search_text.toUpperCase();
-  /*console.log("last : " + search_text);*/
-
-  /*console.log(search_text);*/
-
-
-
-
-
+      }
+    };
 });
+
+
 
 router.get('/', function(req, res, next) {
 
-/* ---------- read file ------ */
-  var inspection = './data/bilar.json';
+
   var besikt_bilar = [];
-  var data1 = [];
-  var arr;
-  var aallArr;
-  // ------------ ---------------- ------------
-
-
-  // ------------ ---------------- ------------
-
-
-  ny_bil = {};
-  ny_bil = {
-    "regnum": "",
-    "brand": "",
-    "model": "",
-    "type": "",
-    "year": "",
-    "passenger": "",
-    "service": "",
-    "serviceDate": ""
-  };
+  
+  
 
 
   var funkArr = [];
@@ -180,7 +110,7 @@ router.get('/', function(req, res, next) {
     });
     /*console.log("------- line 173------");
     console.log(besikt_bilar);*/
-    fs.readFile(inspection, function(err, data) {
+    fs.readFile(bilar, function(err, data) {
       if (err) throw err;
       data = data.toString();
       var arr = data.split('*');
@@ -224,10 +154,9 @@ router.get('/', function(req, res, next) {
         /* ----------   inspection section end ------*/
       });
       res.render('fordon', {
-        'funklista' : funkArr,
-        'bilar': ny_bil,
+        'funklista': funkArr,
+        'bilar': empty_car,
         'besikt_bilar' : besikt_bilar
-
       });
     });
   });
@@ -266,16 +195,6 @@ router.post('/add', function(req, res, next) {
         arr.forEach(function(v, i) {
           funkArr.push(JSON.parse(arr[i]));
         });
-        ny_bil = {
-          "regnum": "",
-          "brand": "",
-          "model": "",
-          "type": "",
-          "year": "",
-          "passenger": "",
-          "service": "",
-          "serviceDate": ""
-        };
         res.render('fordon', {
           carExists: 'En bil med regnummer "' + newCar.regnum + '" finns redan registrerad.',
           carErr: true,
@@ -285,8 +204,7 @@ router.post('/add', function(req, res, next) {
       });
     } else {
       fs.appendFile(bilar, send, function(err, data) {
-        /*if (err) throw err;
-        else console.log('SUCCESS MOTHERFUCKER: '+send);*/
+        if (err) throw err;
         fs.readFile(funktioner, function(err, data) {
           if (err) throw err;
           data = data.toString();
@@ -294,21 +212,11 @@ router.post('/add', function(req, res, next) {
           arr.forEach(function(v, i) {
             funkArr.push(JSON.parse(arr[i]));
           });
-          ny_bil = {
-            "regnum": "",
-            "brand": "",
-            "model": "",
-            "type": "",
-            "year": "",
-            "passenger": "",
-            "service": "",
-            "serviceDate": ""
-          };
           res.render('fordon', {
             carAdded: 'Bilen med regnummer "' + newCar.regnum + '" registrerades utan problem.',
             carAdd: true,
             funklista: funkArr,
-            bilar: ny_bil
+            bilar: empty_car
           });
         });
       });
