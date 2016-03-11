@@ -343,6 +343,7 @@ router.post('/update', function(req, res, next) {
      // orginal koden start
 
     for(i = 0; i < newArr.length; i++){
+      newArr[i].tillval = "["+ newArr[i].tillval +"]";
       if(newArr[i].regnum == regnum) {
         console.log('------ ---------- new arr  match----------- ----');
         console.log(newArr[i].tillval);
@@ -354,10 +355,10 @@ router.post('/update', function(req, res, next) {
         newArr[i].type = req.body.type;
         newArr[i].year = req.body.year;
         newArr[i].passenger = req.body.passenger;
-        //newArr[i].tillval  = "[" + req.body.tillval.toString().split(",") + "]";
+        newArr[i].tillval  = "[" + req.body.tillval.toString().split(",") + "]";
 
 
-        newArr[i].tillval = req.body.tillval;
+        //newArr[i].tillval = req.body.tillval;
         newArr[i].service = req.body.service;
         newArr[i].serviceDate = req.body.serviceDate;
         console.log('------ ---------- object----------- ----');

@@ -5,7 +5,7 @@
 	"type": "Kombi",
 	"year": "2012",
 	"passenger": "4",
-	"tillval": 1,
+	"tillval": [1,4,7],
 	"service": "on",
 	"serviceDate": "2016-03-02"
 }
@@ -17,7 +17,7 @@
 	"type": "Sedan",
 	"year": "2014",
 	"passenger": "4",
-	"tillval": 1,
+	"tillval": [1,4,10,13],
 	"service": "on",
 	"serviceDate": "2016-03-01"
 }
