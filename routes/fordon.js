@@ -333,60 +333,17 @@ router.post('/update', function(req, res, next) {
     data = data.toString();
     var arr = data.split('*');
     arr.forEach(function(v,i){
+
       newArr.push(JSON.parse(arr[i]));
     });
-    /*// nya koden start
-                  var result_obj = objectFindByKey(newArr, 'regnum',regnum );
-                  console.log("----------- result_obj is");
-                  console.log( result_obj);
-                    if(regnum == result_obj.regnum ) {
-
-                      var arrTillval = "[" + req.body.tillval.toString().split(",") + "]";
-
-                      result_obj.regnum = req.body.regnum;
-                      result_obj.brand = req.body.brand;
-                      result_obj.model = req.body.model;
-                      result_obj.type = req.body.type;
-                      result_obj.year = req.body.year;
-                      result_obj.passenger = req.body.passenger;
-                      result_obj.tillval = arrTillval;
-                      result_obj.service = req.body.service;
-                      result_obj.serviceDate = req.body.serviceDate;
-
-                      ny_bil = {};
-                      ny_bil = {
-
-
-
-                        "regnum": result_obj.regnum,
-                        "brand": result_obj.brand,
-                        "model": result_obj.model,
-                        "type": result_obj.type,
-                        "year": result_obj.year,
-                        "passenger": result_obj.passenger,
-                        "tillval" : arrTillval,
-                        "service": result_obj.service,
-                        "serviceDate": result_obj.serviceDate
-                      };
-                    }
-
-
-                      var arrResult ;
-
-                      arrResult = Array.prototype.slice.apply( ny_bil );
-                    console.log('------ ---------- new arr ----------- ----');
-                    console.log(arrResult);
-                    console.log('------ ---------- obj arr ----------- ----');
-
-
-    // nya koden end*/
-
-
+    console.log("--------------- read arr from file------------");
+    console.log(newArr);
 
 
      // orginal koden start
-     var arrTillval  ;
+
     for(i = 0; i < newArr.length; i++){
+      newArr[i].tillval = "["+ newArr[i].tillval +"]";
       if(newArr[i].regnum == regnum) {
         console.log('------ ---------- new arr  match----------- ----');
         console.log(newArr[i].tillval);
@@ -399,13 +356,13 @@ router.post('/update', function(req, res, next) {
         newArr[i].year = req.body.year;
         newArr[i].passenger = req.body.passenger;
         newArr[i].tillval  = "[" + req.body.tillval.toString().split(",") + "]";
-        //var arrTillval = JSON.stringify(req.body.tillval);
 
-        newArr[i].tillval = newArr[i].tillval;
+
+        //newArr[i].tillval = req.body.tillval;
         newArr[i].service = req.body.service;
         newArr[i].serviceDate = req.body.serviceDate;
         console.log('------ ---------- object----------- ----');
-        console.log(arrTillval);
+        //console.log(arrTillval);
         console.log("Object" + newArr[i].tillval);
         console.log("Object" + req.body.tillval);
 

@@ -1,11 +1,11 @@
 {
 	"regnum": "ABC123",
 	"brand": "Volvo",
-	"model": "V70d",
-	"type": "Sedan",
+	"model": "V70e",
+	"type": "Kombi",
 	"year": "2012",
 	"passenger": "4",
-	"tillval": 1,4,7,10,
+	"tillval": [1,4,7],
 	"service": "on",
 	"serviceDate": "2016-03-02"
 }
@@ -13,11 +13,11 @@
 {
 	"regnum": "BCD234",
 	"brand": "Volkswagen",
-	"model": "Passata",
+	"model": "Passat",
 	"type": "Sedan",
 	"year": "2014",
 	"passenger": "4",
-	"tillval": [1,4,7],
+	"tillval": [1,4,10,13],
 	"service": "on",
 	"serviceDate": "2016-03-01"
 }
