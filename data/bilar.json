@@ -1,23 +1,25 @@
 {
 	"regnum": "ABC123",
 	"brand": "Volvo",
-	"model": "V70e",
+	"model": "V70",
 	"type": "Kombi",
 	"year": "2012",
 	"passenger": "4",
 	"tillval": [1,4,7],
 	"service": "on",
-	"serviceDate": "2016-03-02"
+	"serviceDate": "2016-03-02",
+	"lastBooked": "2016-03-03"
 }
 *
 {
 	"regnum": "BCD234",
 	"brand": "Volkswagen",
 	"model": "Passat",
-	"type": "Sedan",
+	"type": "Kombi",
 	"year": "2014",
 	"passenger": "4",
 	"tillval": [1,4,10,13],
 	"service": "on",
-	"serviceDate": "2016-03-01"
+	"serviceDate": "2016-03-01",
+	"lastBooked": "2016-03-01"
 }
