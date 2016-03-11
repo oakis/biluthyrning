@@ -43,6 +43,7 @@ block content
           br
           |         Typ :
           select(name='type')
+            option(value='#{bilar.type}' selected) #{bilar.type}
             option(value='Sedan') Sedan
             option(value='Kombi') Kombi
             option(value='Pickup') Pickup
