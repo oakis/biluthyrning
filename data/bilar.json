@@ -27,3 +27,37 @@
 	"inspectionDate": "",
 	"lastBooked": "2016-03-01"
 }
+
+*
+{
+	"regnum": "AAA666",
+	"brand": "Kuken",
+	"model": "Passa dig",
+	"type": "Kombi",
+	"year": "2010",
+	"passenger": "0",
+	"tillval": [
+		1,
+		2
+	],
+	"service": "on",
+	"serviceDate": "2016-03-24",
+	"inspection": "",
+	"inspectionDate": "",
+	"lastBooked": ""
+}
+*
+{
+	"regnum": "DEF654",
+	"brand": "Scania",
+	"model": "430",
+	"type": "Kombi",
+	"year": "2010",
+	"passenger": "1",
+	"tillval": [],
+	"service": "off",
+	"serviceDate": "",
+	"inspection": "",
+	"inspectionDate": "",
+	"lastBooked": ""
+}

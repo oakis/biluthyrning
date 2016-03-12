@@ -44,8 +44,10 @@ router.post('/delete', function(req, res, next) {
 				}
 			});
 			var send = f.stringifyBook(bookArr);
-			writeFile(bookings, send);
-			res.redirect('/boka?username=' + req.body.username);
+			writeFile(bookings, send, redirect);
+			function redirect () {
+				res.redirect('/boka?username=' + req.body.username);
+			};
 		}
 });
 
@@ -65,7 +67,7 @@ router.post('/', function(req, res, next) {
 
 		loadFile(bilar, loadBookings);
 		function loadBookings (carArr) {
-			carArr.sort(f.sortArr('lastBooked')); // Sortera array efter senast bokad
+			//carArr.sort(f.sortArr('lastBooked')); // Sortera array efter senast bokad
 			loadFile(bookings, getCar);
 			function getCar (bokArr) {
 				// kontr vilken bil som passar bäst och returnera regnum om bokningen gick igenom, annars false.
@@ -95,7 +97,6 @@ router.post('/', function(req, res, next) {
 						// Om regnum i valjBastBil[i] finns i bokArr[ind].regnum, kontrollera tider
 						if (valjBastBil[i] == bokArr[ind].regnum) {
 
-
               // --- user choose date from
 							var user_from_year = carNeeds.franDatum.substring(0,4);
 							var user_from_month = carNeeds.franDatum.substring(5,7) -1;
@@ -117,11 +118,8 @@ router.post('/', function(req, res, next) {
               var user_to_full_time = moment().set({'hour':user_to_time, 'minute':user_to_min});
 
               //full time and date
-              var user_from_full_time_and_date = moment().set({'year':user_from_year, 'month':user_from_month,'date':user_from_day,'hour':user_from_time, 'minute':user_from_min});
-              var user_to_full_time_and_date = moment().set({'year':user_to_year, 'month':user_to_month,'date':user_to_day,'hour':user_to_time, 'minute':user_to_min});
-
-
-
+              var user_from = moment().set({'year':user_from_year, 'month':user_from_month,'date':user_from_day,'hour':user_from_time, 'minute':user_from_min});
+              var user_to = moment().set({'year':user_to_year, 'month':user_to_month,'date':user_to_day,'hour':user_to_time, 'minute':user_to_min});
 
 							// --- booked date from
 							var book_from_year = bokArr[ind].franDatum.substring(0,4);
@@ -147,57 +145,33 @@ router.post('/', function(req, res, next) {
 
 
               //full time and date
-              var booked_from_full_time_and_date = moment().set({'year':book_from_year, 'month':book_from_month,'date':book_from_day,'hour':book_from_time, 'minute':book_from_min});
-              var booked_to_full_time_and_date = moment().set({'year':book_to_year, 'month':book_to_month,'date':book_to_day,'hour':book_to_time, 'minute':book_to_min});
-
-              console.log(" ----- user from full time and date");
-              console.log(user_from_full_time_and_date.format("YYYY-MM-DD HH:mm"));
-
-              console.log(" ----- user to full time and date");
-              console.log(user_to_full_time_and_date.format("YYYY-MM-DD HH:mm"));
-
-              console.log(" ----- booked from full time and date");
-              console.log(booked_from_full_time_and_date.format("YYYY-MM-DD HH:mm"));
-
-              console.log(" ----- booked to full time and date");
-              console.log(booked_to_full_time_and_date.format("YYYY-MM-DD HH:mm"));
-              console.log("booked--------------------------");
-              console.log(booked_from_full_time_and_date.format("YYYY-MM-DD HH:mm"));
-
-
+              var booked_from = moment().set({'year':book_from_year, 'month':book_from_month,'date':book_from_day,'hour':book_from_time, 'minute':book_from_min});
+              var booked_to = moment().set({'year':book_to_year, 'month':book_to_month,'date':book_to_day,'hour':book_to_time, 'minute':book_to_min});
 
 							// --------------- user choose time end---------
-              if(user_from_full_time_and_date.isSameOrAfter(booked_from_full_time_and_date) && user_to_full_time_and_date.isSameOrAfter(booked_to_full_time_and_date)) {
+              if(!user_from.isBetween(booked_from, booked_to)) {
 
-                carMatch += 'y';
-                console.log("Bil reg num--------------------------");
-                console.log("bil reg num");
-                console.log(bokArr[ind].regnum);
-                console.log(bokArr[ind].tillDatum);
-                console.log(bokArr[ind].tillTid);
-
-                console.log("you can book it");
+              	if (user_from.isSameOrBefore(booked_from) &&
+              			!user_to.isSameOrAfter(booked_to) ||
+              			!user_to.isBetween(booked_from, booked_to)) {
+              		if (user_from.isBefore(booked_from)) {
+              			if (!user_to.isBetween(booked_from, booked_to) || user_to.isAfter(booked_to)) {
+              				carMatch += 'y';
+              			} else {
+              				carMatch += 'n';
+              			}
+             			} else if (user_to.isAfter(booked_to)) {
+             				carMatch += 'y';
+             			} else {
+             				carMatch += 'n';
+             			}
+              	} else {
+              		carMatch += 'y';
+              	}
 
               } else {
-                console.log("Bil reg num--------------------------");
-                console.log("bil reg num");
-                console.log(bokArr[ind].regnum);
-                console.log(bokArr[ind].tillDatum);
-                console.log(bokArr[ind].tillTid);
-
-                console.log("you cant book it");
                 carMatch += 'n';
               }
-
-							/*if (user_from_full_date.isSameOrAfter(book_from_full_date) && user_to_full_date.isSameOrBefore(book_to_full_date)) {
-								if (user_from_full_time.isSameOrAfter(booked_from_full_time) && user_to_full_time.isSameOrBefore(booked_to_full_time)) {
-									carMatch += 'y';
-								} else {
-									carMatch += 'n';
-								}
-							} else {
-								carMatch += 'y';// här
-							}*/
 						}
 					});
 					console.log(carMatch);

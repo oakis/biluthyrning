@@ -5,7 +5,7 @@ function writeFile (file, send, callback) {
 		if (err) throw err;
 		console.log('File saved.');
 	})
-	callback()
+	callback();
 }
 
 module.exports = writeFile;

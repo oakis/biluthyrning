@@ -66,12 +66,11 @@ block content
       .option.div_style
         h2#option_headline Tillval
         each funk in funklista
-          if(bilar.tillval[funk.id -1] == funk.id)
-            label= funk.name
-            input(type='checkbox' value=funk.id name='tillval' checked)
-          else
-            label= funk.name
-            input(type='checkbox' value=funk.id name='tillval')
+          label= funk.name
+            if(bilar.tillval[funk.id -1] == funk.id)
+              input(type='checkbox' value=funk.id name='tillval' checked)
+            else
+              input(type='checkbox' value=funk.id name='tillval')
       .action_button
         | status : Bokningsbar
         span.data_service
