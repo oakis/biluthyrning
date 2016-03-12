@@ -1,7 +1,7 @@
 {
 	"id": 1,
 	"regnum": "ABC123",
-	"franDatum": "2016-03-06",
+	"franDatum": "2016-03-07",
 	"franTid": "12:00",
 	"tillDatum": "2016-03-08",
 	"tillTid": "12:00",
@@ -19,122 +19,14 @@
 	"username": "Mirsad",
 	"privat": "undefined"
 }
+
 *
 {
 	"id": 3,
 	"regnum": "ABC123",
-	"franDatum": "2016-03-13",
+	"franDatum": "2016-03-12",
 	"franTid": "12:00",
-	"tillDatum": "2016-03-15",
+	"tillDatum": "2016-03-13",
 	"tillTid": "12:00",
-	"username": "Mirsad",
-	"privat": "undefined"
-}
-*
-{
-	"id": 4,
-	"regnum": "BCD234",
-	"franDatum": "2016-03-10",
-	"franTid": "00:00",
-	"tillDatum": "2016-03-11",
-	"tillTid": "18:00",
-	"username": "Mirsad",
-	"privat": "undefined"
-}
-*
-{
-	"id": 5,
-	"regnum": "BCD234",
-	"franDatum": "2016-03-30",
-	"franTid": "08:00",
-	"tillDatum": "2016-03-31",
-	"tillTid": "17:00",
-	"username": "Anders Ekman",
-	"privat": "undefined"
-}
-*
-{
-	"id": 6,
-	"regnum": "BCD234",
-	"franDatum": "2016-03-21",
-	"franTid": "00:00",
-	"tillDatum": "2016-03-22",
-	"tillTid": "00:00",
-	"username": "Mirsad",
-	"privat": "undefined"
-}
-*
-{
-	"id": 7,
-	"regnum": "BCD234",
-	"franDatum": "2016-04-14",
-	"franTid": "08:00",
-	"tillDatum": "2016-04-15",
-	"tillTid": "17:00",
-	"username": "Mirsad",
-	"privat": "undefined"
-}
-*
-{
-	"id": 8,
-	"regnum": "BCD234",
-	"franDatum": "2016-03-21",
-	"franTid": "00:00",
-	"tillDatum": "2016-03-22",
-	"tillTid": "00:00",
-	"username": "Anders Ekman",
-	"privat": "undefined"
-}
-*
-{
-	"id": 9,
-	"regnum": "BCD234",
-	"franDatum": "2016-03-25",
-	"franTid": "00:00",
-	"tillDatum": "2016-03-26",
-	"tillTid": "00:00",
-	"username": "Anders Ekman",
-	"privat": "undefined"
-}
-*
-{
-	"id": 11,
-	"regnum": "BCD234",
-	"franDatum": "2016-03-27",
-	"franTid": "00:00",
-	"tillDatum": "2016-03-27",
-	"tillTid": "01:00",
-	"username": "h",
-	"privat": "on"
-}
-*
-{
-	"id": 12,
-	"regnum": "BCD234",
-	"franDatum": "2016-03-01",
-	"franTid": "00:00",
-	"tillDatum": "2016-03-02",
-	"tillTid": "00:00",
-	"username": "h",
-	"privat": "undefined"
-}
-*
-{
-	"id": 13,
-	"regnum": "ABC123",
-	"franDatum": "2017-01-20",
-	"franTid": "02:00",
-	"tillDatum": "2017-01-21",
-	"tillTid": "05:00",
-	"username": "Anders Ekman"
-}
-*
-{
-	"id": 14,
-	"regnum": "ABC123",
-	"franDatum": "2017-01-20",
-	"franTid": "02:00",
-	"tillDatum": "2017-01-21",
-	"tillTid": "05:00",
-	"username": "Anders Ekman"
+	"username": "m"
 }

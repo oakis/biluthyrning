@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 	  function renderPage (books) {
 	  	var userBooks = [];
 	  	books.forEach(function(v,i){
-	  		if (req.query.username == books[i].username) {	
+	  		if (req.query.username == books[i].username) {
 	  			userBooks.push(books[i]);
 	  		}
 	  	});
@@ -41,13 +41,13 @@ router.post('/delete', function(req, res, next) {
 			bookArr.forEach(function(v,i){
 				if (bookArr[i].id == req.body.id) {
 					bookArr.splice(bookArr.indexOf(bookArr[i]),1);
-				};
+				}
 			});
 			var send = f.stringifyBook(bookArr);
 			writeFile(bookings, send);
 			res.redirect('/boka?username=' + req.body.username);
 		}
-})
+});
 
 /* BOKA BIL */
 router.post('/', function(req, res, next) {
@@ -95,11 +95,33 @@ router.post('/', function(req, res, next) {
 						// Om regnum i valjBastBil[i] finns i bokArr[ind].regnum, kontrollera tider
 						if (valjBastBil[i] == bokArr[ind].regnum) {
 
-							// --- user choose date from
+
+              // --- user choose date from
 							var user_from_year = carNeeds.franDatum.substring(0,4);
 							var user_from_month = carNeeds.franDatum.substring(5,7) -1;
 							var user_from_day = carNeeds.franDatum.substring(8,10);
 							var user_from_full_date = moment().set({'year': user_from_year,'month': user_from_month,'date': user_from_day});
+
+              // --- user date to
+							var user_to_year = carNeeds.tillDatum.substring(0,4);
+							var user_to_month = carNeeds.tillDatum.substring(5,7) -1;
+							var user_to_day = carNeeds.tillDatum.substring(8,10);
+							var user_to_full_date = moment().set({'year': user_to_year,'month': user_to_month,'date': user_to_day});
+              // --- user choose from time
+              var user_from_time = carNeeds.franTid.substring(0,2);
+              var user_from_min = carNeeds.franTid.substring(3,7);
+              var user_from_full_time = moment().set({'hour':user_from_time, 'minute':user_from_min});
+              // --- user choose to time
+              var user_to_time = carNeeds.tillTid.substring(0,2);
+              var user_to_min = carNeeds.tillTid.substring(3,7);
+              var user_to_full_time = moment().set({'hour':user_to_time, 'minute':user_to_min});
+
+              //full time and date
+              var user_from_full_time_and_date = moment().set({'year':user_from_year, 'month':user_from_month,'date':user_from_day,'hour':user_from_time, 'minute':user_from_min});
+              var user_to_full_time_and_date = moment().set({'year':user_to_year, 'month':user_to_month,'date':user_to_day,'hour':user_to_time, 'minute':user_to_min});
+
+
+
 
 							// --- booked date from
 							var book_from_year = bokArr[ind].franDatum.substring(0,4);
@@ -107,47 +129,75 @@ router.post('/', function(req, res, next) {
 							var book_from_day = bokArr[ind].franDatum.substring(8,10);
 							var book_from_full_date = moment().set({'year': book_from_year,'month': book_from_month,'date': book_from_day});
 
-							// --- user date to
-							var user_to_year = carNeeds.tillDatum.substring(0,4);
-							var user_to_month = carNeeds.tillDatum.substring(5,7) -1;
-							var user_to_day = carNeeds.tillDatum.substring(8,10);
-							var user_to_full_date = moment().set({'year': user_to_year,'month': user_to_month,'date': user_to_day});
-
 							// --- booked date tom
 							var book_to_year = bokArr[ind].tillDatum.substring(0,4);
 							var book_to_month = bokArr[ind].tillDatum.substring(5,7) -1;
 							var book_to_day = bokArr[ind].tillDatum.substring(8,10);
 							var book_to_full_date = moment().set({'year': book_to_year,'month': book_to_month,'date': book_to_day});
 
-							// --------------- user choose time start---------
-							// --- user choose from time
-							var user_from_time = carNeeds.franTid.substring(0,2);
-							var user_from_min = carNeeds.franTid.substring(3,7);
-							var user_from_full_time = moment().set({'hour':user_from_time, 'minute':user_from_min});
-							// --- user choose to time
-							var user_to_time = carNeeds.tillTid.substring(0,2);
-							var user_to_min = carNeeds.tillTid.substring(3,7);
-							var user_to_full_time = moment().set({'hour':user_to_time, 'minute':user_to_min});
 
 							// --- booked  from time
-							var booked_from_time = bokArr[ind].franTid.substring(0,2);
-							var booked_from_min = bokArr[ind].franTid.substring(3,7);
-							var booked_from_full_time = moment().set({'hour':booked_from_time, 'minute':booked_from_min});
+							var book_from_time = bokArr[ind].franTid.substring(0,2);
+							var book_from_min = bokArr[ind].franTid.substring(3,7);
+							var book_from_full_time = moment().set({'hour':book_from_time, 'minute':book_from_min});
 							// --- booked  to time
-							var booked_to_time = bokArr[ind].tillTid.substring(0,2);
-							var booked_to_min = bokArr[ind].tillTid.substring(3,7);
-							var booked_to_full_time = moment().set({'hour':booked_to_time, 'minute':booked_to_min});
-							// --------------- user choose time end---------
+							var book_to_time = bokArr[ind].tillTid.substring(0,2);
+							var book_to_min = bokArr[ind].tillTid.substring(3,7);
+							var book_to_full_time = moment().set({'hour':book_to_time, 'minute':book_to_min});
 
-							if (user_from_full_date.isSameOrAfter(book_from_full_date) && user_to_full_date.isSameOrBefore(book_to_full_date)) {
+
+              //full time and date
+              var booked_from_full_time_and_date = moment().set({'year':book_from_year, 'month':book_from_month,'date':book_from_day,'hour':book_from_time, 'minute':book_from_min});
+              var booked_to_full_time_and_date = moment().set({'year':book_to_year, 'month':book_to_month,'date':book_to_day,'hour':book_to_time, 'minute':book_to_min});
+
+              console.log(" ----- user from full time and date");
+              console.log(user_from_full_time_and_date.format("YYYY-MM-DD HH:mm"));
+
+              console.log(" ----- user to full time and date");
+              console.log(user_to_full_time_and_date.format("YYYY-MM-DD HH:mm"));
+
+              console.log(" ----- booked from full time and date");
+              console.log(booked_from_full_time_and_date.format("YYYY-MM-DD HH:mm"));
+
+              console.log(" ----- booked to full time and date");
+              console.log(booked_to_full_time_and_date.format("YYYY-MM-DD HH:mm"));
+              console.log("booked--------------------------");
+              console.log(booked_from_full_time_and_date.format("YYYY-MM-DD HH:mm"));
+
+
+
+							// --------------- user choose time end---------
+              if(user_from_full_time_and_date.isSameOrAfter(booked_from_full_time_and_date) && user_to_full_time_and_date.isSameOrAfter(booked_to_full_time_and_date)) {
+
+                carMatch += 'y';
+                console.log("Bil reg num--------------------------");
+                console.log("bil reg num");
+                console.log(bokArr[ind].regnum);
+                console.log(bokArr[ind].tillDatum);
+                console.log(bokArr[ind].tillTid);
+
+                console.log("you can book it");
+
+              } else {
+                console.log("Bil reg num--------------------------");
+                console.log("bil reg num");
+                console.log(bokArr[ind].regnum);
+                console.log(bokArr[ind].tillDatum);
+                console.log(bokArr[ind].tillTid);
+
+                console.log("you cant book it");
+                carMatch += 'n';
+              }
+
+							/*if (user_from_full_date.isSameOrAfter(book_from_full_date) && user_to_full_date.isSameOrBefore(book_to_full_date)) {
 								if (user_from_full_time.isSameOrAfter(booked_from_full_time) && user_to_full_time.isSameOrBefore(booked_to_full_time)) {
 									carMatch += 'y';
 								} else {
 									carMatch += 'n';
 								}
 							} else {
-								carMatch += 'y';
-							}
+								carMatch += 'y';// här
+							}*/
 						}
 					});
 					console.log(carMatch);
@@ -170,7 +220,7 @@ router.post('/', function(req, res, next) {
 						'tillTid': carNeeds.tillTid,
 						'username': carNeeds.username,
 						'privat': carNeeds.privat
-					}
+					};
 					appendFile(bookings, newBooking);
 				}
 				loadFile(funktioner, loadNext);
@@ -179,7 +229,7 @@ router.post('/', function(req, res, next) {
 				  function renderPage (books) {
 				  	var userBooks = [];
 				  	books.forEach(function(v,i){
-				  		if (req.body.username == books[i].username) {	
+				  		if (req.body.username == books[i].username) {
 				  			userBooks.push(books[i]);
 				  		}
 				  	});
