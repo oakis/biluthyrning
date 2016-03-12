@@ -1,119 +1,115 @@
 extends layout
-
 block content
+  div(class='page-container')
+    div(class='header div_style')
+      div(class='headline')
+        h1 Administration
+      div(class='meny')
+        ul
+          li
+            a(href='/boka') Boka bil
+          li
+            a(href='#besiktning') Bilar till besiktning (#{besikt_bilar.length})
+          li
+            a(href='/') Admin
+          li
+            a(href='/') Logga ut
+    h2(id='headline_add_remove') Lägg till / Ändra fordon
 
-  .header.div_style
-    .headline
-      h1 Administration
-    .meny
-      ul
-        li
-          a(href='/boka') Boka bil
-        li
-          a(href='#besiktning') Bilar till besiktning (#{besikt_bilar.length})
-        li
-          a(href='/')
-            | Admin
-            br
-            | logga ut
-  // ----------------- sök fordon
-  h2#headline_add_remove Lägg till / Ändra fordon
-  br
-  h2#search_headline Sök fordon
-  .search.div_style
-      h2#reg_info_headline Registreringsnummer
-      form(method='post' action='/fordon')
-        input#search_text(type='text' name="search_text" value='#{bilar.regnum}')
-        span.req_star *
-        button#search_button Sök
-  // -----------------  fordon
+    // ----------------- sök fordon
+    
+    h2(id='search_headline') Sök fordon
+    div(class='search div_style')
+        h2(id='reg_info_headline') Registreringsnummer
+        form(method='post' action='/fordon')
+          input(id='search_text' type='text' name="search_text" value='#{bilar.regnum}')
+          span(class='req_star') *
+          button(id='search_button') Sök
 
-  .vehicle_container
-    form(method='post')
-      h2#vehicle_headline Fordon
-      .vehicle.div_style
-        .vehicle_left
-          | Märke :
-          input(type='text' placeholder='Märke' value='#{bilar.brand}' name='brand')
-          span.req_star *
-          br
-          |         Modell :
-          input(type='text', placeholder='Modell' value='#{bilar.model}' name='model')
-          span.req_star *
-          br
-          |         Typ :
-          select(name='type')
-            option(value='#{bilar.type}' selected) #{bilar.type}
-            option(value='Sedan') Sedan
-            option(value='Kombi') Kombi
-            option(value='Pickup') Pickup
-            option(value='Lätt lastbil') Lätt lastbil
-            option(value='Lastbil') Lastbil
-          span.req_star *
-        .vehicle_right
-          | Årsmodell :
-          input(type='text', placeholder='Årsmodell' value='#{bilar.year}' name='year')
-          span.req_star *
-          br
-          |         Reg-info :
-          input(type='text', placeholder='Reg-info' value='#{bilar.regnum}' name='regnum')
-          span.req_star *
-          br
-          |         Antal passagerare :
-          input(type='text', placeholder='Antal passagerare' value='#{bilar.passenger}' name='passenger')
-          span.req_star *
-          br
-      .option.div_style
-        h2#option_headline Tillval
-        each funk in funklista
-          label= funk.name
-            if(bilar.tillval[funk.id -1] == funk.id)
-              input(type='checkbox' value=funk.id name='tillval' checked)
-            else
-              input(type='checkbox' value=funk.id name='tillval')
-      .action_button
-        | status : Bokningsbar
-        span.data_service
-          input(type='date' name='serviceDate' value='#{bilar.serviceDate}')
-          - if(bilar.service == "on") {
-            input(type='checkbox' name='service' checked)
-          - } else {
-            input(type='checkbox' name='service')
-          - }
-          | Service
-        input(type='hidden' name='lastBooked' value=bilar.lastBooked)
-        input(type='hidden' name='inspection' value=bilar.inspection)
-        input(type='hidden' name='inspectionDate' value=bilar.inspectionDate)
-        button(class='button_style', formaction='/fordon/remove') Ta bort
-        button(class='button_style', formaction='/fordon/update') Uppdatera
-        button(class='button_style', formaction='/fordon/add') Lägg till
+    // -----------------  fordon
+    div(class='vehicle_container')
+      form(method='post')
+        h2(id='vehicle_headline') Fordon
+        div(class='vehicle div_style')
+          div(class='vehicle_left')
+            div
+              label(for='brand') Märke:
+              span(class='req_star') *
+              input(type='text' placeholder='Märke' value='#{bilar.brand}' name='brand' required)
+            div
+              label(for='model') Modell:
+              span(class='req_star') *
+              input(type='text', placeholder='Modell' value='#{bilar.model}' name='model' required)
+            div
+              label(for='type') Typ:
+              span(class='req_star') *
+              select(name='type' required)
+                option(value='#{bilar.type}' selected) #{bilar.type}
+                option(value='Sedan') Sedan
+                option(value='Kombi') Kombi
+                option(value='Pickup') Pickup
+                option(value='Lätt lastbil') Lätt lastbil
+                option(value='Lastbil') Lastbil
+          div(class='vehicle_right')
+            div
+              label(for='year') Årsmodell:
+              span(class='req_star') *
+              input(type='text' placeholder='Årsmodell' value='#{bilar.year}' name='year')
+            div
+              label(for='regnum') Regnummer:
+              span(class='req_star') *
+              input(type='text' placeholder='Reg-info' value='#{bilar.regnum}' name='regnum')
+            div
+              label(for='passenger') Antal passagerare:
+              span(class='req_star') *
+              input(type='text' placeholder='Antal passagerare' value='#{bilar.passenger}' name='passenger')
+            div
+              label(for='service') Service:
+              input(type='date' name='serviceDate' value='#{bilar.serviceDate}')
+              if(bilar.service == 'on')
+                input(type='checkbox' name='service' checked)
+              else
+                input(type='checkbox' name='service')
+        div(class='option div_style')
+          h2(id='option_headline') Tillval
+          each funk in funklista
+            label= funk.name
+              if(bilar.tillval[funk.id -1] == funk.id)
+                input(type='checkbox' value=funk.id name='tillval' checked)
+              else
+                input(type='checkbox' value=funk.id name='tillval')
+        div(class='action_button')
+          input(type='hidden' name='lastBooked' value=bilar.lastBooked)
+          input(type='hidden' name='inspection' value=bilar.inspection)
+          input(type='hidden' name='inspectionDate' value=bilar.inspectionDate)
+          button(class='button_style' formaction='/fordon/remove') Ta bort
+          button(class='button_style' formaction='/fordon/update') Uppdatera
+          button(class='button_style' formaction='/fordon/add') Lägg till
 
-  p #{testing}
-  h2(id='besiktning') Besiktningsinformation
-  .inspection_info
-    each bil in besikt_bilar
-      .car
-        span.reg_nr #{bil.regnum)
-        span.date_info
-          input(type='date' name='inspectionDate' value='#{bil.inspectionDate}')
-          bokad
-          input(type='checkbox' name='inspection')
+    div(class='inspection_info div_style')
+      h2(id='besiktning') Besiktningsinformation
+      each bil in besikt_bilar
+        div(class='car div_style')
+          span(class='reg_nr') #{bil.regnum)
+          span(class='date_info')
+            input(type='date' name='inspectionDate' value='#{bil.inspectionDate}')
+            input(type='checkbox' name='inspection')
+          span
+            button(class='button_style') Spara
+
+    div(class='service_info div_style')
+      h2 Serviceinformation
+      div(class='car div_style')
+        span(class='reg_nr') DEF456
+        span(class='date_info') 18 / 3 / 2016
         span
-          button.button_style Spara
-
-  h2 Serviceinformation
-  .service_info
-    .car
-      span.reg_nr DEF 456
-      span.date_info 18 / 3 / 2016
-      span
-        button.button_style Spara
-    .car
-      span.reg_nr GHI 789
-      span.date_info 14 / 7 / 2016
-      span
-        button.button_style Spara
-  if(carErr)
-    div(class='doesExist')= carExists
-  if(carAdd)
-    div(class='carAdd')= carAdded
+          button(class='button_style') Spara
+      div(class='car div_style')
+        span(class='reg_nr') GHI789
+        span(class='date_info') 14 / 7 / 2016
+        span
+          button(class='button_style') Spara
+    if(carErr)
+      div(class='doesExist')= carExists
+    if(carAdd)
+      div(class='carAdd')= carAdded

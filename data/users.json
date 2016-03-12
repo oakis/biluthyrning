@@ -1,4 +1,12 @@
 {
-	
+	"users": [
+		{
+			"username": "anders",
+			"password": "carpool"
+		},
+		{
+			"username": "mirsad",
+			"password": "carpool"
+		}
+	]
 }
-*

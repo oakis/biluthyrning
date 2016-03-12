@@ -1,43 +1,43 @@
 extends layout
 
 block content
-  .header.div_style
-    .headline
-      h1 Administration
-    .meny
-      ul
-        li
-          a(href='#') Boka bil
-        li
-          a(href='#') Bilar till besiktning(5)
-        li
-          a(href='#')
-            | user
-            br
-            | logga ut
-  // ----------------- sök fordon
-  h2#headline_add_remove Lägg till / Ändra funktioner
-  br
-  h2#search_headline Lägg till funktioner :
-  .search.div_style
-    h2#reg_info_headline Funktion
-    form(method='post' action='/funktioner/add')
-      input#search_text(type='text' placeholder='Namn på funktion' name='name')
-      span.req_star *
-      button#search_button Lägg till
-  // -----------------  fordon
-  .vehicle_container
-    h2#vehicle_headline Ändra funktioner :
-    .funktioner.div_style
-      form(method='post' action='/funktioner/update')
-        each funk in funklista
-          input(type='text' value=funk.name name='tillval')
-          input(type='hidden' value=funk.id name='tillvalId')
-          input(class='funktioner_style' type='checkbox' value=funk.id name='deleteId')
-          label(for=funk.id) Ta bort
-        span.funktion_update_button
-          button.button_style Uppdatera
-  if(funkErr)
-    div(class='doesExist')= funkExists
-  if(funkAdd)
-    div(class='funkAdd')= funkAdded
+  div(class='page-container')
+    div(class='header div_style')
+      div(class='headline')
+        h1 Administration
+      div(class='meny')
+        ul
+          li
+            a(href='/boka') Boka bil
+          li
+            a(href='/fordon#besiktning') Bilar till besiktning (5)
+          li
+            a(href='#') Admin
+          li
+            a(href='/') Logga ut
+
+    h2(id='headline_add_remove') Lägg till / Ändra funktioner
+    h2(id='search_headline') Lägg till funktioner:
+    div(class='search div_style')
+      h2(id='reg_info_headline') Funktion
+      form(method='post' action='/funktioner/add')
+        input(id='search_text' type='text' placeholder='Namn på funktion' name='name')
+        span(class='req_star') *
+        button(id='search_button') Lägg till
+    
+    div(class='vehicle_container')
+      h2(id='vehicle_headline') Ändra funktioner:
+      div(class='funktioner div_style')
+        form(method='post' action='/funktioner/update')
+          each funk in funklista
+            div(class='input_div')
+              input(type='text' value=funk.name name='tillval')
+              input(type='hidden' value=funk.id name='tillvalId')
+              input(class='funktioner_style' type='checkbox' value=funk.id name='deleteId')
+              label(for=funk.id) Ta bort
+          span(class='funktion_update_button')
+            button(class='button_style') Uppdatera
+    if(funkErr)
+      div(class='doesExist')= funkExists
+    if(funkAdd)
+      div(class='funkAdd')= funkAdded

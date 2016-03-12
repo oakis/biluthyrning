@@ -83,10 +83,8 @@ body {
 }
 
 header {
-	width: 1000px;
-	background: #ccc;
 	margin: 10px auto;
-	height: 100px;
+	height: 50px;
 }
 
 	header * {
@@ -95,18 +93,22 @@ header {
 
 	header h1 {
 		float: left;
+    margin: 0;
+    line-height: 50px;
+    margin-left: 28px;
 	}
 
 	header nav {
 		float: right;
 	}
 
-		.loggedIn {}
+		.loggedIn {
+      line-height: 50px;
+      margin-right: 28px;
+    }
 
 .bokaBil {
 	clear: both;
-	width: 1000px;
-	min-height: 300px;
 	height: auto;
 	margin: 50px auto 10px auto;
 }
@@ -116,42 +118,63 @@ header {
 		margin-top: -35px;
 	}
 
-	.bokaBil div:nth-child(1) {
-		margin: 0 25px 0 0;
+	.biltyp {
+		margin: 0 2.3% 0 0;
 	}
 
-	.bokaBil div:nth-child(2) {
-		margin: 0 25px 0 25px;
+	.tid {
+		margin: 0 2.3% 0 2.3%;
 	}
 
-	.bokaBil div:nth-child(3) {
-		margin: 0 0 0 25px;
+	.tillval {
+		margin: 0 0 0 2.3%;
 	}
+
+    .tillval h2 {
+      margin: -35px 0 10px 0;
+    }
 
 	.biltyp,
 	.tid,
 	.tillval {
-		width: 300px;
-		min-height: 300px;
+		width: 30%;
 		height: auto;
-		background: #ccc;
 		float: left;
 	}
 
-	.biltyp input {
-
+	.biltyp input,
+  .tid label {
+    margin: auto auto auto 15px;
 	}
+
+  .tillvalFix {
+    margin: 2%;
+    float: left;
+  }
+
+  .tillvalFix div {
+    width: 45%;
+    display: inline-block;
+    margin: auto;
+    float: left;
+  }
+
+    .tillvalFix div:nth-child(even) {
+      float: left;
+    }
+
+    .tillvalFix div:nth-child(even) {
+      float: right;
+    }
 
 	.avslutabokning {
 		float: right;
-		margin: 10px auto;
+		margin: 20px 0 0 auto;
 	}
 
 .minaBokningar {
 	clear: both;
-	width: 1000px;
 	margin: 10px auto;
-	background: #ccc;
 }
 
 	.minaBokningar h2 {
@@ -159,7 +182,23 @@ header {
 		margin-top: -35px;
 	}
 
-	.minaBokningar tr {}
+  .minaBokningar table {
+    width: 100%;
+  }
+
+  .minaBokningar th {
+    text-align: left;
+    background: none;
+  }
+
+  .minaBokningar th:last-child,
+  .minaBokningar td:last-child {
+    text-align: right;
+  }
+
+	.minaBokningar tr:nth-child(even) {
+    background: #eee;
+  }
 
 	.minaBokningar td {}
 
@@ -190,30 +229,33 @@ header {
 }
 
 
+/******************************************************* MIRSAD */
+
+.page-container {
+  width: 80%;
+  margin: auto;
+}
 
     .header {
-
-      height: 100px;
-
+      width: 100%;
+      height: 50px;
+      margin: auto;
     }
     .headline {
-      height: 100px;
       width: 220px;
-      line-height: 100px;
+      line-height: 50px;
       padding-left: 20px;
       padding-right: 10px;
+      margin-top: -20px;
       float: left
     }
     .div_style {
-      padding: 20px;
-      border: 2px solid #000000;
+      border: 1px solid #000000;
     }
     .meny {
       float: right;
       right: 8px;
-      top: 21px;
-      height: 100px;
-      width: 450px;
+      margin-top: -20px;
     }
     .meny ul {
       list-style: none;
@@ -221,13 +263,15 @@ header {
     .meny ul li {
       float: left;
       padding-top: 20px;
+      margin: 0 20px;
     }
     .meny ul li a {
       display: block;
-      width: 100px;
     }
     #headline_add_remove {
+      margin: 15px auto;
       text-align: center;
+      clear: both;
     }
     .req_star {
       display: inline-block;
@@ -240,9 +284,9 @@ header {
       padding-left: 20px;
     }
     .search {
-
-      height: 100px;
-      width: 640px;
+      height: auto;
+      width: 100%;
+      padding-bottom: 28px;
     }
     #reg_info_headline {
       display: block;
@@ -277,15 +321,17 @@ header {
       float: left;
     }
     .funktioner {
-
+      float: left;
       padding: 20px;
       text-align: center;
-
+      margin-bottom: 28px;
     }
     .funktion_update_button {
       text-align: right;
       display: block;
       margin: 20px 0px 0px 0px;
+      float: right;
+      clear: both;
     }
     .funktioner_style {
       font-size: 26px;
@@ -293,14 +339,22 @@ header {
       padding: 0px 20px;
     }
     .vehicle_container {
-      height: 240px;
+      clear: both;
     }
     .vehicle_left {
       float: left;
     }
+      .vehicle_left input,
+      .vehicle_left select {
+        float: right;
+      }
     .vehicle_right {
       float: right;
     }
+      .vehicle_right input,
+      .vehicle_right select {
+        float: right;
+      }
     .option {
 
       min-height: 130px;
@@ -316,27 +370,25 @@ header {
     .action_button {
       text-align: center;
       float: right;
+      clear: right;
+      margin: 28px 0;
     }
 
-    .data_service {
-      display: inline-block;
-      border: 2px solid #000000;
-      padding: 3px;
-    }
     .inspection_info, .service_info {
-
-
+      float: left;
       background-color: #FFFFFF;
-      padding: 20px;
-      border: 2px solid #000000;
       margin: 10px 0px;
+      width: 100%;
+    }
+
+    .inspection_info > h2, .service_info > h2 {
+      margin-left: 12px;
     }
 
     .car {
       padding: 20px;
-      border: 2px solid #000000;
       text-align: center;
-      margin-bottom: 10px;
+      margin: 10px 15px;
     }
     .reg_nr {
       display: inline-block;
@@ -355,4 +407,12 @@ header {
       font-size: 44px;
       margin: 0px 40px;
 
+    }
+
+    .input_div {
+      padding: 5px;
+      display: inline-block;
+      margin: auto;
+      width: 32%;
+      float: left;
     }
