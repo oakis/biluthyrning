@@ -3,7 +3,13 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+	if (req.query.username == 'anv') {
+		res.redirect('/boka');
+	} else if (req.query.username == 'admin'){
+		res.redirect('/fordon');
+	} else {
+		res.render('index');
+	};
 });
 
 module.exports = router;

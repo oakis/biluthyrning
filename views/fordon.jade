@@ -8,12 +8,12 @@ block content
     .meny
       ul
         li
-          a(href='#') Boka bil
+          a(href='/boka') Boka bil
         li
-          a(href='#') Bilar till besiktning(5)
+          a(href='#besiktning') Bilar till besiktning (#{besikt_bilar.length})
         li
-          a(href='#')
-            | user
+          a(href='/')
+            | Admin
             br
             | logga ut
   // ----------------- sök fordon
@@ -29,7 +29,7 @@ block content
   // -----------------  fordon
 
   .vehicle_container
-    form(method='post' name='car_crud')
+    form(method='post')
       h2#vehicle_headline Fordon
       .vehicle.div_style
         .vehicle_left
@@ -66,8 +66,12 @@ block content
       .option.div_style
         h2#option_headline Tillval
         each funk in funklista
-          label= funk.name
-          input(type='checkbox' value=funk.id name='tillval')
+          if(bilar.tillval[funk.id -1] == funk.id)
+            label= funk.name
+            input(type='checkbox' value=funk.id name='tillval' checked)
+          else
+            label= funk.name
+            input(type='checkbox' value=funk.id name='tillval')
       .action_button
         | status : Bokningsbar
         span.data_service
@@ -78,18 +82,21 @@ block content
             input(type='checkbox' name='service')
           - }
           | Service
-        button(class='button_style', formaction='fordon/remove') Ta bort
-        button(class='button_style', formaction='fordon/update') Uppdatera
-        button(class='button_style', formaction='fordon/add') Lägg till
+        input(type='hidden' name='lastBooked' value=bilar.lastBooked)
+        input(type='hidden' name='inspection' value=bilar.inspection)
+        input(type='hidden' name='inspectionDate' value=bilar.inspectionDate)
+        button(class='button_style', formaction='/fordon/remove') Ta bort
+        button(class='button_style', formaction='/fordon/update') Uppdatera
+        button(class='button_style', formaction='/fordon/add') Lägg till
 
   p #{testing}
-  h2 Besiktningsinformation
+  h2(id='besiktning') Besiktningsinformation
   .inspection_info
     each bil in besikt_bilar
       .car
-        span.reg_nr  p #{bil.regnum)
+        span.reg_nr #{bil.regnum)
         span.date_info
-          input(type='date' value='#{bil.inspectionDate}')
+          input(type='date' name='inspectionDate' value='#{bil.inspectionDate}')
           bokad
           input(type='checkbox' name='inspection')
         span
