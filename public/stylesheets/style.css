@@ -1,9 +1,44 @@
+/* ----- assets ------ */
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+
 body {
-  font: 1em "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
+  color: #576075;
   margin: 0;
   padding: 0;
+  background-color: #f6f6f6
+}
+button {
+    background-color: #2fcb8b;
+    padding: 10px 20px;
+    border: 0px;
+    border-radius: 3px;
+    color: #FFFFFF;
+}
+button:hover {
+  background-color: #239868;
+  padding: 10px 20px;
+  border-radius: 3px;
+  color: #FFFFFF;
+}
+input {
+    font-size: 12px;
+    padding: 5px 5px;
+    border-radius: 3px;
+    border: 1px solid #e0e4ef;
+}
+input[type=checkbox] {
+	background-color: #FF0000;
 }
 
+a {
+  color: #FFFFFF;
+}
+
+#besiktning, #Serviceinformation {
+  color: #576075;
+}
 /* LOGIN */
 
 .flex {
@@ -114,8 +149,12 @@ header {
 }
 
 	.bokaBil h2 {
-		position: relative;
-		margin-top: -35px;
+    margin-top: -35px;
+text-align: left;
+padding: 20px;
+background-color: #3f3f4c;
+color: #FFFFFF;
+border-radius: 10px 10px 0px 0px;
 	}
 
 	.biltyp {
@@ -172,6 +211,9 @@ header {
 		margin: 20px 0 0 auto;
 	}
 
+#user_book {
+  margin-bottom: 20px;
+}
 .minaBokningar {
 	clear: both;
 	margin: 10px auto;
@@ -184,11 +226,20 @@ header {
 
   .minaBokningar table {
     width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    border-spacing: 0px;
   }
-
+  .minaBokningar td {
+    padding: 10px;
+    border-radius: 3px;
+  }
   .minaBokningar th {
     text-align: left;
-    background: none;
+    padding: 20px;
+    background-color: #3f3f4c;
+    color: #FFFFFF;
+    border-radius: 10px 10px 0px 0px;
   }
 
   .minaBokningar th:last-child,
@@ -197,7 +248,7 @@ header {
   }
 
 	.minaBokningar tr:nth-child(even) {
-    background: #eee;
+    background: #f4f5f9;
   }
 
 	.minaBokningar td {}
@@ -234,6 +285,9 @@ header {
 .page-container {
   width: 80%;
   margin: auto;
+  background-color: #FFFFFF;
+  padding: 0px 20px 20px 20px;
+  border-radius: 3px 3px 0px 0px;
 }
 
     .header {
@@ -250,7 +304,27 @@ header {
       float: left
     }
     .div_style {
-      border: 1px solid #000000;
+      border: 1px solid #FFFFFF;
+	    background-color: #FFFFFF;
+	    border-radius: 3px;
+    }
+    .div_style_1 {
+      text-align: left;
+      padding: 20px;
+      background-color: #3f3f4c;
+      color: #FFFFFF;
+      border-radius: 10px 10px 0px 0px;
+      margin-left: -21px;
+      margin-right: -22px;
+    }
+    .meny_header_style {
+      text-align: left;
+      padding: 20px;
+      background-color: #3f3f4c;
+      color: #FFFFFF;
+      border-radius: 10px 10px 0px 0px;
+      margin-left: -21px;
+      margin-right: -22px;
     }
     .meny {
       float: right;
@@ -307,10 +381,7 @@ header {
       margin-left: 70px;
     }
     .button_style {
-      font-size: 22px;
       border-radius: 3px;
-      padding-left: 30px;
-      padding-right: 30px;
       margin-left: 70px;
     }
     .vehicle {
