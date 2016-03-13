@@ -21,6 +21,7 @@ button:hover {
   padding: 10px 20px;
   border-radius: 3px;
   color: #FFFFFF;
+  cursor: pointer;
 }
 input {
     font-size: 12px;
@@ -65,8 +66,9 @@ a {
 		}
 
 			.loginImg img {
-				width: 300px;
+				width: auto;
 				height: 90px;
+        float: right;
 			}
 
 		.loginTitle {
@@ -90,11 +92,10 @@ a {
 	.loginFoot {
 		width: 100%;
 		height: 95px;
-		background: #ccc;
 		line-height: 95px;
 		position: relative;
 		top: 10px;
-		text-align: center;
+		text-align: center !important;
 	}
 
 		.loginFoot form {
@@ -191,7 +192,8 @@ border-radius: 10px 10px 0px 0px;
     float: left;
   }
 
-  .tillvalFix div {
+  .tillvalFix div,
+  .option div {
     width: 45%;
     display: inline-block;
     margin: auto;
@@ -385,12 +387,18 @@ border-radius: 10px 10px 0px 0px;
       margin-left: 70px;
     }
     .vehicle {
-
-      height: 130px;
-      width: 600px;
-      padding: 20px;
+      padding: 0 0 15px 0;
       float: left;
     }
+      .vehicle div div {
+        padding: 15px;
+      }
+      .vehicle div div label {
+        float: left;
+      }
+      .vehicle input {
+        margin-left: 10px;
+      }
     .funktioner {
       float: left;
       padding: 20px;
@@ -448,7 +456,6 @@ border-radius: 10px 10px 0px 0px;
     .inspection_info, .service_info {
       float: left;
       background-color: #FFFFFF;
-      margin: 10px 0px;
       width: 100%;
     }
 

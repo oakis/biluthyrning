@@ -76,7 +76,7 @@ router.get('/', function(req, res, next) {
     loadFile(bilar, doStuff);
     function doStuff (carArr) {
       res.render('fordon', {
-        'funklista': funkArr,
+        'funklista': funkArr.sort(f.sortArr('name')), // Sortera efter 'name' innan arrayen skickas till render
         'bilar': empty_car,
         'besikt_bilar' : checkBesikt(carArr)
       });
@@ -126,7 +126,7 @@ router.post('/', function(req, res, next) {
       }
       res.render('fordon', {
         'bilar': ny_bil,
-        'funklista': funkArr,
+        'funklista': funkArr.sort(f.sortArr('name')), // Sortera efter 'name' innan arrayen skickas till render
         'besikt_bilar': checkBesikt(carArr)
       });
       }
@@ -157,7 +157,7 @@ router.post('/add', function(req, res, next) {
         res.render('fordon', {
           carExists: 'En bil med regnummer "' + newCar.regnum + '" finns redan registrerad.',
           carErr: true,
-          funklista: funkArr,
+          funklista: funkArr.sort(f.sortArr('name')), // Sortera efter 'name' innan arrayen skickas till render
           bilar: empty_car,
           besikt_bilar: checkBesikt(carArr)
         });
@@ -175,7 +175,7 @@ router.post('/add', function(req, res, next) {
         res.render('fordon', {
           carAdded: 'Bilen med regnummer "' + newCar.regnum + '" registrerades utan problem.',
           carAdd: true,
-          funklista: funkArr,
+          funklista: funkArr.sort(f.sortArr('name')), // Sortera efter 'name' innan arrayen skickas till render
           bilar: empty_car,
           besikt_bilar: checkBesikt(carArr)
         });
@@ -215,7 +215,7 @@ router.post('/update', function(req, res, next) {
       function renderPage (funkArr) {
         res.render('fordon', {
           bilar: empty_car,
-          funklista: funkArr,
+          funklista: funkArr.sort(f.sortArr('name')), // Sortera efter 'name' innan arrayen skickas till render
           besikt_bilar : checkBesikt(carArr)
         });
       }
@@ -244,7 +244,7 @@ router.post('/remove', function(req, res, next) {
       function renderPage (funkArr) {
         res.render('fordon', {
           bilar: empty_car,
-          funklista: funkArr,
+          funklista: funkArr.sort(f.sortArr('name')), // Sortera efter 'name' innan arrayen skickas till render
           besikt_bilar : checkBesikt(carArr)
         });
       }

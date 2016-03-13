@@ -27,12 +27,11 @@
 	"inspectionDate": "",
 	"lastBooked": "2016-03-01"
 }
-
 *
 {
 	"regnum": "AAA666",
-	"brand": "Kuken",
-	"model": "Passa dig",
+	"brand": "Volvo",
+	"model": "V70",
 	"type": "Kombi",
 	"year": "2010",
 	"passenger": "0",

@@ -37,7 +37,7 @@ router.post('/add', function(req, res, next) {
 		if (f.checkIfExist(newFunktion, funkArr) == true) {
 			console.log('Funktionen finns redan registrerad')
 			res.render('funktioner', {
-				funklista: funkArr,
+				funklista: funkArr.sort(f.sortArr('name')), // Sortera efter 'name' innan arrayen skickas till render
 				funkExists: 'Funktionen "' + newFunktion.name + '" finns redan registrerad.',
 				funkErr: true
 			})
@@ -86,7 +86,7 @@ router.post('/update', function(req,res,next){
 					funkArr.push(JSON.parse(arr[i]))
 				});
 				res.render('funktioner', {
-					funklista: funkArr,
+					funklista: funkArr.sort(f.sortArr('name')), // Sortera efter 'name' innan arrayen skickas till render
 					funkAdded: 'Funktioner uppdaterade.',
 					funkAdd: true
 				})

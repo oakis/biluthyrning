@@ -16,7 +16,8 @@
 	"franTid": "12:00",
 	"tillDatum": "2016-03-08",
 	"tillTid": "12:00",
-	"username": "Anders"
+	"username": "Anders",
+	"privat": "undefined"
 }
 *
 {
@@ -26,7 +27,8 @@
 	"franTid": "12:00",
 	"tillDatum": "2016-03-08",
 	"tillTid": "12:00",
-	"username": "Anders"
+	"username": "Anders",
+	"privat": "undefined"
 }
 *
 {
@@ -36,7 +38,8 @@
 	"franTid": "12:00",
 	"tillDatum": "2016-03-08",
 	"tillTid": "12:00",
-	"username": "Anders"
+	"username": "Anders",
+	"privat": "undefined"
 }
 *
 {
@@ -46,15 +49,17 @@
 	"franTid": "12:00",
 	"tillDatum": "2016-03-02",
 	"tillTid": "12:00",
-	"username": "Anders"
+	"username": "Anders",
+	"privat": "undefined"
 }
 *
 {
-	"id": 6,
+	"id": 7,
 	"regnum": "ABC123",
-	"franDatum": "2016-03-29",
+	"franDatum": "2016-03-13",
 	"franTid": "12:00",
-	"tillDatum": "2016-03-30",
+	"tillDatum": "2016-03-20",
 	"tillTid": "12:00",
-	"username": "Anders"
+	"username": "jesgud",
+	"privat": "on"
 }

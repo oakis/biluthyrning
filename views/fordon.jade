@@ -1,9 +1,8 @@
 extends layout
 block content
   div(class='page-container')
-    div(class='header div_style_1')
-      div(class='headline')
-        h1 Administration
+    header(class='div_style_1')
+      h1 Administration
       div(class='meny')
         ul
           li
@@ -23,7 +22,7 @@ block content
         h2(id='reg_info_headline') Registreringsnummer
         form(method='post' action='/fordon')
           input(id='search_text' type='text' name="search_text" value='#{bilar.regnum}')
-          span(class='req_star') *
+          span(class='required') *
           button(id='search_button') Sök
 
     // -----------------  fordon
@@ -34,15 +33,15 @@ block content
           div(class='vehicle_left')
             div
               label(for='brand') Märke:
-              span(class='req_star') *
+                span(class='required') *
               input(type='text' placeholder='Märke' value='#{bilar.brand}' name='brand' required)
             div
               label(for='model') Modell:
-              span(class='req_star') *
+                span(class='required') *
               input(type='text', placeholder='Modell' value='#{bilar.model}' name='model' required)
             div
               label(for='type') Typ:
-              span(class='req_star') *
+                span(class='required') *
               select(name='type' required)
                 option(value='#{bilar.type}' selected) #{bilar.type}
                 option(value='Sedan') Sedan
@@ -53,16 +52,16 @@ block content
           div(class='vehicle_right')
             div
               label(for='year') Årsmodell:
-              span(class='req_star') *
-              input(type='text' placeholder='Årsmodell' value='#{bilar.year}' name='year')
+                span(class='required') *
+              input(type='text' placeholder='Årsmodell' value='#{bilar.year}' name='year' required)
             div
               label(for='regnum') Regnummer:
-              span(class='req_star') *
-              input(type='text' placeholder='Reg-info' value='#{bilar.regnum}' name='regnum')
+                span(class='required') *
+              input(type='text' placeholder='Reg-info' value='#{bilar.regnum}' name='regnum' required)
             div
               label(for='passenger') Antal passagerare:
-              span(class='req_star') *
-              input(type='text' placeholder='Antal passagerare' value='#{bilar.passenger}' name='passenger')
+                span(class='required') *
+              input(type='text' placeholder='Antal passagerare' value='#{bilar.passenger}' name='passenger' required)
             div
               label(for='service') Service:
               input(type='date' name='serviceDate' value='#{bilar.serviceDate}')
@@ -73,11 +72,12 @@ block content
         div(class='option div_style_1')
           h2(id='option_headline') Tillval
           each funk in funklista
-            label= funk.name
+            div
               if(bilar.tillval[funk.id -1] == funk.id)
-                input(type='checkbox' value=funk.id name='tillval' checked)
+                input(type='checkbox' value=funk.id name='tillval' id=funk.id checked)
               else
-                input(type='checkbox' value=funk.id name='tillval')
+                input(type='checkbox' value=funk.id name='tillval' id=funk.id)
+              label(for=funk.id)= funk.name
         div(class='action_button')
           input(type='hidden' name='lastBooked' value=bilar.lastBooked)
           input(type='hidden' name='inspection' value=bilar.inspection)
