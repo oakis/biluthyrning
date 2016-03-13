@@ -47,7 +47,7 @@ router.post('/delete', function(req, res, next) {
 			writeFile(bookings, send, redirect);
 			function redirect () {
 				res.redirect('/boka?username=' + req.body.username);
-			};
+			}
 		}
 });
 

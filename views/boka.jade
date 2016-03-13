@@ -2,7 +2,7 @@ extends layout
 
 block content
   div(class='page-container')
-    header(class='div_style')
+    header(class='div_style meny_header_style')
       h1 Boka bil
       nav
         //a(href='') Admin
@@ -28,7 +28,7 @@ block content
           p
             input(type='radio' name='type' id='Lätt lastbil' value='Lätt lastbil')
             label(for='Lätt lastbil') Lätt lastbil
-          p 
+          p
             input(type='radio' name='type' id='Lastbil' value='Lastbil')
             label(for='Lastbil') Lastbil
         div(class='tid div_style')
@@ -56,7 +56,7 @@ block content
           button Boka bil
     section(class='minaBokningar')
       h2 Mina bokningar
-      form(method='get' action='/boka')
+      form(method='get' action='/boka' id='user_book')
         input(type='text' name='username' value=username)
         button Visa bokningar
       if(typeof boklista == 'undefined')

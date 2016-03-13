@@ -1,7 +1,7 @@
 extends layout
 block content
   div(class='page-container')
-    div(class='header div_style')
+    div(class='header div_style_1')
       div(class='headline')
         h1 Administration
       div(class='meny')
@@ -17,9 +17,9 @@ block content
     h2(id='headline_add_remove') Lägg till / Ändra fordon
 
     // ----------------- sök fordon
-    
+
     h2(id='search_headline') Sök fordon
-    div(class='search div_style')
+    div(class='search div_style_1')
         h2(id='reg_info_headline') Registreringsnummer
         form(method='post' action='/fordon')
           input(id='search_text' type='text' name="search_text" value='#{bilar.regnum}')
@@ -30,7 +30,7 @@ block content
     div(class='vehicle_container')
       form(method='post')
         h2(id='vehicle_headline') Fordon
-        div(class='vehicle div_style')
+        div(class='vehicle div_style_1')
           div(class='vehicle_left')
             div
               label(for='brand') Märke:
@@ -70,7 +70,7 @@ block content
                 input(type='checkbox' name='service' checked)
               else
                 input(type='checkbox' name='service')
-        div(class='option div_style')
+        div(class='option div_style_1')
           h2(id='option_headline') Tillval
           each funk in funklista
             label= funk.name
@@ -86,10 +86,10 @@ block content
           button(class='button_style' formaction='/fordon/update') Uppdatera
           button(class='button_style' formaction='/fordon/add') Lägg till
 
-    div(class='inspection_info div_style')
+    div(class='inspection_info div_style_1')
       h2(id='besiktning') Besiktningsinformation
       each bil in besikt_bilar
-        div(class='car div_style')
+        div(class='car div_style_1')
           span(class='reg_nr') #{bil.regnum)
           span(class='date_info')
             input(type='date' name='inspectionDate' value='#{bil.inspectionDate}')
@@ -97,14 +97,14 @@ block content
           span
             button(class='button_style') Spara
 
-    div(class='service_info div_style')
-      h2 Serviceinformation
-      div(class='car div_style')
+    div(class='service_info div_style_1')
+      h2(id='Serviceinformation') Serviceinformation
+      div(class='car div_style_1')
         span(class='reg_nr') DEF456
         span(class='date_info') 18 / 3 / 2016
         span
           button(class='button_style') Spara
-      div(class='car div_style')
+      div(class='car div_style_1')
         span(class='reg_nr') GHI789
         span(class='date_info') 14 / 7 / 2016
         span

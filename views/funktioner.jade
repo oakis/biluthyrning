@@ -2,7 +2,7 @@ extends layout
 
 block content
   div(class='page-container')
-    div(class='header div_style')
+    div(class='header div_style_1')
       div(class='headline')
         h1 Administration
       div(class='meny')
@@ -18,16 +18,16 @@ block content
 
     h2(id='headline_add_remove') Lägg till / Ändra funktioner
     h2(id='search_headline') Lägg till funktioner:
-    div(class='search div_style')
+    div(class='search div_style_1')
       h2(id='reg_info_headline') Funktion
       form(method='post' action='/funktioner/add')
         input(id='search_text' type='text' placeholder='Namn på funktion' name='name')
         span(class='req_star') *
         button(id='search_button') Lägg till
-    
+
     div(class='vehicle_container')
       h2(id='vehicle_headline') Ändra funktioner:
-      div(class='funktioner div_style')
+      div(class='funktioner div_style_1')
         form(method='post' action='/funktioner/update')
           each funk in funklista
             div(class='input_div')
